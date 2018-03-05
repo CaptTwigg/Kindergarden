@@ -32,6 +32,10 @@
       float: right;
     }
 
+    #content {
+      height: calc(100% - 50px);
+    }
+
     #topbar {
       padding: 20px;
     }
@@ -45,9 +49,13 @@
       font-weight: bold;
     }
 
+    #calendar {
+      height: calc(100% - 70px);
+    }
     #calendar-table {
       background: #fff;
       box-shadow: 0 0 5px #aaa;
+      height: 100%;
     }
 
     #calendar-table tr th {
@@ -71,17 +79,6 @@
   </style>
   <link rel="stylesheet" href="css.css"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script>
-      $(document).ready(function() {
-          $("table").css({"height" : ($(document).height()-130)+"px"});
-
-          $(window).resize(function() {
-              $("table").css({"height" : ($(document).height()-130)+"px"});
-          });
-      });
-
-
-  </script>
 </head>
 <body>
   <div id="menu">

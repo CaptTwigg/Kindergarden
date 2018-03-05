@@ -14,7 +14,6 @@ public class SchedulerController {
 
     @GetMapping("/")
     public String index(Model model) {
-
         model.addAttribute("monthAndYear_TXT", serviceCalendar.getMonthAndYear() );
         model.addAttribute("days", serviceCalendar.getDays());
         return "index";
