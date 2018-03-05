@@ -77,6 +77,16 @@
           <th>Lørdag</th>
           <th>Søndag</th>
         </tr>
+        <tr th:each="index: ${#numbers.sequence(0, 41, 7)}">
+          <td><div th:text="${days[index + 0]}" th:remove="tag"></div></td>
+          <td><div th:text="${days[index + 1]}" th:remove="tag"></div></td>
+          <td><div th:text="${days[index + 2]}" th:remove="tag"></div></td>
+          <td><div th:text="${days[index + 3]}" th:remove="tag"></div></td>
+          <td><div th:text="${days[index + 4]}" th:remove="tag"></div></td>
+          <td><div th:text="${days[index + 5]}" th:remove="tag"></div></td>
+          <td><div th:text="${days[index + 6]}" th:remove="tag"></div></td>
+
+        </tr>
       </table>
     </div>
   </div>
