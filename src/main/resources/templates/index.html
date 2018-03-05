@@ -32,6 +32,10 @@
       float: right;
     }
 
+    #content {
+      height: calc(100% - 50px);
+    }
+
     #topbar {
       padding: 20px;
     }
@@ -45,9 +49,13 @@
       font-weight: bold;
     }
 
+    #calendar {
+      height: calc(100% - 70px);
+    }
     #calendar-table {
       background: #fff;
       box-shadow: 0 0 5px #aaa;
+      height: 100%;
     }
 
     #calendar-table tr th {
@@ -58,7 +66,15 @@
     }
 
     #calendar-table tr td {
-      padding: 10px;
+      width: calc(100% / 7);
+    }
+
+    #calendar-table tr td.unavailable {
+      background-color: #eee;
+    }
+
+    #calendar-table tr td.unavailable div .date{
+      color: #aaa;
     }
 
     #calendar-table tr:not(:last-child) td {
@@ -68,20 +84,24 @@
     #calendar-table tr td:not(:last-child) {
       border-right: 1px solid #ccc;
     }
+
+    #calendar-table tr td div {
+      position: relative;
+      height: 100%;
+    }
+
+    #calendar-table tr td div .date {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 15px;
+      padding: 5px;
+      width: 30px;
+      text-align: center;
+    }
   </style>
   <link rel="stylesheet" href="css.css"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script>
-      $(document).ready(function() {
-          $("table").css({"height" : ($(document).height()-130)+"px"});
-
-          $(window).resize(function() {
-              $("table").css({"height" : ($(document).height()-130)+"px"});
-          });
-      });
-
-
-  </script>
 </head>
 <body>
   <div id="menu">
@@ -121,13 +141,13 @@
         </thead>
         <tbody>
           <tr th:each="index: ${#numbers.sequence(0, 41, 7)}">
-            <td><div><p class="date" th:text="${days[index + 0]}"></p></div></td>
-            <td><div><p class="date" th:text="${days[index + 1]}"></p></div></td>
-            <td><div><p class="date" th:text="${days[index + 2]}"></p></div></td>
-            <td><div><p class="date" th:text="${days[index + 3]}"></p></div></td>
-            <td><div><p class="date" th:text="${days[index + 4]}"></p></div></td>
-            <td><div><p class="date" th:text="${days[index + 5]}"></p></div></td>
-            <td><div><p class="date" th:text="${days[index + 6]}"></p></div></td>
+            <td th:classappend="${daysInThisMonth[index + 0]} ? '' : 'unavailable'"><div><p class="date" th:text="${days[index + 0]}"></p></div></td>
+            <td th:classappend="${daysInThisMonth[index + 1]} ? '' : 'unavailable'"><div><p class="date" th:text="${days[index + 1]}"></p></div></td>
+            <td th:classappend="${daysInThisMonth[index + 2]} ? '' : 'unavailable'"><div><p class="date" th:text="${days[index + 2]}"></p></div></td>
+            <td th:classappend="${daysInThisMonth[index + 3]} ? '' : 'unavailable'"><div><p class="date" th:text="${days[index + 3]}"></p></div></td>
+            <td th:classappend="${daysInThisMonth[index + 4]} ? '' : 'unavailable'"><div><p class="date" th:text="${days[index + 4]}"></p></div></td>
+            <td th:classappend="${daysInThisMonth[index + 5]} ? '' : 'unavailable'"><div><p class="date" th:text="${days[index + 5]}"></p></div></td>
+            <td th:classappend="${daysInThisMonth[index + 6]} ? '' : 'unavailable'"><div><p class="date" th:text="${days[index + 6]}"></p></div></td>
           </tr>
         </tbody>
       </table>

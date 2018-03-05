@@ -11,6 +11,7 @@ public class ServiceCalendar {
   int today = calendar.get(Calendar.DATE);
   private String[] months = {"Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December"};
   private int[] days = new int[42];
+  private boolean[] daysInThisMonth = new boolean[42];
 
 
   private void listCalendar(){
@@ -28,6 +29,7 @@ public class ServiceCalendar {
 
     for(int i = 0; i < weekdays; i++) {
       days[counter] = calendar.get(Calendar.DAY_OF_MONTH);
+      daysInThisMonth[counter] = false;
       calendar.add(Calendar.DATE, 1);
       counter++;
     }
@@ -35,12 +37,15 @@ public class ServiceCalendar {
     //Nuværende måned
     for (int i = 1; i <= calendar.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
       days[counter] = i;
+      daysInThisMonth[counter] = true;
+
       counter++;
     }
 
     //Næste måned
     for(int i = 1; counter < days.length; i++) {
       days[counter] = i;
+      daysInThisMonth[counter] = false;
       counter++;
     }
   }
@@ -53,6 +58,8 @@ public class ServiceCalendar {
     listCalendar();
     return days;
   }
+
+  public boolean[] getDaysInThisMonth() { return daysInThisMonth; }
 
   public void decrement(){
     calendar.add(Calendar.MONTH, -1);

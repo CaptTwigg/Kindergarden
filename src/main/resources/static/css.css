@@ -13,6 +13,9 @@ html, body {
     background: #eee;
 }
 
+html {
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -26,6 +29,11 @@ input[type=submit] {
     font-weight: 600;
     border-radius: 2.5px;
     float: left;
+}
+
+input[type=submit]:hover {
+    cursor: pointer;
+    background: #3866CF;
 }
 
 .blue-btn {
