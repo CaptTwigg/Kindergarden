@@ -1,10 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
+  <meta charset="UTF-8">
+  <title>Login</title>
 </head>
+
+<style>
+  #outerWrapper {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 30em;
+    height: 18em;
+    margin-top: -9em; /*set to a negative number 1/2 of your height*/
+    margin-left: -15em; /*set to a negative number 1/2 of your width*/
+    border: 0px solid #ccc;
+    background-color: #13232f;
+  }
+
+  input {
+    display: block;
+    width: 90%;
+    padding: 2%;
+    margin: 2%;
+    background: #13232f;
+    font-size: medium;
+    border-color: dimgray;
+    border-width: thin;
+    border-style: solid;
+  }
+  input:focus {
+     outline: 0;
+     border-color: #1ab188;
+   }
+
+  #textArea {
+    margin: 10%;
+  }
+
+  .forgot {
+    margin-top: -35px;
+    text-align: right;
+    width: 87%;
+    color: #1ab188;
+  }
+
+  a, a:visited, a:hover, a:active {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .button {
+    margin-top: 40px;
+    text-align: center;
+
+  }
+
+  #button {
+    width: 80%;
+    padding: 10px;
+    background: #1ab188;
+    border: 0px;
+    color: white;
+    font-size: 30px;
+  }
+
+  body{
+    background: dimgray;
+  }
+
+</style>
 <body>
+
+<div id="outerWrapper">
+  <form>
+    <div id="textArea">
+      <input type="text" required placeholder="Bruger navn"/>
+      <input type="password" required placeholder="Kodeord"/>
+    </div>
+    <p class="forgot"><a href="#">Forgot Password?</a></p>
+    <p class="button">
+      <button id="button" type="submit">Log ind</button>
+    </p>
+  </form>
+</div>
 
 </body>
 </html>
