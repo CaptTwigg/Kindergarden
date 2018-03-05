@@ -28,3 +28,5 @@ nbdist/
 *.bak_002d
 *.bak_001d
 *.lck
+*.bak_003d
+*.bak_004d
