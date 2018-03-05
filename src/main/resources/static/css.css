@@ -31,6 +31,11 @@ input[type=submit] {
     float: left;
 }
 
+input[type=submit]:hover {
+    cursor: pointer;
+    background: #3866CF;
+}
+
 .blue-btn {
     background: #4285f4;
 }

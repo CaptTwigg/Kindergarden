@@ -14,20 +14,21 @@ public class SchedulerController {
 
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("monthAndYear_TXT", serviceCalendar.getMonthAndYear() );
+        model.addAttribute("monthAndYear_TXT", serviceCalendar.getMonthAndYear());
+        model.addAttribute("daysInThisMonth", serviceCalendar.getDaysInThisMonth());
         model.addAttribute("days", serviceCalendar.getDays());
         return "index";
     }
 
     @PostMapping(value = "/", params = "month_chooser=Forrige")
     public String goToPreviousMonth() {
-      serviceCalendar.decrement();
+        serviceCalendar.decrement();
         return "redirect:/";
     }
 
     @PostMapping(value = "/", params = "month_chooser=Næste")
     public String goToNextMonth() {
-      serviceCalendar.increment();
+        serviceCalendar.increment();
         return "redirect:/";
     }
 }
