@@ -18,7 +18,20 @@ table {
     border-collapse: collapse;
 }
 
-table tr th {
-    font-size: 20px;
-    color: #888;
+input[type=submit] {
+    font-size: 15px;
+    line-height: 15px;
+    color: #fff;
+    padding: 7.5px 20px;
+    font-weight: 600;
+    border-radius: 2.5px;
+    float: left;
+}
+
+.blue-btn {
+    background: #4285f4;
+}
+
+.clear {
+    clear: both;
 }

@@ -12,21 +12,26 @@ public class SchedulerController {
     Calendar calendar = new GregorianCalendar(TimeZone.getDefault(), new Locale("dk", "DK"));
     int today = calendar.get(Calendar.DATE);
     String[] months = {"Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December"};
-    int[] days = new int[42];
-    int counter = 0;
+
 
     @GetMapping("/")
     public String index(Model model) {
-        //Forrige måned
+        int[] days = new int[42];
+        int counter = 0;
+
+        /*--- Forrige måned ---*/
+        //Sætter datoen til den første i måneden
         calendar.set(Calendar.DAY_OF_MONTH, 1);
 
-        Calendar prevCal = calendar;
+        //Regner ud hvor mange dage der skal udskrives af den forrige måned
+        int weekdays = (calendar.get(Calendar.DAY_OF_WEEK) == 1 ? 6 : calendar.get(Calendar.DAY_OF_WEEK)-2);
 
-        prevCal.add(Calendar.DAY_OF_MONTH, -(calendar.get(Calendar.DAY_OF_WEEK)-2));
+        //Trækker dage fra kalenderen
+        calendar.add(Calendar.DAY_OF_MONTH, -weekdays);
 
-        for(int i = 0; i < calendar.get(Calendar.DAY_OF_WEEK)-1; i++) {
-            days[counter] = prevCal.get(Calendar.DAY_OF_MONTH);
-            prevCal.add(Calendar.DAY_OF_MONTH, 1);
+        for(int i = 0; i < weekdays; i++) {
+            days[counter] = calendar.get(Calendar.DAY_OF_MONTH);
+            calendar.add(Calendar.DATE, 1);
             counter++;
         }
 
@@ -37,17 +42,13 @@ public class SchedulerController {
         }
 
         //Næste måned
-        for(int i = 1; i < (counter-days.length); i++) {
+        for(int i = 1; counter < days.length; i++) {
             days[counter] = i;
             counter++;
         }
 
-        System.out.println(Arrays.toString(days));
-
-
         model.addAttribute("monthAndYear_TXT", String.valueOf(months[calendar.get(Calendar.MONTH)]+" "+calendar.get(Calendar.YEAR)));
         model.addAttribute("days", days);
-        System.out.println(String.valueOf(months[calendar.get(Calendar.MONTH)]+" "+calendar.get(Calendar.YEAR)));
         return "index";
     }
 

@@ -6,7 +6,7 @@
   <style>
     #menu {
       width: 100%;
-      height: 60px;
+      height: 50px;
       background: #fff;
       box-shadow: 0 0 5px #aaa;
     }
@@ -22,8 +22,8 @@
     #menu ul li a {
       display: block;
       font-size: 17.5px;
-      line-height: 20px;
-      padding: 20px;
+      line-height: 17.5px;
+      padding: 16.25px 20px;
       color: #333;
       text-decoration: none;
     }
@@ -31,17 +31,56 @@
     #menu ul li:last-child {
       float: right;
     }
+
+    #topbar {
+      padding: 20px;
+    }
+
+    #topbar #monthAndYearHolder {
+      float: left;
+      font-size: 17.5px;
+      line-height: 17.5px;
+      padding: 6.25px 20px;
+      color: #555;
+      font-weight: bold;
+    }
+
+    #calendar-table {
+      background: #fff;
+      box-shadow: 0 0 5px #aaa;
+    }
+
+    #calendar-table tr th {
+      font-size: 17.5px;
+      color: #444;
+      padding: 10px 0;
+      border-bottom: 1px solid #666;
+    }
+
+    #calendar-table tr td {
+      padding: 10px;
+    }
+
+    #calendar-table tr:not(:last-child) td {
+      border-bottom: 1px solid #ccc;
+    }
+
+    #calendar-table tr td:not(:last-child) {
+      border-right: 1px solid #ccc;
+    }
   </style>
   <link rel="stylesheet" href="css.css"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
       $(document).ready(function() {
-          $("table").css({"height" : ($(document).height()-$("#menu").height()-$("#topbar").height())+"px"});
+          $("table").css({"height" : ($(document).height()-130)+"px"});
+
+          $(window).resize(function() {
+              $("table").css({"height" : ($(document).height()-130)+"px"});
+          });
       });
 
-      $(window).resize(function() {
-          $("table").css({"height" : ($(document).height()-$("#menu").height()-$("#topbar").height())+"px"});
-      });
+
   </script>
 </head>
 <body>
@@ -62,31 +101,35 @@
     <div id="calendar">
       <div id="topbar">
         <form method="post">
-          <input name="month_chooser" type="submit" value="Forrige" />
-          <p th:text="${monthAndYear_TXT}"></p>
-          <input name="month_chooser" type="submit" value="Næste" />
+          <input name="month_chooser" type="submit" value="Forrige" class="blue-btn" />
+          <p id="monthAndYearHolder" th:text="${monthAndYear_TXT}"></p>
+          <input name="month_chooser" type="submit" value="Næste" class="blue-btn" />
         </form>
+        <div class="clear"></div>
       </div>
-      <table>
-        <tr>
-          <th>Mandag</th>
-          <th>Tirsdag</th>
-          <th>Onsdag</th>
-          <th>Torsdag</th>
-          <th>Fredag</th>
-          <th>Lørdag</th>
-          <th>Søndag</th>
-        </tr>
-        <tr th:each="index: ${#numbers.sequence(0, 41, 7)}">
-          <td><div th:text="${days[index + 0]}" th:remove="tag"></div></td>
-          <td><div th:text="${days[index + 1]}" th:remove="tag"></div></td>
-          <td><div th:text="${days[index + 2]}" th:remove="tag"></div></td>
-          <td><div th:text="${days[index + 3]}" th:remove="tag"></div></td>
-          <td><div th:text="${days[index + 4]}" th:remove="tag"></div></td>
-          <td><div th:text="${days[index + 5]}" th:remove="tag"></div></td>
-          <td><div th:text="${days[index + 6]}" th:remove="tag"></div></td>
-
-        </tr>
+      <table id="calendar-table">
+        <thead>
+          <tr>
+            <th>Mandag</th>
+            <th>Tirsdag</th>
+            <th>Onsdag</th>
+            <th>Torsdag</th>
+            <th>Fredag</th>
+            <th>Lørdag</th>
+            <th>Søndag</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="index: ${#numbers.sequence(0, 41, 7)}">
+            <td><div><p class="date" th:text="${days[index + 0]}"></p></div></td>
+            <td><div><p class="date" th:text="${days[index + 1]}"></p></div></td>
+            <td><div><p class="date" th:text="${days[index + 2]}"></p></div></td>
+            <td><div><p class="date" th:text="${days[index + 3]}"></p></div></td>
+            <td><div><p class="date" th:text="${days[index + 4]}"></p></div></td>
+            <td><div><p class="date" th:text="${days[index + 5]}"></p></div></td>
+            <td><div><p class="date" th:text="${days[index + 6]}"></p></div></td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
