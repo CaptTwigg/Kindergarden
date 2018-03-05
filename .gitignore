@@ -22,3 +22,11 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+
+*.bak_000f
+*.bak_002d
+*.bak_001d
+*.lck
+*.bak_003d
+*.bak_004d
