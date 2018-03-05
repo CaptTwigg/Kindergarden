@@ -23,7 +23,7 @@ dist/
 nbdist/
 .nb-gradle/
 
-
+### Visual Paradigm ###
 *.bak_000f
 *.bak_002d
 *.bak_001d
