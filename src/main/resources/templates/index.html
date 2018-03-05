@@ -32,10 +32,14 @@
       float: right;
     }
   </style>
-  <link rel="stylesheet" href="../static/css.css">
+  <link rel="stylesheet" href="css.css"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
       $(document).ready(function() {
+          $("table").css({"height" : ($(document).height()-$("#menu").height()-$("#topbar").height())+"px"});
+      });
+
+      $(window).resize(function() {
           $("table").css({"height" : ($(document).height()-$("#menu").height()-$("#topbar").height())+"px"});
       });
   </script>
@@ -57,7 +61,11 @@
   <div id="content">
     <div id="calendar">
       <div id="topbar">
-
+        <form method="post">
+          <input name="month_chooser" type="submit" value="Forrige" />
+          <p th:text="${monthAndYear_TXT}"></p>
+          <input name="month_chooser" type="submit" value="Næste" />
+        </form>
       </div>
       <table>
         <tr>
