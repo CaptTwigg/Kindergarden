@@ -8,6 +8,6 @@ public class KindergardenController {
 
     @GetMapping("/")
     public String index() {
-        return "/";
+        return "index";
     }
 }
