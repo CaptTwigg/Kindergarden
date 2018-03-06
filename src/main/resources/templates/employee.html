@@ -13,6 +13,26 @@
         #topbar {
             padding: 20px;
         }
+
+        #employeeList{
+            width: 100%;
+        }
+
+        #employeeList h1{
+            text-align: center;
+        }
+
+        #employeeList tr:nth-child(even){
+            background-color: white;
+        }
+
+        #employeeList th{
+            text-align: left;
+        }
+
+        #employeeList td{
+            text-align: left;
+        }
     </style>
     <script>
         $(document).ready(function() {
@@ -97,6 +117,29 @@
                 </form>
             </div>
         </div>
+
+        <table id="employeeList">
+            <h1><br>Medarbejderliste</h1>
+            <thead>
+                <tr>
+                    <th><h3>Medarbejder</h3></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr> <!--th:each="employee: ${emplyees}"-->
+                    <td>Bjarne Frandsen</td>
+                </tr>
+                <tr>
+                    <td>Mette Hansen</td>
+                </tr>
+                <tr>
+                    <td>Niels Eriksen</td>
+                </tr>
+                <tr>
+                    <td>Frank Nielsen</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </body>
 </html>
