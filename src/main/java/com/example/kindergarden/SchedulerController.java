@@ -4,6 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 @Controller
 public class SchedulerController {
 
@@ -14,6 +17,9 @@ public class SchedulerController {
         model.addAttribute("monthAndYear_TXT", serviceCalendar.getMonthAndYear());
         model.addAttribute("daysInThisMonth", serviceCalendar.getDaysInThisMonth());
         model.addAttribute("days", serviceCalendar.getDays());
+        model.addAttribute("today", serviceCalendar.getToday());
+        model.addAttribute("dateArray", serviceCalendar.getDateArray());
+        model.addAttribute("daysToAdd", serviceCalendar.daysToBypass());
         return "index";
     }
 

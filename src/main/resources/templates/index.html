@@ -54,6 +54,7 @@
 
     #calendar-table tr td {
       width: calc(100% / 7);
+      position: relative;
     }
 
     #calendar-table tr td.unavailable {
@@ -82,9 +83,58 @@
       top: 5px;
       right: 5px;
       font-size: 15px;
-      padding: 5px;
+      padding: 5px 7.5px;
       width: 30px;
       text-align: center;
+      border-radius: 15px;
+      color: #333;
+    }
+
+    #calendar-table tr td:not(.unavailable) div .date:hover {
+      cursor: pointer;
+      background: url(../images/menu_dark.png);
+      background-repeat: no-repeat;
+      background-position: center center;
+      color: transparent;
+    }
+
+    #calendar-table tr td div .date.today {
+      background-color: #4285f4;
+      color: #fff;
+    }
+
+    #calendar-table tr td .dateMenu {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      display: none;
+      padding: 10px;
+      z-index: 10;
+    }
+
+    #calendar-table tr td .dateMenu .dateMenuClose {
+      position: absolute;
+      top: -5px;
+      right: 2.5px;
+      font-weight: bold;
+      font-size: 20px;
+      color: #333;
+      cursor: pointer;
+    }
+
+    #calendar-table tr td .dateMenu ul {
+      list-style-type: none;
+    }
+
+    #calendar-table tr td .dateMenu ul li {
+      height: 30px;
+    }
+
+    #calendar-table tr td .dateMenu ul li:not(:last-child) {
+      margin-bottom: 7.5px;
     }
   </style>
   <link rel="stylesheet" href="css.css"/>
@@ -97,6 +147,26 @@
         
         $("#cancelScheduleCreate, #overlay").click(function () {
             $("#overlay, .popup-formular").hide();
+            $("#dateField, #fromField, #toField").val("");
+        });
+
+        $(".date").click(function () {
+            $(this).parent().parent().find(".dateMenu").show();
+        });
+
+        $(".dateMenu").mouseleave(function() {
+
+            $(this).hide();
+        });
+
+        $(".dateMenuClose").click(function() {
+            $(this).parent().parent().hide();
+        });
+
+        $(".createScheduleAtDate").click(function () {
+            document.getElementById("dateField").valueAsDate = new Date($(this).parents("td").data("date"));
+            $(this).parents(".dateMenu").hide();
+            $("#overlay, #createNewSchedule").show();
         });
     });
   </script>
@@ -176,13 +246,48 @@
         </thead>
         <tbody>
           <tr th:each="index: ${#numbers.sequence(0, 41, 7)}">
-            <td th:classappend="${daysInThisMonth[index + 0]} ? '' : 'unavailable'"><div><p class="date" th:text="${days[index + 0]}"></p></div></td>
-            <td th:classappend="${daysInThisMonth[index + 1]} ? '' : 'unavailable'"><div><p class="date" th:text="${days[index + 1]}"></p></div></td>
-            <td th:classappend="${daysInThisMonth[index + 2]} ? '' : 'unavailable'"><div><p class="date" th:text="${days[index + 2]}"></p></div></td>
-            <td th:classappend="${daysInThisMonth[index + 3]} ? '' : 'unavailable'"><div><p class="date" th:text="${days[index + 3]}"></p></div></td>
-            <td th:classappend="${daysInThisMonth[index + 4]} ? '' : 'unavailable'"><div><p class="date" th:text="${days[index + 4]}"></p></div></td>
-            <td th:classappend="${daysInThisMonth[index + 5]} ? '' : 'unavailable'"><div><p class="date" th:text="${days[index + 5]}"></p></div></td>
-            <td th:classappend="${daysInThisMonth[index + 6]} ? '' : 'unavailable'"><div><p class="date" th:text="${days[index + 6]}"></p></div></td>
+            <td th:classappend="${daysInThisMonth[index + 0]} ? '' : 'unavailable'" th:attrappend="data-date=${daysInThisMonth[index + 0]} ? ${dateArray[index + 0]}">
+              <div>
+                <p class="date" th:text="${days[index + 0]}"></p>
+              </div>
+              <div th:replace="${daysInThisMonth[index + 0]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
+            </td>
+            <td th:classappend="${daysInThisMonth[index + 1]} ? '' : 'unavailable'" th:attrappend="data-date=${daysInThisMonth[index + 1]} ? ${dateArray[index + 1]}">
+              <div>
+                <p class="date" th:text="${days[index + 1]}"></p>
+              </div>
+              <div th:replace="${daysInThisMonth[index + 1]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
+            </td>
+            <td th:classappend="${daysInThisMonth[index + 2]} ? '' : 'unavailable'" th:attrappend="data-date=${daysInThisMonth[index + 2]} ? ${dateArray[index + 2]}">
+              <div>
+                <p class="date" th:text="${days[index + 2]}"></p>
+              </div>
+              <div th:replace="${daysInThisMonth[index + 2]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
+            </td>
+            <td th:classappend="${daysInThisMonth[index + 3]} ? '' : 'unavailable'" th:attrappend="data-date=${daysInThisMonth[index + 3]} ? ${dateArray[index + 3]}">
+              <div>
+                <p class="date" th:text="${days[index + 3]}"></p>
+              </div>
+              <div th:replace="${daysInThisMonth[index + 3]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
+            </td>
+            <td th:classappend="${daysInThisMonth[index + 4]} ? '' : 'unavailable'" th:attrappend="data-date=${daysInThisMonth[index + 4]} ? ${dateArray[index + 4]}">
+              <div>
+                <p class="date" th:text="${days[index + 4]}"></p>
+              </div>
+              <div th:replace="${daysInThisMonth[index + 4]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
+            </td>
+            <td th:classappend="${daysInThisMonth[index + 5]} ? '' : 'unavailable'" th:attrappend="data-date=${daysInThisMonth[index + 5]} ? ${dateArray[index + 5]}">
+              <div>
+                <p class="date" th:text="${days[index + 5]}"></p>
+              </div>
+              <div th:replace="${daysInThisMonth[index + 5]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
+            </td>
+            <td th:classappend="${daysInThisMonth[index + 6]} ? '' : 'unavailable'" th:attrappend="data-date=${daysInThisMonth[index + 6]} ? ${dateArray[index + 6]}">
+              <div>
+                <p class="date" th:text="${days[index + 6]}"></p>
+              </div>
+              <div th:replace="${daysInThisMonth[index + 6]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
+            </td>
           </tr>
         </tbody>
       </table>

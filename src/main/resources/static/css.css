@@ -59,6 +59,7 @@ input[type=date], input[type=time], select {
 }
 
 .green-btn:hover {
+    cursor: pointer;
     background: #38AA2F;
 }
 
@@ -67,6 +68,7 @@ input[type=date], input[type=time], select {
 }
 
 .red-btn:hover {
+    cursor: pointer;
     background: #BC3D34;
 }
 
