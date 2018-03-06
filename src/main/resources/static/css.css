@@ -93,6 +93,8 @@ input[type=date], input[type=time], select {
     position: fixed;
     z-index: 20;
     display: none;
+    margin-left: -270px;
+    margin-top: -156px;
 }
 
 .popup-table {
@@ -100,8 +102,11 @@ input[type=date], input[type=time], select {
 }
 
 .popup-table tr td {
-    padding-bottom: 10px;
     width: 250px;
+}
+
+.popup-table tr:not(:last-child) td {
+    padding-bottom: 10px;
 }
 
 .clear {

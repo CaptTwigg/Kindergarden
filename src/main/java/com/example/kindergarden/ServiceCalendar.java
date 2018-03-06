@@ -6,8 +6,6 @@ public class ServiceCalendar {
 
   private Calendar calendar = new GregorianCalendar();
   int today = calendar.get(Calendar.DAY_OF_MONTH);
-  String thisMonth = String.valueOf((calendar.get(Calendar.MONTH)+1) < 10 ? "0"+(calendar.get(Calendar.MONTH)+1) : calendar.get(Calendar.MONTH)+1);
-  int thisYear = calendar.get(Calendar.YEAR);
   private String[] months = {"Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December"};
   private int[] days = new int[42];
   private boolean[] daysInThisMonth = new boolean[42];
@@ -34,6 +32,9 @@ public class ServiceCalendar {
       calendar.add(Calendar.DATE, 1);
       counter++;
     }
+
+    String thisMonth = String.valueOf((calendar.get(Calendar.MONTH)+1) < 10 ? "0"+(calendar.get(Calendar.MONTH)+1) : calendar.get(Calendar.MONTH)+1);
+    int thisYear = calendar.get(Calendar.YEAR);
 
     //Nuværende måned
     for (int i = 1; i <= calendar.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
