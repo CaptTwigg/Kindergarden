@@ -88,6 +88,7 @@
       text-align: center;
       border-radius: 15px;
       color: #333;
+      z-index: 11;
     }
 
     #calendar-table tr td:not(.unavailable) div .date:hover {
@@ -103,6 +104,42 @@
       color: #fff;
     }
 
+    #calendar-table tr td .scheduleContainer {
+      padding: 5px 40px 5px 5px;
+    }
+
+    #calendar-table tr td .scheduleContainer .schedule {
+      font-size: 12.5px;
+      background: #4285f4;
+      color: #fff;
+      padding: 5px 7.5px;
+      width: 100%;
+      height: auto;
+      border-radius: 2.5px;
+      cursor: pointer;
+    }
+
+    #calendar-table tr td .scheduleContainer .schedule:hover {
+      background: #3866CF;
+    }
+
+    #calendar-table tr td .scheduleContainer .schedule.seeMoreSchedules {
+      color: #666;
+      background: none;
+      box-shadow: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #calendar-table tr td .scheduleContainer .schedule.seeMoreSchedules:hover {
+      background: #666;
+      color: #fff;
+    }
+
+    #calendar-table tr td .scheduleContainer .schedule:not(:last-child) {
+      margin-bottom: 5px;
+    }
+
     #calendar-table tr td .dateMenu {
       position: absolute;
       top: 0;
@@ -112,7 +149,7 @@
       background: #fff;
       display: none;
       padding: 10px;
-      z-index: 10;
+      z-index: 12;
     }
 
     #calendar-table tr td .dateMenu .dateMenuClose {
@@ -123,6 +160,7 @@
       font-size: 20px;
       color: #333;
       cursor: pointer;
+      z-index: 20;
     }
 
     #calendar-table tr td .dateMenu ul {
@@ -155,7 +193,6 @@
         });
 
         $(".dateMenu").mouseleave(function() {
-
             $(this).hide();
         });
 
@@ -255,6 +292,22 @@
             <td th:classappend="${daysInThisMonth[index + 1]} ? '' : 'unavailable'" th:attrappend="data-date=${daysInThisMonth[index + 1]} ? ${dateArray[index + 1]}">
               <div>
                 <p class="date" th:text="${days[index + 1]}"></p>
+                <div class="scheduleContainer">
+                  <div>
+                    <div class="schedule">
+                      <p>10:00 - 12:00 / Bjarne</p>
+                    </div>
+                    <div class="schedule">
+                      <p>10:00 - 12:00 / Bjarne</p>
+                    </div>
+                    <div class="schedule">
+                      <p>10:00 - 12:00 / Bjarne</p>
+                    </div>
+                    <div class="schedule seeMoreSchedules">
+                      <p>Se alle vagter</p>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div th:replace="${daysInThisMonth[index + 1]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
             </td>
