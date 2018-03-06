@@ -16,10 +16,11 @@
     margin-top: -9em; /*set to a negative number 1/2 of your height*/
     margin-left: -15em; /*set to a negative number 1/2 of your width*/
     border: 0px solid #ccc;
-    background-color: #13232f;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px #b2b2b2;
   }
 
-  .innerWrapper{
+  .innerWrapper {
     top: 50%;
     left: 50%;
     margin: 0;
@@ -27,22 +28,19 @@
   }
 
   input {
-    caret-color: white;
     display: block;
     width: 95%;
     padding: 2%;
     margin: 2%;
-    background: #13232f;
+    background: #eeeeee;
     font-size: medium;
-    border-color: dimgray;
-    border-width: thin;
-    border-style: solid;
-    color: white;
+    border: thin solid dimgray;
   }
 
   input:focus {
     outline: 0;
     border-color: #1ab188;
+    background: white;
   }
 
   #textArea {
@@ -53,7 +51,7 @@
     margin-top: -35px;
     text-align: right;
     width: 87%;
-    color: #1ab188;
+    color: #000000;
   }
 
   a, a:visited, a:hover, a:active {
@@ -69,7 +67,7 @@
   #button {
     width: 80%;
     padding: 10px;
-    background: #1ab188;
+    background: #4FD33B;
     border: none;
     color: white;
     font-size: 30px;
@@ -77,11 +75,11 @@
   }
 
   #button:hover {
-    background: #16a37d;
+    background: #38AA2F;
   }
 
   body {
-    background: dimgray;
+    background: #eeeeee;
   }
 
 </style>
@@ -91,10 +89,10 @@
   <form>
     <div class="innerWrapper">
       <div id="textArea">
-        <input type="text" required autofocus placeholder="Bruger navn"/>
+        <input type="text" required autofocus placeholder="Brugernavn"/>
         <input type="password" required placeholder="Kodeord"/>
       </div>
-      <p class="forgot"><a href="#">Forgot Password?</a></p>
+      <p class="forgot"><a href="#">Glemt kodeord?</a></p>
       <p class="buttonWrapper">
         <button id="button" type="submit">Log ind</button>
       </p>
