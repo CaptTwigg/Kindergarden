@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <title>Employees</title>
     <link rel="stylesheet" href="css.css"/>
+
+    <style>
+        #content {
+            height: calc(100% - 50px);
+        }
+        #topbar {
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
     <div id="menu">
@@ -18,10 +27,16 @@
                 <a href="#">Log ud</a>
             </li>
             <li>
-                <a href="#">Bruger</a>
+                <a href="user">Bruger</a>
             </li>
         </ul>
     </div>
-
+    <div id="content">
+        <div id="topbar">
+            <form method="post">
+                <input type="button" value="Opret ny medarbejder" class="green-btn"/>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
