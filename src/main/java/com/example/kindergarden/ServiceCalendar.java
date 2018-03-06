@@ -7,12 +7,11 @@ import java.util.TimeZone;
 
 public class ServiceCalendar {
 
-  private Calendar calendar = new GregorianCalendar(TimeZone.getDefault(), new Locale("dk", "DK"));
-  int today = calendar.get(Calendar.DATE);
+  private Calendar calendar = new GregorianCalendar();
+  int today = calendar.get(Calendar.DAY_OF_MONTH);
   private String[] months = {"Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December"};
   private int[] days = new int[42];
   private boolean[] daysInThisMonth = new boolean[42];
-
 
   private void listCalendar(){
     int counter = 0;
@@ -38,7 +37,6 @@ public class ServiceCalendar {
     for (int i = 1; i <= calendar.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
       days[counter] = i;
       daysInThisMonth[counter] = true;
-
       counter++;
     }
 

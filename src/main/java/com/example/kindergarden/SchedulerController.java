@@ -4,13 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.jws.WebParam;
-import java.util.*;
-
 @Controller
 public class SchedulerController {
 
-  private ServiceCalendar serviceCalendar = new ServiceCalendar();
+    private ServiceCalendar serviceCalendar = new ServiceCalendar();
 
     @GetMapping("/")
     public String index(Model model) {
@@ -30,5 +27,10 @@ public class SchedulerController {
     public String goToNextMonth() {
         serviceCalendar.increment();
         return "redirect:/";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
 }
