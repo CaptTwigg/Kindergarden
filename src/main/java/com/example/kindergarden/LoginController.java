@@ -17,7 +17,7 @@ public class LoginController {
         return "login";
     }
 
-    @PostMapping
+    @PostMapping("/")
     public String postLogin(@ModelAttribute Login login){
         System.out.println(serviceLogin.validateUser(login));
         if(serviceLogin.validateUser(login)){
