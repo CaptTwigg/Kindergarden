@@ -4,10 +4,15 @@ public class Employee {
     private String firstName;
     private String lastName;
 
-    /*public Employee(String firstName, String lastName) {
+    public Employee(){
+
+    }
+
+    public Employee(String firstName, String lastName) {
+        //String[] employee = line.split(";");
         this.firstName = firstName;
         this.lastName = lastName;
-    }*/
+    }
 
   public void addEmployeeToList(){
     System.out.println("kom ind");

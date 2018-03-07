@@ -126,17 +126,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr> <!--th:each="employee: ${emplyees}"-->
-                    <td>Bjarne Frandsen</td>
-                </tr>
-                <tr>
-                    <td>Mette Hansen</td>
-                </tr>
-                <tr>
-                    <td>Niels Eriksen</td>
-                </tr>
-                <tr>
-                    <td>Frank Nielsen</td>
+                <tr th:each="employee: ${employee}">
+                    <td th:text="${employee.firstName}"/>
+                    <td th:text="${employee.lastName}"/>
+
+                    <td><input type="button" value="Detaljer" class="green-btn" style="margin-left: 20px;"/></td>
+                    <td><input type="button" value="Redigér" class="green-btn" style="margin-left: 20px;"/></td>
+                    <td><input type="button" value="Slet" class="green-btn" style="margin-left: 20px;"/></td>
                 </tr>
             </tbody>
         </table>
