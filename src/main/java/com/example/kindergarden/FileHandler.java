@@ -1,29 +1,29 @@
 package com.example.kindergarden;
 
 import com.example.kindergarden.base.Employee;
+import com.example.kindergarden.base.Schedule;
 import com.example.kindergarden.services.ServiceEmployee;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileHandler {
     private String fileName;
     private Scanner scanner;
-    private String employeeFile = "src\\main\\resources\\files\\employees.txt";
-
-    public FileHandler(){}
+    private String employeeFile = "./src/main/resources/files/";
 
     public FileHandler(String fileName) throws Exception {
         this.fileName = fileName;
-        scanner = new Scanner(new File("./resources/"+fileName));
+        scanner = new Scanner(new File("./src/main/resources/files/"+fileName)).useDelimiter(";");
     }
 
     public void saveEmployeeToFile() throws Exception {
       ServiceEmployee serviceEmployee = new ServiceEmployee();
         for (Employee employeeSave: serviceEmployee.getEmployees()){
-          PrintStream newEmployeeInfo = new PrintStream(new FileOutputStream(employeeFile,true));
+          PrintStream newEmployeeInfo = new PrintStream(new FileOutputStream("./src/main/resources/files/"+fileName,true));
           String employeeInfo = String.format("%s; %s; %s; %s; %s; %s; %s; %s\n",
               employeeSave.getFirstName(),
               employeeSave.getLastName(),
@@ -46,5 +46,31 @@ public class FileHandler {
     public FileHandler setFileName(String fileName) {
         this.fileName = fileName;
         return this;
+    }
+
+    public ArrayList<Schedule> getSchedules(String month, String year)  {
+        ArrayList<Schedule> schedules = new ArrayList<>();
+
+        try {
+            scanner = new Scanner(new File("./src/main/resources/files/" + fileName)).useDelimiter(";");
+
+            while (scanner.hasNextLine()) {
+                int ID = scanner.nextInt();
+                String date = scanner.next();
+                String fromTime = scanner.next();
+                String toTime = scanner.next();
+                int employeeKey = scanner.nextInt();
+
+                if (Integer.parseInt(date.substring(0, 6)) == Integer.parseInt(year + month)) {
+                    schedules.add(new Schedule(ID, date, fromTime, toTime, employeeKey));
+                }
+
+                scanner.nextLine();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return schedules;
     }
 }

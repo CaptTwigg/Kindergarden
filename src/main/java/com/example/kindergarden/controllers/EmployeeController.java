@@ -11,19 +11,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class EmployeeController {
-  public FileHandler fileHandler = new FileHandler();
-  public ServiceEmployee serviceEmployee = new ServiceEmployee();
-  private Employee employee = new Employee();
+    public ServiceEmployee serviceEmployee = new ServiceEmployee();
 
-  @GetMapping("/employee")
-  public String employee(Model model){
-    model.addAttribute("employee", serviceEmployee.getEmployees());
-    return "employee";
-  }
+    @GetMapping("/employee")
+    public String employee(Model model){
+        model.addAttribute("employee", serviceEmployee.getEmployees());
+        return "employee";
+    }
 
-  @PostMapping("/employee")
-  public String addEmployee(@ModelAttribute Employee em){
-    em.addEmployeeToList();
-    return "redirect:/employee";
-  }
+    @PostMapping("/employee")
+    public String addEmployee(@ModelAttribute Employee em){
+        em.addEmployeeToList();
+        return "redirect:/employee";
+    }
 }

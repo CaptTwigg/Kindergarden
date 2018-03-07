@@ -9,23 +9,30 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ServiceEmployee {
-  private ArrayList<Employee> employees = new ArrayList<>();
+    private ArrayList<Employee> employees = new ArrayList<>();
+    public FileHandler fileHandler;
 
-  public FileHandler fileHandler = new FileHandler();
-
-  public void addEmpolyees(){
-    try{
-      Scanner read = new Scanner(new File(fileHandler.getFileName()));
-      while(read.hasNextLine()){
-        String line = read.nextLine();
-        employees.add(new Employee(line)); //tilføj parameterne
-      }
-    }catch(FileNotFoundException e){
-      System.out.println("Filen blev ikke fundet");
+    public ServiceEmployee() {
+        try {
+            fileHandler = new FileHandler("employees.txt");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-  }
 
-  public ArrayList<Employee> getEmployees() {
-    return employees;
-  }
+    public void addEmpolyees(){
+        try{
+            Scanner read = new Scanner(new File(fileHandler.getFileName()));
+            while(read.hasNextLine()){
+                String line = read.nextLine();
+                employees.add(new Employee(line)); //tilføj parameterne
+            }
+        }catch(FileNotFoundException e){
+            System.out.println("Filen blev ikke fundet");
+        }
+    }
+
+    public ArrayList<Employee> getEmployees() {
+        return employees;
+    }
 }

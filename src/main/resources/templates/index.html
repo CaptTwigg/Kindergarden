@@ -286,6 +286,11 @@
             <td th:classappend="${daysInThisMonth[index + 0]} ? '' : 'unavailable'" th:attrappend="data-date=${daysInThisMonth[index + 0]} ? ${dateArray[index + 0]}">
               <div>
                 <p class="date" th:text="${days[index + 0]}"></p>
+                <div class="scheduleContainer">
+                  <div class="schedule" th:each="schedule : ${schedules}" th:if="${days[index + 0]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 6]}">
+                    <p  th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime})"></p>
+                  </div>
+                </div>
               </div>
               <div th:replace="${daysInThisMonth[index + 0]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
             </td>
@@ -293,19 +298,8 @@
               <div>
                 <p class="date" th:text="${days[index + 1]}"></p>
                 <div class="scheduleContainer">
-                  <div>
-                    <div class="schedule">
-                      <p>10:00 - 12:00 / Bjarne</p>
-                    </div>
-                    <div class="schedule">
-                      <p>10:00 - 12:00 / Bjarne</p>
-                    </div>
-                    <div class="schedule">
-                      <p>10:00 - 12:00 / Bjarne</p>
-                    </div>
-                    <div class="schedule seeMoreSchedules">
-                      <p>Se alle vagter</p>
-                    </div>
+                  <div class="schedule" th:each="schedule : ${schedules}" th:if="${days[index + 1]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 6]}">
+                    <p  th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime})"></p>
                   </div>
                 </div>
               </div>
@@ -314,30 +308,55 @@
             <td th:classappend="${daysInThisMonth[index + 2]} ? '' : 'unavailable'" th:attrappend="data-date=${daysInThisMonth[index + 2]} ? ${dateArray[index + 2]}">
               <div>
                 <p class="date" th:text="${days[index + 2]}"></p>
+                <div class="scheduleContainer">
+                  <div class="schedule" th:each="schedule : ${schedules}" th:if="${days[index + 2]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 6]}">
+                    <p  th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime})"></p>
+                  </div>
+                </div>
               </div>
               <div th:replace="${daysInThisMonth[index + 2]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
             </td>
             <td th:classappend="${daysInThisMonth[index + 3]} ? '' : 'unavailable'" th:attrappend="data-date=${daysInThisMonth[index + 3]} ? ${dateArray[index + 3]}">
               <div>
                 <p class="date" th:text="${days[index + 3]}"></p>
+                <div class="scheduleContainer">
+                  <div class="schedule" th:each="schedule : ${schedules}" th:if="${days[index + 3]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 6]}">
+                      <p  th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime})"></p>
+                  </div>
+                </div>
               </div>
               <div th:replace="${daysInThisMonth[index + 3]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
             </td>
             <td th:classappend="${daysInThisMonth[index + 4]} ? '' : 'unavailable'" th:attrappend="data-date=${daysInThisMonth[index + 4]} ? ${dateArray[index + 4]}">
               <div>
                 <p class="date" th:text="${days[index + 4]}"></p>
+                <div class="scheduleContainer">
+                  <div class="schedule" th:each="schedule : ${schedules}" th:if="${days[index + 4]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 6]}">
+                    <p  th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime})"></p>
+                  </div>
+                </div>
               </div>
               <div th:replace="${daysInThisMonth[index + 4]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
             </td>
             <td th:classappend="${daysInThisMonth[index + 5]} ? '' : 'unavailable'" th:attrappend="data-date=${daysInThisMonth[index + 5]} ? ${dateArray[index + 5]}">
               <div>
                 <p class="date" th:text="${days[index + 5]}"></p>
+                <div class="scheduleContainer">
+                  <div class="schedule" th:each="schedule : ${schedules}" th:if="${days[index + 5]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 6]}">
+                    <p  th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime})"></p>
+                  </div>
+                </div>
               </div>
               <div th:replace="${daysInThisMonth[index + 5]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
             </td>
             <td th:classappend="${daysInThisMonth[index + 6]} ? '' : 'unavailable'" th:attrappend="data-date=${daysInThisMonth[index + 6]} ? ${dateArray[index + 6]}">
               <div>
                 <p class="date" th:text="${days[index + 6]}"></p>
+                <div class="scheduleContainer">
+                  <div class="schedule" th:each="schedule : ${schedules}" th:if="${days[index + 6]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 6]}">
+                    <p  th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime})"></p>
+                  </div>
+                </div>
               </div>
               <div th:replace="${daysInThisMonth[index + 6]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
             </td>

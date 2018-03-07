@@ -1,14 +1,19 @@
 package com.example.kindergarden.controllers;
 
+import com.example.kindergarden.base.Schedule;
 import com.example.kindergarden.services.ServiceCalendar;
+import com.example.kindergarden.services.ServiceSchedule;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 @Controller
 public class SchedulerController {
-
     private ServiceCalendar serviceCalendar = new ServiceCalendar();
+    private ServiceSchedule serviceSchedule = new ServiceSchedule();
 
     @GetMapping("/index")
     public String index(Model model) {
@@ -18,6 +23,8 @@ public class SchedulerController {
         model.addAttribute("today", serviceCalendar.getToday());
         model.addAttribute("dateArray", serviceCalendar.getDateArray());
         model.addAttribute("daysToAdd", serviceCalendar.daysToBypass());
+        model.addAttribute("schedules", serviceSchedule.getSchedules(serviceCalendar.getMonthAsString(), serviceCalendar.getYearAsString()));
+        System.out.println(serviceCalendar.getMonthAsString()+"-"+ serviceCalendar.getYearAsString());
         return "index";
     }
 

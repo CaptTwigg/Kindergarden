@@ -5,7 +5,7 @@ import java.util.*;
 public class ServiceCalendar {
 
   private Calendar calendar = new GregorianCalendar();
-  int today = calendar.get(Calendar.DAY_OF_MONTH);
+  int dateToday = calendar.get(Calendar.DAY_OF_MONTH);
   private String[] months = {"Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December"};
   private int[] days = new int[42];
   private boolean[] daysInThisMonth = new boolean[42];
@@ -29,7 +29,7 @@ public class ServiceCalendar {
       days[counter] = calendar.get(Calendar.DAY_OF_MONTH);
       daysInThisMonth[counter] = false;
       dateArray[counter] = "";
-      calendar.add(Calendar.DATE, 1);
+      calendar.add(Calendar.DAY_OF_MONTH, 1);
       counter++;
     }
 
@@ -67,12 +67,13 @@ public class ServiceCalendar {
   public void decrement(){
     calendar.add(Calendar.MONTH, -1);
   }
+
   public void increment(){
     calendar.add(Calendar.MONTH, 1);
   }
 
   public int getToday() {
-    return today;
+    return dateToday;
   }
 
   public String[] getDateArray() {
@@ -81,5 +82,13 @@ public class ServiceCalendar {
 
   public int daysToBypass() {
     return weekdays;
+  }
+
+  public String getMonthAsString() {
+    return String.valueOf(calendar.get(Calendar.MONTH)+1).length() == 1 ? "0"+String.valueOf(calendar.get(Calendar.MONTH)+1) : String.valueOf(calendar.get(Calendar.MONTH)+1);
+  }
+
+  public String getYearAsString() {
+    return String.valueOf(calendar.get(Calendar.YEAR));
   }
 }
