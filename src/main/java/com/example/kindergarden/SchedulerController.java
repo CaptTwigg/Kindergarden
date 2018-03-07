@@ -12,7 +12,7 @@ public class SchedulerController {
 
     private ServiceCalendar serviceCalendar = new ServiceCalendar();
 
-    @GetMapping("/")
+    @GetMapping("/index")
     public String index(Model model) {
         model.addAttribute("monthAndYear_TXT", serviceCalendar.getMonthAndYear());
         model.addAttribute("daysInThisMonth", serviceCalendar.getDaysInThisMonth());
@@ -33,10 +33,5 @@ public class SchedulerController {
     public String goToNextMonth() {
         serviceCalendar.increment();
         return "redirect:/";
-    }
-
-    @GetMapping("/login")
-    public String login() {
-        return "login";
     }
 }

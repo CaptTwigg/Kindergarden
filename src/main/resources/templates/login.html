@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Login</title>
-  <link rel="stylesheet" href="../static/css.css">
+  <link rel="stylesheet" href="css.css">
 </head>
 
 <style>
@@ -86,11 +86,11 @@
 <body>
 
 <div id="outerWrapper">
-  <form>
+  <form method="post">
     <div class="innerWrapper">
       <div id="textArea">
-        <input type="text" required autofocus placeholder="Brugernavn"/>
-        <input type="password" required placeholder="Kodeord"/>
+        <input th:field="${login.userName}" type="text" required autofocus placeholder="Brugernavn"/>
+        <input th:field="${login.passWord}" type="password" required placeholder="Kodeord"/>
       </div>
       <p class="forgot"><a href="#">Glemt kodeord?</a></p>
       <p class="buttonWrapper">

@@ -14,12 +14,10 @@
             padding: 20px;
         }
 
-
         #employeeList{
-            margin-left: 40px;
-            width: calc(100% - 80px);
-            box-shadow: 0 0 0 2px #cccccc ;
+            width: 100%;
         }
+
         #employeeList h1{
             text-align: center;
         }
@@ -30,14 +28,11 @@
 
         #employeeList th{
             text-align: left;
-            padding-bottom: 5px;
         }
 
         #employeeList td{
             text-align: left;
         }
-
-
     </style>
     <script>
         $(document).ready(function() {
@@ -115,34 +110,32 @@
                 </table>
             </form>
         </div>
-        <h1 align="center">Medarbejderliste</h1>
         <div id="employeeContainer">
             <div id="topbar">
                 <form method="post">
                     <input type="button" value="Opret ny medarbejder" class="green-btn" style="margin-left: 20px;" id="openCreateNewEmployee"/>
                 </form>
             </div>
-            <table id="employeeList">
+        </div>
 
-                <thead>
+        <table id="employeeList">
+            <h1><br>Medarbejderliste</h1>
+            <thead>
                 <tr>
                     <th><h3>Medarbejder</h3></th>
                 </tr>
-                </thead>
-                <tbody>
+            </thead>
+            <tbody>
                 <tr th:each="employee: ${employee}">
-                    <td th:text="${employee.firstName} + ' ' + ${employee.lastName}"/>
+                    <td th:text="${employee.firstName}"/>
+                    <td th:text="${employee.lastName}"/>
 
-                    <td>
-                        <input type="button" value="Detaljer" class="green-btn" style="margin-left: 20px;"/>
-                        <input type="button" value="Redigér" class="blue-btn" style="margin-left: 20px;"/>
-                        <input type="button" value="Slet" class="red-btn" style="margin-left: 20px;"/>
-                    </td>
+                    <td><input type="button" value="Detaljer" class="green-btn" style="margin-left: 20px;"/></td>
+                    <td><input type="button" value="Redigér" class="green-btn" style="margin-left: 20px;"/></td>
+                    <td><input type="button" value="Slet" class="green-btn" style="margin-left: 20px;"/></td>
                 </tr>
-                </tbody>
-            </table>
-        </div>
-
+            </tbody>
+        </table>
     </div>
 </body>
 </html>
