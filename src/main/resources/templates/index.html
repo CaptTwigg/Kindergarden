@@ -55,6 +55,7 @@
     #calendar-table tr td {
       width: calc(100% / 7);
       position: relative;
+      height: calc(100% - );
     }
 
     #calendar-table tr td.unavailable {
@@ -82,7 +83,7 @@
       position: absolute;
       top: 5px;
       right: 5px;
-      font-size: 15px;
+      font-size: 1.6vmin;
       padding: 5px 7.5px;
       width: 30px;
       text-align: center;
@@ -109,10 +110,10 @@
     }
 
     #calendar-table tr td .scheduleContainer .schedule {
-      font-size: 12.5px;
+      font-size: 1.25vmin;
       background: #4285f4;
       color: #fff;
-      padding: 5px 7.5px;
+      padding: 0.5vmin 0.75vmin;
       width: 100%;
       height: auto;
       border-radius: 2.5px;
@@ -137,7 +138,7 @@
     }
 
     #calendar-table tr td .scheduleContainer .schedule:not(:last-child) {
-      margin-bottom: 5px;
+      margin-bottom: 0.5vmin;
     }
 
     #calendar-table tr td .dateMenu {
@@ -148,14 +149,14 @@
       right: 0;
       background: #fff;
       display: none;
-      padding: 10px;
+      padding: 5px;
       z-index: 12;
     }
 
     #calendar-table tr td .dateMenu .dateMenuClose {
       position: absolute;
-      top: -5px;
-      right: 2.5px;
+      top: 0px;
+      right: 7px;
       font-weight: bold;
       font-size: 20px;
       color: #333;
@@ -205,6 +206,13 @@
             $(this).parents(".dateMenu").hide();
             $("#overlay, #createNewSchedule").show();
         });
+
+        $("#calendar-table td").css({"height": ($("#calendar-table tbody").height()-5)  / 6+"px"});
+    });
+    
+    $(window).resize(function () {
+        $("#calendar-table").css({"height": ($(document).height()-120)+"px"});
+        $("#calendar-table td").css({"height": $(("#calendar-table tbody").height()-5) / 6+"px"});
     });
   </script>
 </head>

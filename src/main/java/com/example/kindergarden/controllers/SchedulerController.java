@@ -24,7 +24,6 @@ public class SchedulerController {
         model.addAttribute("dateArray", serviceCalendar.getDateArray());
         model.addAttribute("daysToAdd", serviceCalendar.daysToBypass());
         model.addAttribute("schedules", serviceSchedule.getSchedules(serviceCalendar.getMonthAsString(), serviceCalendar.getYearAsString()));
-        System.out.println(serviceCalendar.getMonthAsString()+"-"+ serviceCalendar.getYearAsString());
         return "index";
     }
 
