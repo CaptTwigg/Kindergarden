@@ -22,8 +22,6 @@ public class FileHandler {
         scanner = new Scanner(new File("./resources/"+fileName));
     }
 
-
-
     public void saveEmployeeToFile() throws Exception {
       ServiceEmployee serviceEmployee = new ServiceEmployee();
         for (Employee employeeSave: serviceEmployee.getEmployees()){
@@ -43,11 +41,7 @@ public class FileHandler {
         }
     }
 
-
-
-
-
-  public String getFileName() {
+    public String getFileName() {
         return fileName;
     }
 
