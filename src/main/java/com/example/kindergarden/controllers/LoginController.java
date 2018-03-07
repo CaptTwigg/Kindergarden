@@ -1,5 +1,7 @@
-package com.example.kindergarden;
+package com.example.kindergarden.controllers;
 
+import com.example.kindergarden.base.Login;
+import com.example.kindergarden.services.ServiceLogin;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

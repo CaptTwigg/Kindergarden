@@ -1,4 +1,4 @@
-package com.example.kindergarden;
+package com.example.kindergarden.services;
 
 import java.util.*;
 

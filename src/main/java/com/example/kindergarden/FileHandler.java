@@ -1,19 +1,17 @@
 package com.example.kindergarden;
 
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import com.example.kindergarden.base.Employee;
+import com.example.kindergarden.services.ServiceEmployee;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileHandler {
     private String fileName;
     private Scanner scanner;
-    private String employeeFile = "src\\main\\java\\com\\example\\kindergarden\\txtFiles\\employees.txt";
+    private String employeeFile = "src\\main\\resources\\files\\employees.txt";
 
     public FileHandler(){}
 

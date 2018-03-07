@@ -1,11 +1,9 @@
-package com.example.kindergarden;
+package com.example.kindergarden.controllers;
 
+import com.example.kindergarden.services.ServiceCalendar;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
 
 @Controller
 public class SchedulerController {
@@ -23,15 +21,15 @@ public class SchedulerController {
         return "index";
     }
 
-    @PostMapping(value = "/", params = "month_chooser=Forrige")
+    @PostMapping(value = "/index", params = "month_chooser=Forrige")
     public String goToPreviousMonth() {
         serviceCalendar.decrement();
-        return "redirect:/";
+        return "redirect:/index";
     }
 
-    @PostMapping(value = "/", params = "month_chooser=Næste")
+    @PostMapping(value = "/index", params = "month_chooser=Næste")
     public String goToNextMonth() {
         serviceCalendar.increment();
-        return "redirect:/";
+        return "redirect:/index";
     }
 }

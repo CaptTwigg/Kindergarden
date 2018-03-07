@@ -1,4 +1,4 @@
-package com.example.kindergarden;
+package com.example.kindergarden.base;
 
 public class Login {
     private String userName;
