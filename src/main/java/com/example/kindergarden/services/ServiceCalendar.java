@@ -5,7 +5,9 @@ import java.util.*;
 public class ServiceCalendar {
 
   private Calendar calendar = new GregorianCalendar();
-  int dateToday = calendar.get(Calendar.DAY_OF_MONTH);
+  private int dateToday = calendar.get(Calendar.DAY_OF_MONTH);
+  private int monthToday = calendar.get(Calendar.MONTH);
+  private int yearToday = calendar.get(Calendar.YEAR);
   private String[] months = {"Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December"};
   private int[] days = new int[42];
   private boolean[] daysInThisMonth = new boolean[42];
@@ -94,5 +96,9 @@ public class ServiceCalendar {
 
   public int getPreviousMonthDays() {
     return weekdays;
+  }
+
+  public void goToToday() {
+    calendar.set(yearToday, monthToday, dateToday);
   }
 }

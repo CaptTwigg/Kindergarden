@@ -1,5 +1,6 @@
 package com.example.kindergarden.controllers;
 
+import com.example.kindergarden.base.Schedule;
 import com.example.kindergarden.services.ServiceCalendar;
 import com.example.kindergarden.services.ServiceSession;
 import com.example.kindergarden.services.ServiceSchedule;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 public class SchedulerController {
     private ServiceCalendar serviceCalendar = new ServiceCalendar();
     private ServiceSchedule serviceSchedule = new ServiceSchedule();
+
+    String successMessage = "";
 
     @GetMapping("/index")
     public String index(Model model) {
@@ -40,6 +43,19 @@ public class SchedulerController {
     @PostMapping(value = "/index", params = "month_chooser=Næste")
     public String goToNextMonth() {
         serviceCalendar.increment();
+        return "redirect:/index";
+    }
+
+    @PostMapping(value = "/index", params = "go_to=Gå til idag")
+    public String goToToday() {
+        serviceCalendar.goToToday();
+        return "redirect:/index";
+    }
+
+    @PostMapping(value = "/index", params = "saveSchedule=Opret")
+    public String createNewSchedule(@RequestParam("fromTime") String fromTime, @RequestParam("toTime") String toTime, @RequestParam("date") String date ,@RequestParam("employee") int employeeKey) {
+        serviceSchedule.add(new Schedule(date, fromTime, toTime, employeeKey));
+        System.out.println(serviceSchedule);
         return "redirect:/index";
     }
 }

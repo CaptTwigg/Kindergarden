@@ -7,6 +7,7 @@ import com.example.kindergarden.base.Schedule;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class ServiceSchedule {
     private ArrayList<Schedule> schedules = new ArrayList<>();
@@ -88,5 +89,24 @@ public class ServiceSchedule {
         for(int i = 0; i < toIndexArray.length; i++) {
             toIndexArray[i] = 0;
         }
+    }
+
+    public void add(Schedule schedule) {
+        schedules = fileHandler.getAllSchedules();
+        schedules.add(schedule.setId(getHighestId()));
+        Collections.sort(schedules);
+        fileHandler.saveSchedulesToFile(schedules);
+    }
+
+    private int getHighestId() {
+        int highestId = 1;
+
+        for(Schedule schedule: schedules) {
+            if(schedule.getId() > highestId) {
+                highestId = schedule.getId();
+            }
+        }
+
+        return (highestId == 1 ? highestId : highestId + 1);
     }
 }

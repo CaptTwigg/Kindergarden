@@ -15,12 +15,12 @@ import java.util.Scanner;
 public class FileHandler {
     private String fileName;
     private Scanner scanner;
-    private static String employeeFile = "./src/main/resources/files/";
+    private String path = "./src/main/resources/files/";
 
     public FileHandler(String fileName) {
         this.fileName = fileName;
         try {
-            scanner = new Scanner(new File(employeeFile+fileName)).useDelimiter(";");
+            scanner = new Scanner(new File(path+fileName)).useDelimiter(";");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -29,7 +29,7 @@ public class FileHandler {
     public ArrayList<Employee> loadEmployees(String fileName){
       ArrayList<Employee> employees = new ArrayList<>();
         try {
-          Scanner read = new Scanner(new File(employeeFile + fileName));
+          Scanner read = new Scanner(new File(path + fileName));
           while (read.hasNextLine()) {
             String line = read.nextLine();
             employees.add(new Employee(line));
@@ -43,7 +43,7 @@ public class FileHandler {
 
     public void saveEmployeeToFile(ArrayList<Employee> employees){
       try {
-        new PrintStream(new File(employeeFile+fileName));
+        new PrintStream(new File(path+fileName));
       } catch (FileNotFoundException e) {
         e.printStackTrace();
       }
@@ -103,6 +103,49 @@ public class FileHandler {
                     }
                 }
 
+                scanner.nextLine();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return schedules;
+    }
+
+    public void saveSchedulesToFile(ArrayList<Schedule> schedules){
+        try {
+            new PrintStream(new File(path+fileName));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        PrintStream newScheduleInfo = null;
+
+        for (Schedule schedule: schedules){
+            try {
+                newScheduleInfo = new PrintStream(new FileOutputStream(path+fileName, true));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            String employeeInfo = String.format("%s;%s;%s;%s;%s;\n",
+                    schedule.getId(),
+                    schedule.getDate(),
+                    schedule.getFromTime(),
+                    schedule.getToTime(),
+                    schedule.getEmployeeKey());
+
+            newScheduleInfo.print(employeeInfo);
+        }
+    }
+
+    public ArrayList<Schedule> getAllSchedules() {
+        ArrayList<Schedule> schedules = new ArrayList<>();
+
+        try {
+            scanner = new Scanner(new File(path + fileName)).useDelimiter(";");
+
+            while (scanner.hasNextLine()) {
+                schedules.add(new Schedule(scanner.nextInt(), scanner.next(), scanner.next(), scanner.next(), scanner.nextInt()));
                 scanner.nextLine();
             }
         } catch (Exception e) {

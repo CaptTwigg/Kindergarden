@@ -1,6 +1,6 @@
 package com.example.kindergarden.base;
 
-public class Schedule {
+public class Schedule implements Comparable<Schedule> {
     private int Id;
     private String date;
     private String fromTime;
@@ -15,6 +15,26 @@ public class Schedule {
         this.toTime = toTime.substring(0,2)+":"+toTime.substring(2,4);
         this.employeeName = employeeName;
         this.employeeKey = employeeKey;
+    }
+
+    public Schedule(int Id, String date, String fromTime, String toTime, int employeeKey) {
+        this.Id = Id;
+        this.date = date;
+        this.fromTime = fromTime;
+        this.toTime = toTime;
+        this.employeeKey = employeeKey;
+    }
+
+    public Schedule(String date, String fromTime, String toTime, int employeeKey) {
+        this.date = date.replaceAll("-", "");
+        this.fromTime = fromTime.replace(":", "");
+        this.toTime = toTime.replace(":", "");
+        this.employeeKey = employeeKey;
+    }
+
+    public Schedule setId(int Id) {
+        this.Id = Id;
+        return this;
     }
 
     public int getId() {
@@ -59,5 +79,9 @@ public class Schedule {
 
     public void setEmployeeKey(int employeeKey) {
         this.employeeKey = employeeKey;
+    }
+
+    public int compareTo(Schedule other) {
+        return date.compareTo(other.date);
     }
 }
