@@ -38,11 +38,21 @@ public class Employee {
       this.email = email;
     }
 
-    public void addEmployeeToList(){
-      System.out.println("kom ind");
-    }
+  @Override
+  public String toString() {
+    return "Employee{" +
+        "firstName='" + firstName + '\'' +
+        ", lastName='" + lastName + '\'' +
+        ", roadName='" + roadName + '\'' +
+        ", roadNumber=" + roadNumber +
+        ", city='" + city + '\'' +
+        ", postalCode=" + postalCode +
+        ", phoneNumber=" + phoneNumber +
+        ", email='" + email + '\'' +
+        '}';
+  }
 
-    public String getRoadName() {
+  public String getRoadName() {
       return roadName;
     }
 

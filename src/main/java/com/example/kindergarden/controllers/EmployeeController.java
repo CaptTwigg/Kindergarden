@@ -15,13 +15,20 @@ public class EmployeeController {
 
     @GetMapping("/employee")
     public String employee(Model model){
-        model.addAttribute("employee", serviceEmployee.getEmployees());
+        model.addAttribute("employees", ServiceEmployee.getEmployees()); //får fat i arraylist
+        model.addAttribute("employee", new Employee());
+
         return "employee";
     }
 
     @PostMapping("/employee")
     public String addEmployee(@ModelAttribute Employee em){
-        em.addEmployeeToList();
+        serviceEmployee.addEmployeeToList(em); //Metode i serviceEmployee der gerne skulle gemme indtastet værdi i en arraylist
+        new FileHandler("employees.txt").saveEmployeeToFile();
+        //test
+        System.out.println(em);
+
+      System.out.println(serviceEmployee.getEmployees());
         return "redirect:/employee";
     }
 }
