@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -83,6 +84,7 @@ public class FileHandler {
 
     public ArrayList<Schedule> getSchedules(String month, String year)  {
         ArrayList<Schedule> schedules = new ArrayList<>();
+        ArrayList<Employee> tempEmployees = loadEmployees("employees.txt");
 
         try {
             scanner = new Scanner(new File("./src/main/resources/files/" + fileName)).useDelimiter(";");
@@ -95,7 +97,11 @@ public class FileHandler {
                 int employeeKey = scanner.nextInt();
 
                 if (Integer.parseInt(date.substring(0, 6)) == Integer.parseInt(year + month)) {
-                    schedules.add(new Schedule(ID, date, fromTime, toTime, employeeKey));
+                    for(Employee employee: tempEmployees) {
+                        if(employee.getId() == employeeKey) {
+                            schedules.add(new Schedule(ID, date, fromTime, toTime, employee.getFirstName(), employeeKey));
+                        }
+                    }
                 }
 
                 scanner.nextLine();
