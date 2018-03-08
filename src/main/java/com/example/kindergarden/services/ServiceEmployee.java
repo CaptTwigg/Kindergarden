@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ServiceEmployee {
-    private ArrayList<Employee> employees = new ArrayList<>();
+    private static ArrayList<Employee> employees = new ArrayList<>();
     public FileHandler fileHandler;
 
     public ServiceEmployee() {
@@ -20,7 +20,7 @@ public class ServiceEmployee {
         }
     }
 
-    public void addEmpolyees(){
+    public void loadEmpolyees(){
         try{
             Scanner read = new Scanner(new File(fileHandler.getFileName()));
             while(read.hasNextLine()){
@@ -32,7 +32,11 @@ public class ServiceEmployee {
         }
     }
 
-    public ArrayList<Employee> getEmployees() {
+    public void addEmployeeToList(Employee em){
+        employees.add(em);
+    }
+
+    public static ArrayList<Employee> getEmployees() {
         return employees;
     }
 }

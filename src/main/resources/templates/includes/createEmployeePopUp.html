@@ -1,62 +1,57 @@
-<div id="createNewEmployee" class="popup-formular" th:fragment="createNewEmployee" xmlns:th="http://www.w3.org/1999/xhtml" style="margin-left: -270px; margin-top: -161px;">
+<div id="createNewEmployee" class="popup-formular" th:fragment="createNewEmployee" xmlns:th="http://www.thymeleaf.org" style="margin-left: -270px; margin-top: -161px;">
     <h2>Opret ny medarbejder</h2>
-    <form method="post" > <!--add th:action=""-->
+    <form method="post" th:action="@{/employee}"> <!--add th:action=""-->
         <table class="popup-table">
             <tr>
                 <td><label for="employeeFirstName">Fornavn:</label></td>
                 <td>
-                    <input id="employeeFirstName" name="firstName" type="text" style="background-color: #cccccc; width: 250px"/>
+                    <input id="employeeFirstName" name="firstName" type="text" th:field="${employee.firstName}" required="true" style="background-color: #cccccc; width: 250px"/>
                     <!--add size to width-->
                 </td>
             </tr>
             <tr>
                 <td><label for="employeeLastName">Efternavn:</label></td>
                 <td>
-                    <input id="employeeLastName" name="lastName" type="text" style="background-color: #cccccc; width: 250px"/>
-                    <!--add size to width-->
+                    <input id="employeeLastName" name="lastName" type="text" th:field="${employee.lastName}" required="true" style="background-color: #cccccc; width: 250px"/>
+
                 </td>
             </tr>
             <tr>
                 <td><label>Adresse:</label></td>
                 <td><p for="employeeAddress">Vej navn: <br/></p>
 
-                    <input id="employeeAddress" name="streetName" type="text" style="background-color: #cccccc; width: 250px"/>
-                    <!--add size to width-->
+                    <input id="employeeAddress" name="streetName" type="text" th:field="${employee.roadName}" required="true" style="background-color: #cccccc; width: 250px"/>
+
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td><p for="employeeAddressRoadNumber">Vej nr.: </p>
-                    <input id="employeeAddressRoadNumber" name="roadNumber" type="number"
-                           style="background-color: #cccccc; width: 250px"/> <!--add size to width-->
+                    <input id="employeeAddressRoadNumber" name="roadNumber" type="number" th:field="${employee.roadNumber}" required="true" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td><p for="employeeAddressCity">By: </p>
-                    <input id="employeeAddressCity" name="city" type="text" style="background-color: #cccccc; width: 250px"/>
-                    <!--add size to width-->
+                    <input id="employeeAddressCity" name="city" type="text" th:field="${employee.city}" required="true" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td><p for="employeeAddressPostalCode">Post nr.: </p>
-                    <input id="employeeAddressPostalCode" name="postalCode" type="number"
-                           style="background-color: #cccccc; width: 250px"/> <!--add size to width-->
+                    <input id="employeeAddressPostalCode" name="postalCode" type="number" th:field="${employee.postalCode}" required="true" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
             <tr>
                 <td><label for="employeePhoneNumber">Tlf. nr.:</label></td>
                 <td>
-                    <input id="employeePhoneNumber" name="phoneNumber" type="number"
-                           style="background-color: #cccccc; width: 250px"/> <!--add size to width-->
+                    <input id="employeePhoneNumber" name="phoneNumber" type="number" th:field="${employee.phoneNumber}" required="true" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
             <tr>
                 <td><label for="employeeEmail">Email:</label></td>
                 <td>
-                    <input id="employeeEmail" name="email" type="email" style="background-color: #cccccc; width: 250px"/>
-                    <!--add size to width-->
+                    <input id="employeeEmail" name="email" type="email" th:field="${employee.email}" required="true" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
             <tr>
