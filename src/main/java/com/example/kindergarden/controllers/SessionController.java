@@ -1,21 +1,19 @@
 package com.example.kindergarden.controllers;
 
-import com.example.kindergarden.base.Login;
-import com.example.kindergarden.services.ServiceLogin;
+import com.example.kindergarden.base.Session;
+import com.example.kindergarden.services.ServiceSession;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class LoginController {
+public class SessionController {
     @GetMapping("/")
     public String login(){
-        ServiceLogin.getLogins().add(new Login("Bjarne", "123456"));
+        ServiceSession.getSessions().add(new Session("Bjarne", "123456"));
 
-        if(ServiceLogin.isSomeoneLoggedIn()) {
+        if(ServiceSession.isSomeoneLoggedIn()) {
             return "redirect:/index";
         } else {
             return "login";
@@ -24,7 +22,13 @@ public class LoginController {
 
     @PostMapping(value = "/", params = "submit=Log ind")
     public String postLogin(@RequestParam("username") String username, @RequestParam("password") String password){
-        ServiceLogin.setLogin(username, password);
+        ServiceSession.setLogin(username, password);
         return "redirect:/index";
+    }
+
+    @GetMapping("/logud")
+    public String logud() {
+        ServiceSession.logOut();
+        return "redirect:/";
     }
 }

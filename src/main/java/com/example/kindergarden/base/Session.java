@@ -2,12 +2,12 @@ package com.example.kindergarden.base;
 
 import org.springframework.util.DigestUtils;
 
-public class Login {
+public class Session {
     private String userName;
     private String passWord;
     private boolean isLoggedIn = false;
 
-    public Login(String userName, String passWord) {
+    public Session(String userName, String passWord) {
         this.userName = userName;
         this.passWord = md5Hasher(passWord);
     }
