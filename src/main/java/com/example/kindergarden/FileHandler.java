@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileHandler {
-    private static String fileName;
+    private String fileName;
     private Scanner scanner;
     private static String employeeFile = "./src/main/resources/files/";
     static int counter = 0;
