@@ -9,7 +9,7 @@ public class Schedule {
 
     public Schedule(int id, String date, String fromTime, String toTime, int employeeKey) {
         Id = id;
-        this.date = (date.substring(6,7).equals("0") ? date.substring(7,8) : date.substring(6,8));
+        this.date = date.substring(6, 8);
         this.fromTime = fromTime.substring(0,2)+":"+fromTime.substring(2,4);
         this.toTime = toTime.substring(0,2)+":"+toTime.substring(2,4);
         this.employeeKey = employeeKey;
