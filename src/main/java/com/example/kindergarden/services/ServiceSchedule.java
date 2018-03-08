@@ -4,6 +4,7 @@ import com.example.kindergarden.FileHandler;
 import com.example.kindergarden.base.Employee;
 import com.example.kindergarden.base.Schedule;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -27,22 +28,10 @@ public class ServiceSchedule {
         return schedules = fileHandler.getSchedules(month, year);
     }
 
-    public void getEmployees() {
-        employees = fileHandler.loadEmployees("employees.txt");
+    public ArrayList<Employee> getEmployees() {
+        return employees = fileHandler.loadEmployees("employees.txt");
     }
 
-    public String[] getEmployeesNames() {
-        employeesNames = new String[employees.size()];
-
-        int counter = 0;
-
-        for(Employee employee: employees) {
-            employeesNames[counter] = employee.getFirstName();
-            counter++;
-        }
-
-        return employeesNames;
-    }
 
     public int[] getCountSchedulesPerDay(ServiceCalendar serviceCalendar) {
         resetAllSchedules();

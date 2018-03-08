@@ -24,7 +24,7 @@ public class SchedulerController {
             model.addAttribute("schedules", serviceSchedule.getSchedules(serviceCalendar.getMonthAsString(), serviceCalendar.getYearAsString()));
             model.addAttribute("schedulesPerDay", serviceSchedule.getCountSchedulesPerDay(serviceCalendar));
             model.addAttribute("toIndex", serviceSchedule.getToIndexArray(serviceCalendar));
-            model.addAttribute("employees", serviceSchedule.getEmployeesNames());
+            model.addAttribute("employees", serviceSchedule.getEmployees());
             return "index";
         } else {
             return "redirect:/";
