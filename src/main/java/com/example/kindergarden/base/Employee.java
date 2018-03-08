@@ -1,6 +1,7 @@
 package com.example.kindergarden.base;
 
 public class Employee {
+    private int id;
     private String firstName;
     private String lastName;
     private String roadName;
@@ -16,18 +17,19 @@ public class Employee {
 
     public Employee(String line) {
       String[] employee = line.split(";");
-      this.firstName = employee[0];
-      this.lastName = employee[1];
-      this.roadName = employee[2];
-      this.roadNumber = Integer.parseInt(employee[3]);
-      this.city = employee[4];
-      this.postalCode = Integer.parseInt(employee[5]);
-      this.phoneNumber = Integer.parseInt(employee[6]);
-      this.email = employee[7];
-
+      this.id = Integer.parseInt(employee[0]);
+      this.firstName = employee[1];
+      this.lastName = employee[2];
+      this.roadName = employee[3];
+      this.roadNumber = Integer.parseInt(employee[4]);
+      this.city = employee[5];
+      this.postalCode = Integer.parseInt(employee[6]);
+      this.phoneNumber = Integer.parseInt(employee[7]);
+      this.email = employee[8];
     }
 
-    public Employee(String firstName, String lastName, String roadName, int roadNumber, String city, int postalCode, int phoneNumber, String email) {
+    public Employee(int id, String firstName, String lastName, String roadName, int roadNumber, String city, int postalCode, int phoneNumber, String email) {
+      this.id = id;
       this.firstName = firstName;
       this.lastName = lastName;
       this.roadName = roadName;
@@ -41,7 +43,8 @@ public class Employee {
   @Override
   public String toString() {
     return "Employee{" +
-        "firstName='" + firstName + '\'' +
+        "id=" + id +
+        ", firstName='" + firstName + '\'' +
         ", lastName='" + lastName + '\'' +
         ", roadName='" + roadName + '\'' +
         ", roadNumber=" + roadNumber +
@@ -115,4 +118,13 @@ public class Employee {
     public void setLastName(String lastName) {
           this.lastName = lastName;
       }
+
+    public int getId() {
+      return id;
+    }
+
+    public Employee setId(int id) {
+      this.id = id;
+      return this;
+    }
 }

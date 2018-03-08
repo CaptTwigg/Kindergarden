@@ -12,18 +12,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class EmployeeController {
     public ServiceEmployee serviceEmployee = new ServiceEmployee();
+    int counter = 0;
 
     @GetMapping("/employee")
     public String employee(Model model){
-        model.addAttribute("employees", ServiceEmployee.getEmployees()); //får fat i arraylist
-        model.addAttribute("employee", new Employee());
+      FileHandler.loadEmployees("employees.txt");
 
-        return "employee";
+      model.addAttribute("employees", ServiceEmployee.getEmployees()); //får fat i arraylist
+      model.addAttribute("employee", new Employee());
+
+      return "employee";
     }
 
     @PostMapping("/employee")
     public String addEmployee(@ModelAttribute Employee em){
-        serviceEmployee.addEmployeeToList(em); //Metode i serviceEmployee der gerne skulle gemme indtastet værdi i en arraylist
+        serviceEmployee.addEmployeeToList(em); //Metode i serviceEmployee der gemmer employee til arraylist
         new FileHandler("employees.txt").saveEmployeeToFile();
         //test
         System.out.println(em);

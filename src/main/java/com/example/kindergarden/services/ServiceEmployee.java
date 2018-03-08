@@ -20,20 +20,8 @@ public class ServiceEmployee {
         }
     }
 
-    public void loadEmpolyees(){
-        try{
-            Scanner read = new Scanner(new File(fileHandler.getFileName()));
-            while(read.hasNextLine()){
-                String line = read.nextLine();
-                employees.add(new Employee(line)); //tilføj parameterne
-            }
-        }catch(FileNotFoundException e){
-            System.out.println("Filen blev ikke fundet");
-        }
-    }
-
     public void addEmployeeToList(Employee em){
-        employees.add(em);
+        employees.add(em.setId(employees.size()+1));
     }
 
     public static ArrayList<Employee> getEmployees() {

@@ -72,7 +72,7 @@
 
       <h3 id="openCreateNewEmployee">Medarbejder</h3>
       <tbody>
-      <tr th:each="employee: ${employee}">
+      <tr th:each="employee: ${employees}">
         <td th:text="${employee.firstName} + ' ' + ${employee.lastName}"/>
 
         <td>

@@ -7,25 +7,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LoginController {
-    ServiceLogin serviceLogin = new ServiceLogin();
-
     @GetMapping("/")
-    public String login(Model model){
-        serviceLogin.newUser("Bjarne", "Frandsen");
-        model.addAttribute("login", new Login());
-        return "login";
+    public String login(){
+        ServiceLogin.getLogins().add(new Login("Bjarne", "123456"));
+
+        if(ServiceLogin.isSomeoneLoggedIn()) {
+            return "redirect:/index";
+        } else {
+            return "login";
+        }
     }
 
-    @PostMapping("/")
-    public String postLogin(@ModelAttribute Login login){
-        System.out.println(serviceLogin.validateUser(login));
-        if(serviceLogin.validateUser(login)){
-            return "redirect:/index";
-        }else{
-            return "redirect:/";
-        }
+    @PostMapping(value = "/", params = "submit=Log ind")
+    public String postLogin(@RequestParam("username") String username, @RequestParam("password") String password){
+        ServiceLogin.setLogin(username, password);
+        return "redirect:/index";
     }
 }
