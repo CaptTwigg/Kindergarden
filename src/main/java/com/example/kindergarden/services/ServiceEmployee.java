@@ -21,7 +21,8 @@ public class ServiceEmployee {
     }
 
     public static void addEmployeeToList(Employee em){
-        employees.add(em.setId(employees.size()+1));
+      int id = employees.size() == 0 ? 1 : employees.get(employees.size()).getId()+1;
+      employees.add(em.setId(id));
     }
 
     public ArrayList<Employee> getEmployees() {
