@@ -90,12 +90,12 @@
   <form method="post">
     <div class="innerWrapper">
       <div id="textArea">
-        <input th:field="${login.userName}" type="text" required autofocus placeholder="Brugernavn"/>
-        <input th:field="${login.passWord}" type="password" required placeholder="Kodeord"/>
+        <input name="username" type="text" required autofocus placeholder="Brugernavn"/>
+        <input name="password" type="password" required placeholder="Kodeord"/>
       </div>
       <p class="forgot"><a href="#">Glemt kodeord?</a></p>
       <p class="buttonWrapper">
-        <button id="button" type="submit">Log ind</button>
+        <input type="submit" id="button" name="submit" value="Log ind" />
       </p>
     </div>
   </form>

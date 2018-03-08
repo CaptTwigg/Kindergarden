@@ -2,6 +2,7 @@ package com.example.kindergarden.controllers;
 
 import com.example.kindergarden.base.Schedule;
 import com.example.kindergarden.services.ServiceCalendar;
+import com.example.kindergarden.services.ServiceLogin;
 import com.example.kindergarden.services.ServiceSchedule;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,16 +18,20 @@ public class SchedulerController {
 
     @GetMapping("/index")
     public String index(Model model) {
-        model.addAttribute("monthAndYear_TXT", serviceCalendar.getMonthAndYear());
-        model.addAttribute("daysInThisMonth", serviceCalendar.getDaysInThisMonth());
-        model.addAttribute("days", serviceCalendar.getDays());
-        model.addAttribute("today", serviceCalendar.getToday());
-        model.addAttribute("dateArray", serviceCalendar.getDateArray());
-        model.addAttribute("daysToAdd", serviceCalendar.daysToBypass());
-        model.addAttribute("schedules", serviceSchedule.getSchedules(serviceCalendar.getMonthAsString(), serviceCalendar.getYearAsString()));
-        model.addAttribute("schedulesPerDay", serviceSchedule.getCountSchedulesPerDay(serviceCalendar));
-        model.addAttribute("toIndex", serviceSchedule.getToIndexArray(serviceCalendar));
-        return "index";
+        if(ServiceLogin.isSomeoneLoggedIn()) {
+            model.addAttribute("monthAndYear_TXT", serviceCalendar.getMonthAndYear());
+            model.addAttribute("daysInThisMonth", serviceCalendar.getDaysInThisMonth());
+            model.addAttribute("days", serviceCalendar.getDays());
+            model.addAttribute("today", serviceCalendar.getToday());
+            model.addAttribute("dateArray", serviceCalendar.getDateArray());
+            model.addAttribute("daysToAdd", serviceCalendar.daysToBypass());
+            model.addAttribute("schedules", serviceSchedule.getSchedules(serviceCalendar.getMonthAsString(), serviceCalendar.getYearAsString()));
+            model.addAttribute("schedulesPerDay", serviceSchedule.getCountSchedulesPerDay(serviceCalendar));
+            model.addAttribute("toIndex", serviceSchedule.getToIndexArray(serviceCalendar));
+            return "index";
+        } else {
+            return "redirect:/";
+        }
     }
 
     @PostMapping(value = "/index", params = "month_chooser=Forrige")

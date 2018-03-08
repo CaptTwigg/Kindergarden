@@ -1,20 +1,43 @@
 package com.example.kindergarden.services;
 
 import com.example.kindergarden.base.Login;
+import org.springframework.util.DigestUtils;
+import sun.rmi.runtime.Log;
 
+import java.security.MessageDigest;
 import java.util.ArrayList;
 
 public class ServiceLogin {
-    ArrayList<Login> logins = new ArrayList<>();
+    static ArrayList<Login> logins = new ArrayList<>();
 
-    public void newUser(String userName, String passWord){
-        logins.add(new Login(userName, passWord));
+    public void getUsers() {
+
     }
 
-    public boolean validateUser(Login login){
-        for(int i = 0; i < logins.size(); i++){
-            return login.getUserName().equalsIgnoreCase(logins.get(i).getUserName()) && login.getPassWord().equals(logins.get(i).getPassWord());
+    public static boolean isSomeoneLoggedIn() {
+        for(Login login: logins) {
+            if(login.isIsLoggedIn()) {
+                return true;
+            }
         }
+
         return false;
+    }
+
+    public static void setLogin(String username, String password) {
+        for(Login login: logins) {
+            if(login.getUserName().equals(username) && login.getPassWord().equals(md5Hasher(password))) {
+                login.setIsLoggedIn(true);
+                break;
+            }
+        }
+    }
+
+    private static String md5Hasher(String password) {
+        return DigestUtils.md5DigestAsHex(password.getBytes()).toUpperCase();
+    }
+
+    public static ArrayList<Login> getLogins() {
+        return logins;
     }
 }
