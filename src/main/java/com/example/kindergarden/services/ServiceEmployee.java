@@ -25,7 +25,7 @@ public class ServiceEmployee {
       employees.add(em.setId(id));
     }
 
-    public static ArrayList<Employee> getEmployees() {
-        return employees;
+    public ArrayList<Employee> getEmployees() {
+        return employees = fileHandler.loadEmployees("employees.txt");
     }
 }

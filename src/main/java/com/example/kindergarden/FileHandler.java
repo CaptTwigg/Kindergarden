@@ -15,7 +15,6 @@ public class FileHandler {
     private String fileName;
     private Scanner scanner;
     private static String employeeFile = "./src/main/resources/files/";
-    static int counter = 0;
 
     public FileHandler(String fileName) {
         this.fileName = fileName;
@@ -26,21 +25,19 @@ public class FileHandler {
         }
     }
 
-    public static void loadEmployees(String fileName){
-      if (counter == 0) {
+    public ArrayList<Employee> loadEmployees(String fileName){
+      ArrayList<Employee> employees = new ArrayList<>();
         try {
           Scanner read = new Scanner(new File(employeeFile + fileName));
           while (read.hasNextLine()) {
             String line = read.nextLine();
-            ServiceEmployee.getEmployees().add(new Employee(line));
+            employees.add(new Employee(line));
           }
-
-          System.out.println(ServiceEmployee.getEmployees());
         } catch (FileNotFoundException e) {
           System.out.println("Filen blev ikke fundet");
         }
-        counter++;
-      }
+
+        return employees;
     }
 
     public void saveEmployeeToFile(){

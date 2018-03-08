@@ -1,15 +1,11 @@
 package com.example.kindergarden.controllers;
 
-import com.example.kindergarden.base.Schedule;
 import com.example.kindergarden.services.ServiceCalendar;
-import com.example.kindergarden.services.ServiceLogin;
+import com.example.kindergarden.services.ServiceSession;
 import com.example.kindergarden.services.ServiceSchedule;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 @Controller
 public class SchedulerController {
@@ -18,7 +14,7 @@ public class SchedulerController {
 
     @GetMapping("/index")
     public String index(Model model) {
-        if(ServiceLogin.isSomeoneLoggedIn()) {
+        if(ServiceSession.isSomeoneLoggedIn()) {
             model.addAttribute("monthAndYear_TXT", serviceCalendar.getMonthAndYear());
             model.addAttribute("daysInThisMonth", serviceCalendar.getDaysInThisMonth());
             model.addAttribute("days", serviceCalendar.getDays());
@@ -28,6 +24,7 @@ public class SchedulerController {
             model.addAttribute("schedules", serviceSchedule.getSchedules(serviceCalendar.getMonthAsString(), serviceCalendar.getYearAsString()));
             model.addAttribute("schedulesPerDay", serviceSchedule.getCountSchedulesPerDay(serviceCalendar));
             model.addAttribute("toIndex", serviceSchedule.getToIndexArray(serviceCalendar));
+            model.addAttribute("employees", serviceSchedule.getEmployeesNames());
             return "index";
         } else {
             return "redirect:/";
