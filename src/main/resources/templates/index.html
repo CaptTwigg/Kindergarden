@@ -179,6 +179,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
+            //alert($("#success").innerHTML);
+            if($("#success").text() != "") {
+                $("#success").css({"margin-left": "-"+($("#success").outerWidth()/2)+"px"});
+                $("#success").fadeIn(500).delay(3000).fadeOut(500);
+            }
             $("#openCreateNewSchedule").click(function () {
                 $("#overlay, #createNewSchedule").show();
             });
@@ -209,7 +214,7 @@
             $("#calendar-table td").css({"height": ($("#calendar-table tbody").height() - 5) / 6 + "px"});
 
             $(document).keyup(function(e) {
-                if (e.keyCode == 27) { // escape key maps to keycode `27`
+                if (e.keyCode == 27) {
                     $("#overlay, .popup-formular").hide();
                     $("#dateField, #fromField, #toField").val("");
                 }
@@ -269,6 +274,7 @@
 <body>
 <div th:replace="/includes/menu::menu"></div>
 <div id="content">
+    <div id="success" th:text="${success_TXT}"></div>
     <div id="overlay"></div>
     <div th:replace="/includes/user:: user"></div>
     <div id="createNewSchedule" class="popup-formular">

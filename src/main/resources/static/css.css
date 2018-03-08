@@ -145,6 +145,21 @@ input[type=date], input[type=time], select {
     padding-bottom: 10px;
 }
 
+#success {
+    position: fixed;
+    top: 25px;
+    left: 50%;
+    background: forestgreen;
+    color: #fff;
+    padding: 10px 40px;
+    font-size: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #000;
+    display: none;
+    width: calc(100% / 2);
+    text-align: center;
+}
+
 .clear {
     clear: both;
 }

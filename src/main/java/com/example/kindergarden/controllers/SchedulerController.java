@@ -28,6 +28,8 @@ public class SchedulerController {
             model.addAttribute("schedulesPerDay", serviceSchedule.getCountSchedulesPerDay(serviceCalendar));
             model.addAttribute("toIndex", serviceSchedule.getToIndexArray(serviceCalendar));
             model.addAttribute("employees", serviceSchedule.getEmployees());
+            model.addAttribute("success_TXT", successMessage);
+            successMessage = "";
             return "index";
         } else {
             return "redirect:/";
@@ -55,7 +57,7 @@ public class SchedulerController {
     @PostMapping(value = "/index", params = "saveNewSchedule=Opret")
     public String createNewSchedule(@RequestParam("fromTime") String fromTime, @RequestParam("toTime") String toTime, @RequestParam("date") String date ,@RequestParam("employee") int employeeKey) {
         serviceSchedule.add(new Schedule(date, fromTime, toTime, employeeKey));
-        System.out.println(serviceSchedule);
+        successMessage = "Den nye vagt er blevet tilføjet og gemt. Kalenderen er opdateret!";
         return "redirect:/index";
     }
 }
