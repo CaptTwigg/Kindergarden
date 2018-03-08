@@ -1,0 +1,36 @@
+<div class="popup-formular" th:fragment="UserInformation" xmlns:th="http://www.thymeleaf.org">
+    <h2>Medarbejder Information</h2>
+    <form method="post">
+        <table class="popup-table">
+            <tr>
+                <td><label for="firstNameField">Fornavn</label></td>
+                <td><input id="firstNameField" name="firstName" type="text" th:value="${user.firstname}"></td>
+            </tr>
+            <tr>
+                <td><label for="lastNameField">Efternavn</label></td>
+                <td><input id="lastNameField" name="lastName" type="text" th:value="${user.lastname}"></td>
+            </tr>
+            <tr>
+                <td><label for="addressField">Adresse</label></td>
+                <td><input id="addressField" name="address" type="text" th:value="${user.address}"></td>
+            </tr>
+            <tr>
+                <td><label for="streetNumberField">Vejnr</label></td>
+                <td><input id="streetNumberField" name="streetNumber" type="number" th:value="${user.streetnumber}"></td>
+            </tr>
+            <tr>
+                <td><label for="telephoneField">Tlf</label></td>
+                <td><input id="telephoneField" name="telephone" type="number" th:value="${user.telephone}"></td>
+            </tr>
+            <tr>
+                <td><label for="emailField">E-mail</label></td>
+                <td><input id="emailField" name="email" type="email" th:value="${user.email}"></td>
+            </tr>
+            <tr>
+                <td><input id="cancelScheduleCreate" type="button" value="Annuller" class="red-btn"></td>
+                <td><input name="saveSchedule" type="submit" value="Opret" class="green-btn" style="float: right">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
