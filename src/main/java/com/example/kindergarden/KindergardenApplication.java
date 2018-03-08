@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class KindergardenApplication {
 
-	//Comment
+	//Comment e
 	public static void main(String[] args) {
 		SpringApplication.run(KindergardenApplication.class, args);
 	}

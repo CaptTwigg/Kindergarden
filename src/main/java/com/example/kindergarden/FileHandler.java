@@ -12,29 +12,55 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileHandler {
-    private String fileName;
+    private static String fileName;
     private Scanner scanner;
-    private String employeeFile = "./src/main/resources/files/";
+    private static String employeeFile = "./src/main/resources/files/";
+    static int counter = 0;
 
     public FileHandler(String fileName) {
         this.fileName = fileName;
         try {
-            scanner = new Scanner(new File("./src/main/resources/files/"+fileName)).useDelimiter(";");
+            scanner = new Scanner(new File(employeeFile+fileName)).useDelimiter(";");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
+    public static void loadEmployees(String fileName){
+      if (counter == 0) {
+        try {
+          Scanner read = new Scanner(new File(employeeFile + fileName));
+          while (read.hasNextLine()) {
+            String line = read.nextLine();
+            ServiceEmployee.getEmployees().add(new Employee(line));
+          }
+
+          System.out.println(ServiceEmployee.getEmployees());
+        } catch (FileNotFoundException e) {
+          System.out.println("Filen blev ikke fundet");
+        }
+        counter++;
+      }
+    }
+
     public void saveEmployeeToFile(){
+      try {
+        new PrintStream(new File(employeeFile+fileName));
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+      }
+
       ServiceEmployee serviceEmployee = new ServiceEmployee();
         for (Employee employeeSave: serviceEmployee.getEmployees()){
             PrintStream newEmployeeInfo = null;
+
             try {
-                newEmployeeInfo = new PrintStream(new FileOutputStream("./src/main/resources/files/"+fileName,true));
+                newEmployeeInfo = new PrintStream(new FileOutputStream("./src/main/resources/files/"+fileName, true));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            String employeeInfo = String.format("%s;%s;%s;%s;%s;%s;%s;%s\n",
+            String employeeInfo = String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;\n",
+              employeeSave.getId(),
               employeeSave.getFirstName(),
               employeeSave.getLastName(),
               employeeSave.getRoadName(),
