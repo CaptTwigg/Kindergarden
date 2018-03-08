@@ -20,7 +20,7 @@ public class ServiceEmployee {
         }
     }
 
-    public void addEmployeeToList(Employee em){
+    public static void addEmployeeToList(Employee em){
         employees.add(em.setId(employees.size()+1));
     }
 
