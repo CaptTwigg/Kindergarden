@@ -77,7 +77,6 @@ public class ServiceSchedule {
             }
         }
 
-        System.out.println(Arrays.toString(toIndexArray));
         return toIndexArray;
     }
 

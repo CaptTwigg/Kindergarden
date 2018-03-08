@@ -30,10 +30,7 @@ public class EmployeeController {
 
     @PostMapping("/employee")
     public String addEmployee(@ModelAttribute Employee em){
-        ServiceEmployee.addEmployeeToList(em); //Metode i serviceEmployee der gemmer employee til arraylist
-        new FileHandler("employees.txt").saveEmployeeToFile();
-        //test
-        System.out.println(em);
+        serviceEmployee.addEmployeeToList(em); //Metode i serviceEmployee der gemmer employee til arraylist
         return "redirect:/employee";
     }
 }

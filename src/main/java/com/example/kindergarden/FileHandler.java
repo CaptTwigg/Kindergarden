@@ -41,17 +41,16 @@ public class FileHandler {
         return employees;
     }
 
-    public void saveEmployeeToFile(){
+    public void saveEmployeeToFile(ArrayList<Employee> employees){
       try {
         new PrintStream(new File(employeeFile+fileName));
       } catch (FileNotFoundException e) {
         e.printStackTrace();
       }
 
-      ServiceEmployee serviceEmployee = new ServiceEmployee();
-        for (Employee employeeSave: serviceEmployee.getEmployees()){
-            PrintStream newEmployeeInfo = null;
+        PrintStream newEmployeeInfo = null;
 
+        for (Employee employeeSave: employees){
             try {
                 newEmployeeInfo = new PrintStream(new FileOutputStream("./src/main/resources/files/"+fileName, true));
             } catch (FileNotFoundException e) {
