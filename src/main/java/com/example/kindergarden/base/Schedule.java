@@ -17,6 +17,7 @@ public class Schedule implements Comparable<Schedule> {
         this.employeeKey = employeeKey;
     }
 
+    //Constructor used for when getting all schedules
     public Schedule(int Id, String date, String fromTime, String toTime, int employeeKey) {
         this.Id = Id;
         this.date = date;
@@ -25,6 +26,7 @@ public class Schedule implements Comparable<Schedule> {
         this.employeeKey = employeeKey;
     }
 
+    //Constructor used for when saving a new one
     public Schedule(String date, String fromTime, String toTime, int employeeKey) {
         this.date = date.replaceAll("-", "");
         this.fromTime = fromTime.replace(":", "");

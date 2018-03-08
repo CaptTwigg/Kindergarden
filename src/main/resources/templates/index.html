@@ -214,6 +214,52 @@
                     $("#dateField, #fromField, #toField").val("");
                 }
             });
+
+            //Validation for Opret Vagt
+            $(document).on('click', 'form input[name=saveNewSchedule]', function(e) {
+                var isValid = true;
+
+                if($("select[name=employee]").val() == 0) {
+                    $(".employeeFail").show();
+                    isValid = false;
+                } else {
+                    $(".employeeFail").hide();
+                }
+
+                if($("input[name=date]").val().length ==  0) {
+                    $(".dateFail").show();
+                    isValid = false;
+                } else {
+                    $(".dateFail").hide();
+                }
+
+                if($("input[name=fromTime]").val().length == 0) {
+                    $(".fromTimeFail").show();
+                    isValid = false;
+                } else {
+                    $(".fromTimeFail").hide();
+                }
+
+                if($("input[name=toTime]").val().length == 0) {
+                    $(".toTimeFail").show();
+                    isValid = false;
+                } else {
+                    $(".toTimeFail").hide();
+                }
+
+                alert($("input[name=toTime]").val().length);
+
+                if($("input[name=fromTime]").val().length != 0 && $("input[name=toTime]").val().length != 0 && $("input[name=toTime]").val() < $("input[name=fromTime]").val()) {
+                    $(".timeIsBeforeStartFail").show();
+                    isValid = false;
+                } else {
+                    $(".timeIsBeforeStartFail").hide();
+                }
+
+                if(!isValid) {
+                    e.preventDefault();
+                }
+            });
         });
 
         $(window).resize(function () {
@@ -235,26 +281,27 @@
                     <td><label for="employeeField">Medarbejder:</label></td>
                     <td>
                         <select id="employeeField" name="employee">
-                            <option value="0" disabled selected>Vælg</option>
+                            <option value="0" selected>Vælg</option>
                             <option value="1">Bjarne</option>
                         </select>
+                        <div class="fail employeeFail"><div class="arrow-left"></div>Du skal vælge en medarbejder</div>
                     </td>
                 </tr>
                 <tr>
                     <td><label for="dateField">Dato:</label></td>
-                    <td><input id="dateField" name="date" type="date"/></td>
+                    <td><input id="dateField" name="date" type="date"/><div class="fail dateFail"><div class="arrow-left"></div>Du mangler at vælge en dato</div></td>
                 </tr>
                 <tr>
                     <td><label for="fromField">Fra:</label></td>
-                    <td><input id="fromField" name="fromTime" type="time"/></td>
+                    <td><input id="fromField" name="fromTime" type="time"/><div class="fail fromTimeFail"><div class="arrow-left"></div>Du mangler at vælge et start tidspunkt</div></td>
                 </tr>
                 <tr>
                     <td><label for="toField">Til:</label></td>
-                    <td><input id="toField" name="toTime" type="time"/></td>
+                    <td><input id="toField" name="toTime" type="time"/><div class="fail toTimeFail"><div class="arrow-left"></div>Du mangler at vælge et slut tidspunkt</div><div class="fail timeIsBeforeStartFail"><div class="arrow-left"></div>Slut tidspunktet kan ikke være før start tidspunkt</div></td>
                 </tr>
                 <tr>
                     <td><input id="cancelScheduleCreate" type="button" value="Annuller" class="red-btn"/></td>
-                    <td><input name="saveSchedule" type="submit" value="Opret" class="green-btn" style="float: right"/>
+                    <td><input name="saveNewSchedule" type="submit" value="Opret" class="green-btn" style="float: right"/>
                     </td>
                 </tr>
             </table>

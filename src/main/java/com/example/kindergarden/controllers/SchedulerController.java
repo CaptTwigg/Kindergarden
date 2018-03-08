@@ -52,7 +52,7 @@ public class SchedulerController {
         return "redirect:/index";
     }
 
-    @PostMapping(value = "/index", params = "saveSchedule=Opret")
+    @PostMapping(value = "/index", params = "saveNewSchedule=Opret")
     public String createNewSchedule(@RequestParam("fromTime") String fromTime, @RequestParam("toTime") String toTime, @RequestParam("date") String date ,@RequestParam("employee") int employeeKey) {
         serviceSchedule.add(new Schedule(date, fromTime, toTime, employeeKey));
         System.out.println(serviceSchedule);
