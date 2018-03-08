@@ -1,369 +1,414 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8"/>
-  <title>Vagtplan</title>
-  <style>
-    #content {
-      height: calc(100% - 50px);
-    }
+    <meta charset="UTF-8"/>
+    <title>Vagtplan</title>
+    <style>
+        #content {
+            height: calc(100% - 50px);
+        }
 
-    #topbar {
-      padding: 20px;
-    }
+        #topbar {
+            padding: 20px;
+        }
 
-    #topbar #monthAndYearHolder {
-      float: left;
-      font-size: 17.5px;
-      line-height: 17.5px;
-      padding: 6.25px 20px;
-      color: #555;
-      font-weight: bold;
-      width: 175px;
-      text-align: center;
-    }
+        #topbar #monthAndYearHolder {
+            float: left;
+            font-size: 17.5px;
+            line-height: 17.5px;
+            padding: 6.25px 20px;
+            color: #555;
+            font-weight: bold;
+            width: 175px;
+            text-align: center;
+        }
 
-    #topbar #showSpecificCalendar {
-      float: right;
-    }
+        #topbar #showSpecificCalendar {
+            float: right;
+        }
 
-    #topbar #showSpecificCalendar label {
-      font-size: 17.5px;
-      line-height: 17.5px;
-      padding: 6.25px 20px;
-      color: #555;
-      font-weight: bold;
-    }
+        #topbar #showSpecificCalendar label {
+            font-size: 17.5px;
+            line-height: 17.5px;
+            padding: 6.25px 20px;
+            color: #555;
+            font-weight: bold;
+        }
 
-    #calendar {
-      height: calc(100% - 70px);
-    }
+        #calendar {
+            height: calc(100% - 70px);
+        }
 
-    #calendar-table {
-      background: #fff;
-      box-shadow: 0 0 5px #aaa;
-      height: 100%;
-    }
+        #calendar-table {
+            background: #fff;
+            box-shadow: 0 0 5px #aaa;
+            height: 100%;
+        }
 
-    #calendar-table tr th {
-      font-size: 17.5px;
-      color: #444;
-      padding: 10px 0;
-      border-bottom: 1px solid #666;
-    }
+        #calendar-table tr th {
+            font-size: 17.5px;
+            color: #444;
+            padding: 10px 0;
+            border-bottom: 1px solid #666;
+        }
 
-    #calendar-table tr td {
-      width: calc(100% / 7);
-      position: relative;
-    }
+        #calendar-table tr td {
+            width: calc(100% / 7);
+            position: relative;
+            height: calc(100% -);
+        }
 
-    #calendar-table tr td.unavailable {
-      background-color: #eee;
-    }
+        #calendar-table tr td.unavailable {
+            background-color: #eee;
+        }
 
-    #calendar-table tr td.unavailable div .date{
-      color: #aaa;
-    }
+        #calendar-table tr td.unavailable div .date {
+            color: #aaa;
+        }
 
-    #calendar-table tr:not(:last-child) td {
-      border-bottom: 1px solid #ccc;
-    }
+        #calendar-table tr:not(:last-child) td {
+            border-bottom: 1px solid #ccc;
+        }
 
-    #calendar-table tr td:not(:last-child) {
-      border-right: 1px solid #ccc;
-    }
+        #calendar-table tr td:not(:last-child) {
+            border-right: 1px solid #ccc;
+        }
 
-    #calendar-table tr td div {
-      position: relative;
-      height: 100%;
-    }
+        #calendar-table tr td div {
+            position: relative;
+            height: 100%;
+        }
 
-    #calendar-table tr td div .date {
-      position: absolute;
-      top: 5px;
-      right: 5px;
-      font-size: 15px;
-      padding: 5px 7.5px;
-      width: 30px;
-      text-align: center;
-      border-radius: 15px;
-      color: #333;
-      z-index: 11;
-    }
+        #calendar-table tr td div .date {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 1.6vmin;
+            padding: 5px 7.5px;
+            width: 30px;
+            text-align: center;
+            border-radius: 15px;
+            color: #333;
+            z-index: 11;
+        }
 
-    #calendar-table tr td:not(.unavailable) div .date:hover {
-      cursor: pointer;
-      background: url(../images/menu_dark.png);
-      background-repeat: no-repeat;
-      background-position: center center;
-      color: transparent;
-    }
+        #calendar-table tr td:not(.unavailable) div .date:hover {
+            cursor: pointer;
+            background: url(../images/menu_dark.png);
+            background-repeat: no-repeat;
+            background-position: center center;
+            color: transparent;
+        }
 
-    #calendar-table tr td div .date.today {
-      background-color: #4285f4;
-      color: #fff;
-    }
+        #calendar-table tr td div .date.today {
+            background-color: #4285f4;
+            color: #fff;
+        }
 
-    #calendar-table tr td .scheduleContainer {
-      padding: 5px 40px 5px 5px;
-    }
+        #calendar-table tr td .scheduleContainer {
+            padding: 5px 40px 5px 5px;
+        }
 
-    #calendar-table tr td .scheduleContainer .schedule {
-      font-size: 12.5px;
-      background: #4285f4;
-      color: #fff;
-      padding: 5px 7.5px;
-      width: 100%;
-      height: auto;
-      border-radius: 2.5px;
-      cursor: pointer;
-    }
+        #calendar-table tr td .scheduleContainer .schedule {
+            font-size: 1.25vmin;
+            background: #4285f4;
+            color: #fff;
+            padding: 0.5vmin 0.75vmin;
+            width: 100%;
+            height: auto;
+            border-radius: 2.5px;
+            cursor: pointer;
+        }
 
-    #calendar-table tr td .scheduleContainer .schedule:hover {
-      background: #3866CF;
-    }
+        #calendar-table tr td .scheduleContainer .schedule:hover {
+            background: #3866CF;
+        }
 
-    #calendar-table tr td .scheduleContainer .schedule.seeMoreSchedules {
-      color: #666;
-      background: none;
-      box-shadow: none;
-      font-weight: bold;
-      cursor: pointer;
-    }
+        #calendar-table tr td .scheduleContainer .schedule.seeMoreSchedules {
+            color: #666;
+            background: none;
+            box-shadow: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-    #calendar-table tr td .scheduleContainer .schedule.seeMoreSchedules:hover {
-      background: #666;
-      color: #fff;
-    }
+        #calendar-table tr td .scheduleContainer .schedule.seeMoreSchedules:hover {
+            background: #666;
+            color: #fff;
+        }
 
-    #calendar-table tr td .scheduleContainer .schedule:not(:last-child) {
-      margin-bottom: 5px;
-    }
+        #calendar-table tr td .scheduleContainer .schedule:not(:last-child) {
+            margin-bottom: 0.5vmin;
+        }
 
-    #calendar-table tr td .dateMenu {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #fff;
-      display: none;
-      padding: 10px;
-      z-index: 12;
-    }
+        #calendar-table tr td .dateMenu {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            display: none;
+            padding: 5px;
+            z-index: 12;
+        }
 
-    #calendar-table tr td .dateMenu .dateMenuClose {
-      position: absolute;
-      top: -5px;
-      right: 2.5px;
-      font-weight: bold;
-      font-size: 20px;
-      color: #333;
-      cursor: pointer;
-      z-index: 20;
-    }
+        #calendar-table tr td .dateMenu .dateMenuClose {
+            position: absolute;
+            top: 0px;
+            right: 7px;
+            font-weight: bold;
+            font-size: 20px;
+            color: #333;
+            cursor: pointer;
+            z-index: 20;
+        }
 
-    #calendar-table tr td .dateMenu ul {
-      list-style-type: none;
-    }
+        #calendar-table tr td .dateMenu ul {
+            list-style-type: none;
+        }
 
-    #calendar-table tr td .dateMenu ul li {
-      height: 30px;
-    }
+        #calendar-table tr td .dateMenu ul li {
+            height: 30px;
+        }
 
-    #calendar-table tr td .dateMenu ul li:not(:last-child) {
-      margin-bottom: 7.5px;
-    }
-  </style>
-  <link rel="stylesheet" href="css.css"/>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script>
-    $(document).ready(function() {
-        $("#openCreateNewSchedule").click(function () {
-            $("#overlay, #createNewSchedule").show();
+        #calendar-table tr td .dateMenu ul li:not(:last-child) {
+            margin-bottom: 7.5px;
+        }
+    </style>
+    <link rel="stylesheet" href="css.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#openCreateNewSchedule").click(function () {
+                $("#overlay, #createNewSchedule").show();
+            });
+
+            $("#cancelScheduleCreate, #overlay").click(function () {
+                $("#overlay, .popup-formular").hide();
+                $("#dateField, #fromField, #toField").val("");
+            });
+
+            $(".date").click(function () {
+                $(this).parent().parent().find(".dateMenu").show();
+            });
+
+            $(".dateMenu").mouseleave(function () {
+                $(this).hide();
+            });
+
+            $(".dateMenuClose").click(function () {
+                $(this).parent().parent().hide();
+            });
+
+            $(".createScheduleAtDate").click(function () {
+                document.getElementById("dateField").valueAsDate = new Date($(this).parents("td").data("date"));
+                $(this).parents(".dateMenu").hide();
+                $("#overlay, #createNewSchedule").show();
+            });
+
+            $("#calendar-table td").css({"height": ($("#calendar-table tbody").height() - 5) / 6 + "px"});
         });
-        
-        $("#cancelScheduleCreate, #overlay").click(function () {
-            $("#overlay, .popup-formular").hide();
-            $("#dateField, #fromField, #toField").val("");
-        });
 
-        $(".date").click(function () {
-            $(this).parent().parent().find(".dateMenu").show();
+        $(window).resize(function () {
+            $("#calendar-table").css({"height": ($(document).height() - 120) + "px"});
+            $("#calendar-table td").css({"height": $(("#calendar-table tbody").height() - 5) / 6 + "px"});
         });
-
-        $(".dateMenu").mouseleave(function() {
-            $(this).hide();
-        });
-
-        $(".dateMenuClose").click(function() {
-            $(this).parent().parent().hide();
-        });
-
-        $(".createScheduleAtDate").click(function () {
-            document.getElementById("dateField").valueAsDate = new Date($(this).parents("td").data("date"));
-            $(this).parents(".dateMenu").hide();
-            $("#overlay, #createNewSchedule").show();
-        });
-    });
-  </script>
+    </script>
 </head>
 <body>
-  <div th:replace="/includes/menu::menu"></div>
-  <div id="content">
+<div th:replace="/includes/menu::menu"></div>
+<div id="content">
     <div id="overlay"></div>
     <div id="createNewSchedule" class="popup-formular">
-      <h2>Opret ny vagt</h2>
-      <form method="post">
-        <table class="popup-table">
-          <tr>
-            <td><label for="employeeField">Medarbejder:</label></td>
-            <td>
-              <select id="employeeField" name="employee">
-                <option value="0" disabled selected>Vælg</option>
-                <option value="1">Bjarne</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td><label for="dateField">Dato:</label></td>
-            <td><input id="dateField" name="date" type="date"/></td>
-          </tr>
-          <tr>
-            <td><label for="fromField">Fra:</label></td>
-            <td><input id="fromField" name="fromTime" type="time"/></td>
-          </tr>
-          <tr>
-            <td><label for="toField">Til:</label></td>
-            <td><input id="toField" name="toTime" type="time"/></td>
-          </tr>
-          <tr>
-            <td><input id="cancelScheduleCreate" type="button" value="Annuller" class="red-btn"/></td>
-            <td><input name="saveSchedule" type="submit" value="Opret" class="green-btn" style="float: right"/></td>
-          </tr>
-        </table>
-      </form>
+        <h2>Opret ny vagt</h2>
+        <form method="post">
+            <table class="popup-table">
+                <tr>
+                    <td><label for="employeeField">Medarbejder:</label></td>
+                    <td>
+                        <select id="employeeField" name="employee">
+                            <option value="0" disabled selected>Vælg</option>
+                            <option value="1">Bjarne</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="dateField">Dato:</label></td>
+                    <td><input id="dateField" name="date" type="date"/></td>
+                </tr>
+                <tr>
+                    <td><label for="fromField">Fra:</label></td>
+                    <td><input id="fromField" name="fromTime" type="time"/></td>
+                </tr>
+                <tr>
+                    <td><label for="toField">Til:</label></td>
+                    <td><input id="toField" name="toTime" type="time"/></td>
+                </tr>
+                <tr>
+                    <td><input id="cancelScheduleCreate" type="button" value="Annuller" class="red-btn"/></td>
+                    <td><input name="saveSchedule" type="submit" value="Opret" class="green-btn" style="float: right"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
     </div>
     <div id="calendar">
-      <div id="topbar">
-        <form method="post">
-          <input name="month_chooser" type="submit" value="Forrige" class="blue-btn" />
-          <p id="monthAndYearHolder" th:text="${monthAndYear_TXT}"></p>
-          <input name="month_chooser" type="submit" value="Næste" class="blue-btn" />
-          <input type="button" value="Opret ny vagt" class="green-btn" style="margin-left: 20px;" id="openCreateNewSchedule" />
-        </form>
-        <div id="showSpecificCalendar">
-          <table>
-            <tr>
-              <td style="padding-right: 0px;">
-                <label for="showCalendar">Vis kalender for </label>
-              </td>
-              <td style="min-width: 200px;">
-                <select id="showCalendar" name="showCalendar" style="padding: 3px 5px;">
-                  <option value="0">Alle</option>
-                  <option value="1">Bjarne</option>
-                </select>
-              </td>
-            </tr>
-          </table>
+        <div id="topbar">
+            <form method="post">
+                <input name="month_chooser" type="submit" value="Forrige" class="blue-btn"/>
+                <p id="monthAndYearHolder" th:text="${monthAndYear_TXT}"></p>
+                <input name="month_chooser" type="submit" value="Næste" class="blue-btn"/>
+                <input type="button" value="Opret ny vagt" class="green-btn" style="margin-left: 20px;"
+                       id="openCreateNewSchedule"/>
+            </form>
+            <div id="showSpecificCalendar">
+                <table>
+                    <tr>
+                        <td style="padding-right: 0px;">
+                            <label for="showCalendar">Vis kalender for </label>
+                        </td>
+                        <td style="min-width: 200px;">
+                            <select id="showCalendar" name="showCalendar" style="padding: 3px 5px;">
+                                <option value="0">Alle</option>
+                                <option value="1">Bjarne</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="clear"></div>
         </div>
-        <div class="clear"></div>
-      </div>
-      <table id="calendar-table">
-        <thead>
-          <tr>
-            <th>Mandag</th>
-            <th>Tirsdag</th>
-            <th>Onsdag</th>
-            <th>Torsdag</th>
-            <th>Fredag</th>
-            <th>Lørdag</th>
-            <th>Søndag</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="index: ${#numbers.sequence(0, 41, 7)}">
-            <td th:classappend="${daysInThisMonth[index + 0]} ? '' : 'unavailable'" th:attrappend="data-date=${daysInThisMonth[index + 0]} ? ${dateArray[index + 0]}">
-              <div>
-                <p class="date" th:text="${days[index + 0]}"></p>
-                <div class="scheduleContainer">
-                  <div class="schedule" th:each="schedule : ${schedules}" th:if="${days[index + 0]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 6]}">
-                    <p  th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime})"></p>
-                  </div>
-                </div>
-              </div>
-              <div th:replace="${daysInThisMonth[index + 0]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
-            </td>
-            <td th:classappend="${daysInThisMonth[index + 1]} ? '' : 'unavailable'" th:attrappend="data-date=${daysInThisMonth[index + 1]} ? ${dateArray[index + 1]}">
-              <div>
-                <p class="date" th:text="${days[index + 1]}"></p>
-                <div class="scheduleContainer">
-                  <div class="schedule" th:each="schedule : ${schedules}" th:if="${days[index + 1]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 6]}">
-                    <p  th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime})"></p>
-                  </div>
-                </div>
-              </div>
-              <div th:replace="${daysInThisMonth[index + 1]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
-            </td>
-            <td th:classappend="${daysInThisMonth[index + 2]} ? '' : 'unavailable'" th:attrappend="data-date=${daysInThisMonth[index + 2]} ? ${dateArray[index + 2]}">
-              <div>
-                <p class="date" th:text="${days[index + 2]}"></p>
-                <div class="scheduleContainer">
-                  <div class="schedule" th:each="schedule : ${schedules}" th:if="${days[index + 2]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 6]}">
-                    <p  th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime})"></p>
-                  </div>
-                </div>
-              </div>
-              <div th:replace="${daysInThisMonth[index + 2]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
-            </td>
-            <td th:classappend="${daysInThisMonth[index + 3]} ? '' : 'unavailable'" th:attrappend="data-date=${daysInThisMonth[index + 3]} ? ${dateArray[index + 3]}">
-              <div>
-                <p class="date" th:text="${days[index + 3]}"></p>
-                <div class="scheduleContainer">
-                  <div class="schedule" th:each="schedule : ${schedules}" th:if="${days[index + 3]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 6]}">
-                      <p  th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime})"></p>
-                  </div>
-                </div>
-              </div>
-              <div th:replace="${daysInThisMonth[index + 3]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
-            </td>
-            <td th:classappend="${daysInThisMonth[index + 4]} ? '' : 'unavailable'" th:attrappend="data-date=${daysInThisMonth[index + 4]} ? ${dateArray[index + 4]}">
-              <div>
-                <p class="date" th:text="${days[index + 4]}"></p>
-                <div class="scheduleContainer">
-                  <div class="schedule" th:each="schedule : ${schedules}" th:if="${days[index + 4]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 6]}">
-                    <p  th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime})"></p>
-                  </div>
-                </div>
-              </div>
-              <div th:replace="${daysInThisMonth[index + 4]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
-            </td>
-            <td th:classappend="${daysInThisMonth[index + 5]} ? '' : 'unavailable'" th:attrappend="data-date=${daysInThisMonth[index + 5]} ? ${dateArray[index + 5]}">
-              <div>
-                <p class="date" th:text="${days[index + 5]}"></p>
-                <div class="scheduleContainer">
-                  <div class="schedule" th:each="schedule : ${schedules}" th:if="${days[index + 5]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 6]}">
-                    <p  th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime})"></p>
-                  </div>
-                </div>
-              </div>
-              <div th:replace="${daysInThisMonth[index + 5]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
-            </td>
-            <td th:classappend="${daysInThisMonth[index + 6]} ? '' : 'unavailable'" th:attrappend="data-date=${daysInThisMonth[index + 6]} ? ${dateArray[index + 6]}">
-              <div>
-                <p class="date" th:text="${days[index + 6]}"></p>
-                <div class="scheduleContainer">
-                  <div class="schedule" th:each="schedule : ${schedules}" th:if="${days[index + 6]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 6]}">
-                    <p  th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime})"></p>
-                  </div>
-                </div>
-              </div>
-              <div th:replace="${daysInThisMonth[index + 6]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        <table id="calendar-table">
+            <thead>
+            <tr>
+                <th>Mandag</th>
+                <th>Tirsdag</th>
+                <th>Onsdag</th>
+                <th>Torsdag</th>
+                <th>Fredag</th>
+                <th>Lørdag</th>
+                <th>Søndag</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="index: ${#numbers.sequence(0, 41, 7)}">
+                <td th:classappend="${daysInThisMonth[index + 0]} ? '' : 'unavailable'"
+                    th:attrappend="data-date=${daysInThisMonth[index + 0]} ? ${dateArray[index + 0]}">
+                    <div>
+                        <p class="date" th:text="${days[index + 0]}"></p>
+                        <div class="scheduleContainer" th:with="counter = 0">
+                            <div class="schedule " th:each="schedule, iterStat : ${schedules}"
+                                 th:if="${days[index + 0]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 0]} and ${iterStat.index} <= ${toIndex[index + 0]}">
+                                <p th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime})"></p>
+                            </div>
+                            <div class="schedule seeMoreSchedules" th:if="${schedulesPerDay[index + 0]} > 3">
+                                <p th:text="'Se '+(${schedulesPerDay[index + 0]} -3)+' mere'"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:replace="${daysInThisMonth[index + 0]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
+                </td>
+                <td th:classappend="${daysInThisMonth[index + 1]} ? '' : 'unavailable'"
+                    th:attrappend="data-date=${daysInThisMonth[index + 1]} ? ${dateArray[index + 1]}">
+                    <div>
+                        <p class="date" th:text="${days[index + 1]}"></p>
+                        <div class="scheduleContainer">
+                            <div class="schedule" th:each="schedule, iterStat : ${schedules}"
+                                 th:if="${days[index + 1]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 1]} and ${iterStat.index} <= ${toIndex[index + 1]}">
+                                <p th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime})"></p>
+                            </div>
+                            <div class="schedule seeMoreSchedules" th:if="${schedulesPerDay[index + 1]} > 3">
+                                <p th:text="'Se '+(${schedulesPerDay[index + 1]} -3)+' mere'"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:replace="${daysInThisMonth[index + 1]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
+                </td>
+                <td th:classappend="${daysInThisMonth[index + 2]} ? '' : 'unavailable'"
+                    th:attrappend="data-date=${daysInThisMonth[index + 2]} ? ${dateArray[index + 2]}">
+                    <div>
+                        <p class="date" th:text="${days[index + 2]}"></p>
+                        <div class="scheduleContainer">
+                            <div class="schedule" th:each="schedule, iterStat : ${schedules}"
+                                 th:if="${days[index + 2]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 2]} and ${iterStat.index} <= ${toIndex[index + 2]}">
+                                <p th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime})"></p>
+                            </div>
+                            <div class="schedule seeMoreSchedules" th:if="${schedulesPerDay[index + 2]} > 3">
+                                <p th:text="'Se '+(${schedulesPerDay[index + 2]} -3)+' mere'"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:replace="${daysInThisMonth[index + 2]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
+                </td>
+                <td th:classappend="${daysInThisMonth[index + 3]} ? '' : 'unavailable'"
+                    th:attrappend="data-date=${daysInThisMonth[index + 3]} ? ${dateArray[index + 3]}">
+                    <div>
+                        <p class="date" th:text="${days[index + 3]}"></p>
+                        <div class="scheduleContainer">
+                            <div class="schedule" th:each="schedule, iterStat : ${schedules}"
+                                 th:if="${days[index + 3]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 3]} and ${iterStat.index} <= ${toIndex[index + 3]}">
+                                <p th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime})"></p>
+                            </div>
+                            <div class="schedule seeMoreSchedules" th:if="${schedulesPerDay[index + 3]} > 3">
+                                <p th:text="'Se '+(${schedulesPerDay[index + 3]} -3)+' mere'"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:replace="${daysInThisMonth[index + 3]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
+                </td>
+                <td th:classappend="${daysInThisMonth[index + 4]} ? '' : 'unavailable'"
+                    th:attrappend="data-date=${daysInThisMonth[index + 4]} ? ${dateArray[index + 4]}">
+                    <div>
+                        <p class="date" th:text="${days[index + 4]}"></p>
+                        <div class="scheduleContainer">
+                            <div class="schedule" th:each="schedule, iterStat : ${schedules}"
+                                 th:if="${days[index + 4]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 4]} and ${iterStat.index} <= ${toIndex[index + 4]}">
+                                <p th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime})"></p>
+                            </div>
+                            <div class="schedule seeMoreSchedules" th:if="${schedulesPerDay[index + 4]} > 3">
+                                <p th:text="'Se '+(${schedulesPerDay[index + 4]} -3)+' mere'"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:replace="${daysInThisMonth[index + 4]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
+                </td>
+                <td th:classappend="${daysInThisMonth[index + 5]} ? '' : 'unavailable'"
+                    th:attrappend="data-date=${daysInThisMonth[index + 5]} ? ${dateArray[index + 5]}">
+                    <div>
+                        <p class="date" th:text="${days[index + 5]}"></p>
+                        <div class="scheduleContainer">
+                            <div class="schedule" th:each="schedule, iterStat : ${schedules}"
+                                 th:if="${days[index + 5]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 5]} and ${iterStat.index} <= ${toIndex[index + 5]}">
+                                <p th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime})"></p>
+                            </div>
+                            <div class="schedule seeMoreSchedules" th:if="${schedulesPerDay[index + 5]} > 3">
+                                <p th:text="'Se '+(${schedulesPerDay[index + 5]} -3)+' mere'"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:replace="${daysInThisMonth[index + 5]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
+                </td>
+                <td th:classappend="${daysInThisMonth[index + 6]} ? '' : 'unavailable'"
+                    th:attrappend="data-date=${daysInThisMonth[index + 6]} ? ${dateArray[index + 6]}">
+                    <div>
+                        <p class="date" th:text="${days[index + 6]}"></p>
+                        <div class="scheduleContainer">
+                            <div class="schedule" th:each="schedule, iterStat : ${schedules}"
+                                 th:if="${days[index + 6]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 6]} and ${iterStat.index} <= ${toIndex[index + 6]}">
+                                <p th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime})"></p>
+                            </div>
+                            <div class="schedule seeMoreSchedules" th:if="${schedulesPerDay[index + 6]} > 3">
+                                <p th:text="'Se '+(${schedulesPerDay[index + 6]} -3)+' mere'"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:replace="${daysInThisMonth[index + 6]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-  </div>
+</div>
 </body>
 </html>

@@ -91,4 +91,8 @@ public class ServiceCalendar {
   public String getYearAsString() {
     return String.valueOf(calendar.get(Calendar.YEAR));
   }
+
+  public int getPreviousMonthDays() {
+    return weekdays;
+  }
 }
