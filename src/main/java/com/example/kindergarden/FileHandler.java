@@ -5,6 +5,7 @@ import com.example.kindergarden.base.Schedule;
 import com.example.kindergarden.services.ServiceEmployee;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -15,16 +16,25 @@ public class FileHandler {
     private Scanner scanner;
     private String employeeFile = "./src/main/resources/files/";
 
-    public FileHandler(String fileName) throws Exception {
+    public FileHandler(String fileName) {
         this.fileName = fileName;
-        scanner = new Scanner(new File("./src/main/resources/files/"+fileName)).useDelimiter(";");
+        try {
+            scanner = new Scanner(new File("./src/main/resources/files/"+fileName)).useDelimiter(";");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void saveEmployeeToFile() throws Exception {
+    public void saveEmployeeToFile(){
       ServiceEmployee serviceEmployee = new ServiceEmployee();
         for (Employee employeeSave: serviceEmployee.getEmployees()){
-          PrintStream newEmployeeInfo = new PrintStream(new FileOutputStream("./src/main/resources/files/"+fileName,true));
-          String employeeInfo = String.format("%s; %s; %s; %s; %s; %s; %s; %s\n",
+            PrintStream newEmployeeInfo = null;
+            try {
+                newEmployeeInfo = new PrintStream(new FileOutputStream("./src/main/resources/files/"+fileName,true));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            String employeeInfo = String.format("%s;%s;%s;%s;%s;%s;%s;%s\n",
               employeeSave.getFirstName(),
               employeeSave.getLastName(),
               employeeSave.getRoadName(),
@@ -34,7 +44,7 @@ public class FileHandler {
               employeeSave.getPhoneNumber(),
               employeeSave.getEmail());
 
-          newEmployeeInfo.println(employeeInfo);
+          newEmployeeInfo.print(employeeInfo);
           System.out.print("\n");
         }
     }
