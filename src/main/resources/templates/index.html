@@ -247,8 +247,6 @@
                     $(".toTimeFail").hide();
                 }
 
-                alert($("input[name=toTime]").val().length);
-
                 if($("input[name=fromTime]").val().length != 0 && $("input[name=toTime]").val().length != 0 && $("input[name=toTime]").val() < $("input[name=fromTime]").val()) {
                     $(".timeIsBeforeStartFail").show();
                     isValid = false;
