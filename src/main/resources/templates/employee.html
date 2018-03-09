@@ -12,13 +12,7 @@
         }
 
         #content {
-            margin-top: 80px;
             height: calc(100% - 50px);
-
-        }
-
-        #openCreateNewEmployee {
-            margin: 20px;
         }
 
         #employeeContainer{
@@ -79,6 +73,10 @@
             float: right !important;
         }
 
+        #topbar{
+            padding: 20px 20px 0px 20px !important;
+        }
+
     </style>
     <script>
         $(document).ready(function () {
@@ -95,14 +93,18 @@
 <body>
 <div th:replace="/includes/menu::menu"></div>
 
-<form method="post">
-    <input type="button" value="Opret ny medarbejder" class="green-btn" id="openCreateNewEmployee"/>
-</form>
+
 <div id="content">
     <div id="overlay"></div>
     <div th:replace="/includes/createEmployeePopUp::createNewEmployee"></div>
-    <h3 id="openCreateNewEmployee">Medarbejder</h3>
+    <div id="topbar">
+        <form method="post">
+            <input type="button" value="Opret ny medarbejder" class="green-btn" id="openCreateNewEmployee"/>
+        </form>
+        <div class="clear"></div>
+    </div>
     <div id="employeeContainer">
+        <h3 style="margin-bottom: 20px">Medarbejder</h3>
         <table id="employeeList">
             <tbody>
             <tr th:each="employee: ${employees}">
@@ -158,8 +160,8 @@
             <tr>
                 <td>&nbsp;</td>
                 <td>
-                    <input type="submit" value="Slet" class="red-btn buttonsInfo">
                     <input type="button" value="Redigér" class="blue-btn buttonsInfo">
+                    <input type="submit" value="Slet" class="red-btn buttonsInfo">
                 </td>
             </tr>
         </table>
