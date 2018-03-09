@@ -81,7 +81,7 @@ public class FileHandler {
         return this;
     }
 
-    public ArrayList<Schedule> getSchedules(String month, String year)  {
+    public ArrayList<Schedule> getSchedules(String month, String year, int id)  {
         ArrayList<Schedule> schedules = new ArrayList<>();
         ArrayList<Employee> tempEmployees = loadEmployees("employees.txt");
 
@@ -97,7 +97,9 @@ public class FileHandler {
 
                 if (Integer.parseInt(date.substring(0, 6)) == Integer.parseInt(year + month)) {
                     for(Employee employee: tempEmployees) {
-                        if(employee.getId() == employeeKey) {
+                        if(employee.getId() == employeeKey && id == 0) {
+                            schedules.add(new Schedule(ID, date, fromTime, toTime, employee.getFirstName(), employeeKey, employee.getFirstName()+" "+employee.getLastName()));
+                        } else if(employee.getId() == employeeKey && id == employeeKey) {
                             schedules.add(new Schedule(ID, date, fromTime, toTime, employee.getFirstName(), employeeKey, employee.getFirstName()+" "+employee.getLastName()));
                         }
                     }
