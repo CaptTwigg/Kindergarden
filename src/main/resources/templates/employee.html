@@ -1,89 +1,171 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Employees</title>
-  <link rel="stylesheet" href="css.css" type="text/css"/>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Employees</title>
+    <link rel="stylesheet" href="css.css" type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-  <style>
-    tbody{
-      min-width: 500px;
-    }
-    #content {
-      margin-top: 80px;
-      height: calc(100% - 50px);
+    <style>
+        tbody {
+            min-width: 500px;
+        }
 
-    }
+        #content {
+            margin-top: 80px;
+            height: calc(100% - 50px);
 
-    #openCreateNewEmployee {
-      margin: 20px;
-    }
+        }
 
-    #employeeList {
-      margin-left: 20px;
-      min-width: 500px;
-      box-shadow: 0 0 0 2px #cccccc;
-      table-layout: fixed;
-      white-space: nowrap;
-    }
+        #openCreateNewEmployee {
+            margin: 20px;
+        }
 
-    #employeeList h1 {
-      text-align: center;
-    }
+        #employeeContainer{
+            padding: 20px;
+        }
 
-    #employeeList tr:nth-child(even) {
-      background-color: white;
-    }
+        #employeeList {
+            float: left;
+            width: 59%;
+            box-shadow: 0 0 0 2px #cccccc;
+            table-layout: fixed;
+            white-space: nowrap;
+        }
 
-    #employeeList td {
-      text-align: left;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+        #employeeList h1 {
+            text-align: center;
+        }
+
+        #employeeList tr:nth-child(even) {
+            background-color: white;
+        }
+
+        #employeeList td {
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 3px;
+        }
+
+        #headInfo {
+            display: flex;
+        }
+
+        #employeeInfoTable {
+            float: right;
+            width: 39%;
+            box-shadow: 0 0 0 2px #cccccc;
+            padding: 3px;
+        }
+
+        #employeeInfoTable td{
+            padding: 3px;
+
+        }
+        #employeeInfoTable  tr:nth-child(even){
+            background: white;
+        }
 
 
-  </style>
-  <script>
-    $(document).ready(function () {
-      $("#openCreateNewEmployee").click(function () {
-        $("#overlay, #createNewEmployee").show();
-      });
+        .buttonsList{
+            margin-left: 10px;
+            float: right !important;
+        }
 
-      $("#cancelEmployeeCreate, #overlay").click(function () {
-        $("#overlay, .popup-formular").hide();
-      });
-    });
-  </script>
+        .buttonsInfo{
+            margin-left: 10px;
+            float: right !important;
+        }
+
+    </style>
+    <script>
+        $(document).ready(function () {
+            $("#openCreateNewEmployee").click(function () {
+                $("#overlay, #createNewEmployee").show();
+            });
+
+            $("#cancelEmployeeCreate, #overlay").click(function () {
+                $("#overlay, .popup-formular").hide();
+            });
+        });
+    </script>
 </head>
 <body>
 <div th:replace="/includes/menu::menu"></div>
 
-<h1 align="center">Medarbejderliste</h1>
-<form method="post" >
-  <input type="button" value="Opret ny medarbejder" class="green-btn" id="openCreateNewEmployee"/>
+<form method="post">
+    <input type="button" value="Opret ny medarbejder" class="green-btn" id="openCreateNewEmployee"/>
 </form>
 <div id="content">
-  <div id="overlay"></div>
-  <div th:replace="/includes/createEmployeePopUp::createNewEmployee"></div>
-  <div id="employeeContainer">
-    <table id="employeeList">
+    <div id="overlay"></div>
+    <div th:replace="/includes/createEmployeePopUp::createNewEmployee"></div>
+    <h3 id="openCreateNewEmployee">Medarbejder</h3>
+    <div id="employeeContainer">
+        <table id="employeeList">
+            <tbody>
+            <tr th:each="employee: ${employees}">
+                <td th:text="${employee.firstName} + ' ' + ${employee.lastName}"/>
 
-      <h3 id="openCreateNewEmployee">Medarbejder</h3>
-      <tbody>
-      <tr th:each="employee: ${employees}">
-        <td th:text="${employee.firstName} + ' ' + ${employee.lastName}"/>
+                <td>
+                    <input type="button" value="Slet" class="red-btn buttonsList"/>
+                    <input type="button" value="Redigér" class="blue-btn buttonsList"/>
+                    <input type="button" value="Detaljer" class="green-btn buttonsList" />
+                </td>
+            </tr>
+            </tbody>
+        </table>
 
-        <td>
-          <input type="button" value="Detaljer" class="green-btn" style="margin-left: 20px;"/>
-          <input type="button" value="Redigér" class="blue-btn" style="margin-left: 20px;"/>
-          <input type="button" value="Slet" class="red-btn" style="margin-left: 20px;"/>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+        <table id="employeeInfoTable">
+            <tr>
+                <td id="headInfo">
+                    <h3>Medarbejder Information</h3>
+                </td>
+            </tr>
+            <tr>
+                <td>Fornavn</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>Efternavn</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>Adresse</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>Vejnr</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>By</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>Postnummer</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>Tlf</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>E-mail</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="submit" value="Slet" class="red-btn buttonsInfo">
+                    <input type="button" value="Redigér" class="blue-btn buttonsInfo">
+                </td>
+            </tr>
+        </table>
+
+
+    </div>
 
 </div>
 </body>
