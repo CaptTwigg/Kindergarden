@@ -4,33 +4,45 @@ import com.example.kindergarden.base.Employee;
 import com.example.kindergarden.FileHandler;
 import com.example.kindergarden.services.ServiceEmployee;
 import com.example.kindergarden.services.ServiceSession;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class EmployeeController {
-    ServiceEmployee serviceEmployee = new ServiceEmployee();
+  ServiceEmployee serviceEmployee = new ServiceEmployee();
 
-    @GetMapping("/employee")
-    public String employee(Model model){
+  @GetMapping("/employee")
+  public String employee(Model model) {
 
-      if(ServiceSession.isSomeoneLoggedIn()) {
-        model.addAttribute("employees", serviceEmployee.getEmployees()); //får fat i arraylist
-        model.addAttribute("employee", new Employee());
+    if (ServiceSession.isSomeoneLoggedIn()) {
+      model.addAttribute("employees", serviceEmployee.getEmployees()); //får fat i arraylist
+      model.addAttribute("employee", new Employee());
 
-        return "employee";
+      return "employee";
 
-      } else {
-        return "redirect:/";
-      }
+    } else {
+      return "redirect:/";
     }
+  }
 
-    @PostMapping("/employee")
-    public String addEmployee(@ModelAttribute Employee em){
-        serviceEmployee.addEmployeeToList(em); //Metode i serviceEmployee der gemmer employee til arraylist
-        return "redirect:/employee";
-    }
+  @PostMapping("/employee")
+  public String addEmployee(@ModelAttribute Employee em) {
+    serviceEmployee.addEmployeeToList(em); //Metode i serviceEmployee der gemmer employee til arraylist
+    return "redirect:/employee";
+  }
+
+  @PostMapping("/deleteEmployee")
+//  @ResponseStatus(value = HttpStatus.OK)
+  public void deleteEmployee(@RequestParam int id) {
+    serviceEmployee.deleteEmployee(id);
+    //return "redirect:/employee";
+  }
+
+  @PostMapping("/editEmployee")
+  public String editEmployee(@ModelAttribute Employee em) {
+    serviceEmployee.editEmployee(em);
+    return "redirect:/employee";
+  }
 }
