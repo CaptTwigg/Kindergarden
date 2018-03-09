@@ -186,17 +186,17 @@ input[type=date], input[type=time], select {
     font-size: 17.5px;
     line-height: 17.5px;
     padding: 16.25px 20px 14px 20px;
-    color: white;
+    color: #d9d9d9;
     text-decoration: none;
 }
 
 #menu ul li a.active {
     border-bottom: 3px solid white;
+    color: white;
 }
 
 #menu ul li a:hover {
-    background-color: #3866CF;
-    border-bottom: 3px solid #3866CF;
+    color:  white;
 }
 
 #menu ul li:nth-last-child(-n+2) {
