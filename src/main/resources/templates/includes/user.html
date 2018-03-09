@@ -1,4 +1,4 @@
-<div class="popup-formular" th:fragment="user" th:each="employees: ${employees}" th:if="${employees.id} == 1">
+<div id="user" class="popup-formular" th:fragment="user" th:each="employees: ${employees}" th:if="${employees.id} == 1">
     <h2>Medarbejder Information</h2>
     <form method="post">
         <table class="popup-table">
@@ -35,7 +35,7 @@
                 <td><input id="emailField" name="email" type="email" th:value="${employees.email}"></td>
             </tr>
             <tr>
-                <td><input id="cancelScheduleCreate" type="button" value="Annuller" class="red-btn"></td>
+                <td><input id="cancelUser" type="button" value="Annuller" class="red-btn"></td>
                 <td><input name="saveSchedule" type="submit" value="Opret" class="green-btn" style="float: right">
                 </td>
             </tr>

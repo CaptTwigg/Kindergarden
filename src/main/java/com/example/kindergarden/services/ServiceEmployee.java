@@ -21,7 +21,7 @@ public class ServiceEmployee {
   }
 
   public void addEmployeeToList(Employee em) {
-    int id = employees.size() == 0 ? 1 : getHighestIdOfEmployees() + 1;
+    int id = employees.size() == 0 ? 1 : getHighestIdOfEmployees();
     employees.add(em.setId(id));
     fileHandler.saveEmployeeToFile(employees);
   }
@@ -38,8 +38,7 @@ public class ServiceEmployee {
         id = employee.getId();
       }
     }
-
-    return id;
+    return id + 1; // +1 to increment id
   }
 
   public void deleteEmployee(int id) {
@@ -57,24 +56,12 @@ public class ServiceEmployee {
 
     employees.set(index,employee);
     employees.remove(index +1);
-
   }
 
   public int getIndex(int id) {
     for (int i = 0; i < employees.size(); i++)
       if (employees.get(i).getId() == id)
         return i;
-
     return -1;
   }
-
-  public static void main(String[] args) {
-    ServiceEmployee se = new ServiceEmployee();
-    System.out.println(se.getEmployees());
-    se.deleteEmployee(1);
-    System.out.println(se.getEmployees());
-
-  }
-
-
 }
