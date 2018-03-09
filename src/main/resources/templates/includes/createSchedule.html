@@ -7,7 +7,7 @@
                 <td>
                     <select id="employeeField" name="employee">
                         <option value="0" selected>Vælg</option>
-                        <option value="1">Bjarne</option>
+                        <option th:each="employees: ${employees}" th:value="${employees.id}" th:text="${employees.firstName}+' '+${employees.lastName}"></option>
                     </select>
                     <div class="fail employeeFail"><div class="arrow-left"></div>Du skal vælge en medarbejder</div>
                 </td>

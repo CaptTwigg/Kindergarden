@@ -8,13 +8,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @Controller
 public class SchedulerController {
     private ServiceCalendar serviceCalendar = new ServiceCalendar();
     private ServiceSchedule serviceSchedule = new ServiceSchedule();
-    private Schedule lastestDelete;
+    private ArrayList<Schedule> lastDeletedSchedules = new ArrayList<>();
 
-    String successMessage = "";
+    private String successMessage = "";
+    private int numberOfDeletedSchedules = 0;
 
     @GetMapping("/index")
     public String index(Model model) {
@@ -30,7 +33,9 @@ public class SchedulerController {
             model.addAttribute("toIndex", serviceSchedule.getToIndexArray(serviceCalendar));
             model.addAttribute("employees", serviceSchedule.getEmployees());
             model.addAttribute("success_TXT", successMessage);
+            model.addAttribute("numberOfDeletedSchedules", numberOfDeletedSchedules);
             successMessage = "";
+            numberOfDeletedSchedules = 0;
             return "index";
         } else {
             return "redirect:/";
@@ -40,26 +45,54 @@ public class SchedulerController {
     @PostMapping(value = "/index", params = "month_chooser=Forrige")
     public String goToPreviousMonth() {
         serviceCalendar.decrement();
+        emptyDeletedSchedules();
         return "redirect:/index";
     }
 
     @PostMapping(value = "/index", params = "month_chooser=Næste")
     public String goToNextMonth() {
         serviceCalendar.increment();
+        emptyDeletedSchedules();
         return "redirect:/index";
     }
 
     @PostMapping(value = "/index", params = "go_to=Gå til idag")
     public String goToToday() {
         serviceCalendar.goToToday();
+        emptyDeletedSchedules();
         return "redirect:/index";
     }
 
     @PostMapping(value = "/index", params = "saveNewSchedule=Opret")
     public String createNewSchedule(@RequestParam("fromTime") String fromTime, @RequestParam("toTime") String toTime, @RequestParam("date") String date ,@RequestParam("employee") int employeeKey) {
-        lastestDelete = new Schedule(date, fromTime, toTime, employeeKey);
         serviceSchedule.add(new Schedule(date, fromTime, toTime, employeeKey));
         successMessage = "Den nye vagt er blevet tilføjet og gemt. Kalenderen er opdateret!";
+        emptyDeletedSchedules();
         return "redirect:/index";
+    }
+
+    @PostMapping(value = "/index", params = "deleteSingleShcedule=Slet")
+    public String deleteSingleSchedule(@RequestParam("deleteSingleScheduleID") String ID) {
+        emptyDeletedSchedules();
+        lastDeletedSchedules.add(serviceSchedule.remove(Integer.parseInt(ID)));
+        successMessage = "Vagten blev fjernet. Kalenderen er opdateret!";
+        numberOfDeletedSchedules = 1;
+        return "redirect:/index";
+    }
+
+    @PostMapping(value = "/index", params = "restoreDeletedSchedules=Fortryd")
+    public String restoreDeletedSchedules() {
+        for(Schedule schedule: lastDeletedSchedules) {
+            serviceSchedule.add(new Schedule(schedule.getDate(), schedule.getFromTime(), schedule.getToTime(), schedule.getEmployeeKey()));
+            //System.out.println(serviceCalendar.getYearAsString()+"-"+serviceCalendar.getMonthAsString()+"-"+schedule.getDate());
+        }
+        numberOfDeletedSchedules = 1;
+        successMessage = (numberOfDeletedSchedules == 1 ? numberOfDeletedSchedules + " vagt " : numberOfDeletedSchedules + " vagter ") + "blev gendannet. Kalenderen er opdateret!";
+        numberOfDeletedSchedules = 0;
+        return "redirect:/index";
+    }
+
+    private void emptyDeletedSchedules() {
+        lastDeletedSchedules = new ArrayList<>();
     }
 }

@@ -205,6 +205,29 @@
             width: 100%;
             padding-bottom: 20px;
         }
+
+        #deletedSchedules {
+            position: fixed;
+            bottom: 30px;
+            width: 400px;
+            padding: 10px;
+            z-index: 30;
+            background: #333;
+            border-radius: 5px;
+            left: 50%;
+            margin-left: -200px;
+        }
+
+        #deletedSchedules #deletedSchedulesText {
+            float: left;
+            color: #fff;
+            font-size: 15px;
+            padding: 5px;
+        }
+
+        #deletedSchedules input[type=submit] {
+            float: right;
+        }
     </style>
     <link rel="stylesheet" href="css.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -216,6 +239,9 @@
                 $("#success").css({"margin-left": "-"+($("#success").outerWidth()/2)+"px"});
                 $("#success").fadeIn(500).delay(3000).fadeOut(500);
             }
+
+            $("#deletedSchedules").delay(10000).animate({"bottom" : "-70px"}, 500);
+
             $("#openCreateNewSchedule").click(function () {
                 $("#overlay, #createNewSchedule").show();
             });
@@ -249,6 +275,7 @@
 
             $(".schedule:not(.seeMoreSchedules)").click(function () {
                 clickedSchedule = $(this);
+                $("#viewSingleSchedule input[name=deleteSingleScheduleID]").val($(clickedSchedule).data("schedule-id"));
                 $("#viewSingleSchedule h2").text($(clickedSchedule).data("employee"));
                 $("#viewSingleSchedule #fromTimeInformation").text($(clickedSchedule).data("from-time"));
                 $("#viewSingleSchedule #toTimeInformation").text($(clickedSchedule).data("to-time"));
@@ -318,6 +345,12 @@
 <body>
 <div th:replace="/includes/menu::menu"></div>
 <div id="content">
+    <div id="deletedSchedules" th:if="${numberOfDeletedSchedules} != 0">
+        <span id="deletedSchedulesText" th:text="${numberOfDeletedSchedules} > 1 ? ${numberOfDeletedSchedules}+' vagter blev slettet' : ${numberOfDeletedSchedules}+' vagt blev slettet'"></span>
+        <form method="post">
+            <input name="restoreDeletedSchedules" value="Fortryd" type="submit" class="green-btn" />
+        </form>
+    </div>
     <div id="success" th:text="${success_TXT}"></div>
     <div id="overlay"></div>
     <div th:replace="/includes/user:: user"></div>

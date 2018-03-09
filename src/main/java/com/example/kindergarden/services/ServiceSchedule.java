@@ -99,7 +99,7 @@ public class ServiceSchedule {
     }
 
     private int getHighestId() {
-        int highestId = 1;
+        int highestId = 00;
 
         for(Schedule schedule: schedules) {
             if(schedule.getId() > highestId) {
@@ -107,6 +107,25 @@ public class ServiceSchedule {
             }
         }
 
-        return (highestId == 1 ? highestId : highestId + 1);
+        return (highestId == 0 ? 1 : highestId + 1);
+    }
+
+    public Schedule remove(int ID) {
+        Schedule removedSchedule = new Schedule();
+
+        schedules = fileHandler.getAllSchedules();
+
+        for(Schedule schedule: schedules) {
+            if(schedule.getId() == ID) {
+                schedules.remove(schedule);
+                removedSchedule = schedule;
+                break;
+            }
+        }
+
+        Collections.sort(schedules);
+        fileHandler.saveSchedulesToFile(schedules);
+
+        return removedSchedule;
     }
 }

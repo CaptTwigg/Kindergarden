@@ -9,6 +9,8 @@ public class Schedule implements Comparable<Schedule> {
     private String employeeName;
     private String employeeFullName;
 
+    public Schedule() {}
+
     public Schedule(int id, String date, String fromTime, String toTime, String employeeName, int employeeKey, String employeeFullName) {
         Id = id;
         this.date = date.substring(6, 8);
