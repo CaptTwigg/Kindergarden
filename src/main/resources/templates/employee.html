@@ -15,7 +15,7 @@
             height: calc(100% - 50px);
         }
 
-        #employeeContainer{
+        #employeeContainer {
             padding: 20px;
         }
 
@@ -54,40 +54,40 @@
             padding: 3px;
         }
 
-        #employeeInfoTable td{
+        #employeeInfoTable td {
             padding: 3px;
 
         }
-        #employeeInfoTable  tr:nth-child(even){
+
+        #employeeInfoTable tr:nth-child(even) {
             background: white;
         }
 
-
-        .buttonsList{
+        .buttonsList {
             margin-left: 10px;
             float: right !important;
         }
 
-        .buttonsInfo{
+        .buttonsInfo {
             margin-left: 10px;
             float: right !important;
         }
 
-        #topbar{
+        #topbar {
             padding: 20px 20px 0px 20px !important;
         }
 
     </style>
     <script>
-        $(document).ready(function () {
-            $("#openCreateNewEmployee").click(function () {
-                $("#overlay, #createNewEmployee").show();
-            });
-
-            $("#cancelEmployeeCreate, #overlay").click(function () {
-                $("#overlay, .popup-formular").hide();
-            });
+      $(document).ready(function () {
+        $("#openCreateNewEmployee").click(function () {
+          $("#overlay, #createNewEmployee").show();
         });
+
+        $("#cancelEmployeeCreate, #overlay").click(function () {
+          $("#overlay, .popup-formular").hide();
+        });
+      });
     </script>
 </head>
 <body>
@@ -105,15 +105,18 @@
     </div>
     <div id="employeeContainer">
         <h3 style="margin-bottom: 20px">Medarbejder</h3>
+
         <table id="employeeList">
             <tbody>
             <tr th:each="employee: ${employees}">
                 <td th:text="${employee.firstName} + ' ' + ${employee.lastName}"/>
 
                 <td>
-                    <input type="button" value="Slet" class="red-btn buttonsList"/>
+                    <input type="submit" value="Slet" class="red-btn buttonsList"/>
                     <input type="button" value="Redigér" class="blue-btn buttonsList"/>
-                    <input type="button" value="Detaljer" class="green-btn buttonsList" />
+                    <form method="post" th:action="@{'details?id=' + ${employee.id}}">
+                        <input type="submit" value="Detaljer" class="green-btn buttonsList"/>
+                    </form>
                 </td>
             </tr>
             </tbody>
@@ -127,35 +130,35 @@
             </tr>
             <tr>
                 <td>Fornavn</td>
-                <td>&nbsp;</td>
+                <td th:text="${details.firstName}"></td>
             </tr>
             <tr>
                 <td>Efternavn</td>
-                <td>&nbsp;</td>
+                <td th:text="${details.lastName}">&nbsp;</td>
             </tr>
             <tr>
-                <td>Adresse</td>
-                <td>&nbsp;</td>
+                <td>Vejnavn</td>
+                <td th:text="${details.roadName}">&nbsp;</td>
             </tr>
             <tr>
                 <td>Vejnr</td>
-                <td>&nbsp;</td>
+                <td th:text="${details.roadNumber}">&nbsp;</td>
             </tr>
             <tr>
                 <td>By</td>
-                <td>&nbsp;</td>
+                <td th:text="${details.city}">&nbsp;</td>
             </tr>
             <tr>
                 <td>Postnummer</td>
-                <td>&nbsp;</td>
+                <td th:text="${details.postalCode}">&nbsp;</td>
             </tr>
             <tr>
                 <td>Tlf</td>
-                <td>&nbsp;</td>
+                <td th:text="${details.phoneNumber}">&nbsp;</td>
             </tr>
             <tr>
                 <td>E-mail</td>
-                <td>&nbsp;</td>
+                <td th:text="${details.email}">&nbsp;</td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
@@ -165,7 +168,6 @@
                 </td>
             </tr>
         </table>
-
 
     </div>
 

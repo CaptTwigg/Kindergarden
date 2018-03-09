@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class EmployeeController {
   ServiceEmployee serviceEmployee = new ServiceEmployee();
+  int index;
 
   @GetMapping("/employee")
   public String employee(Model model) {
@@ -19,6 +20,7 @@ public class EmployeeController {
     if (ServiceSession.isSomeoneLoggedIn()) {
       model.addAttribute("employees", serviceEmployee.getEmployees()); //får fat i arraylist
       model.addAttribute("employee", new Employee());
+      model.addAttribute("details", serviceEmployee.getEmployees().get(index));
 
       return "employee";
 
@@ -47,8 +49,8 @@ public class EmployeeController {
   }
 
   @PostMapping("/details")
-  public void details(@RequestParam int id, Model model) {
-    int index = serviceEmployee.getIndex(id);
-    model.addAttribute("employee", serviceEmployee.getEmployees().get(index));
+  public String details(@RequestParam int id, Model model) {
+    index = serviceEmployee.getIndex(id);
+    return "redirect:/employee";
   }
 }
