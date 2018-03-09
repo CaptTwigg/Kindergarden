@@ -1,4 +1,16 @@
+
 <div id="menu" th:fragment="menu" xmlns:th="http://www.w3.org/1999/xhtml">
+    <script>
+        $(document).ready(function () {
+            var fileName = window.location.pathname;
+            if(fileName == "/index"){
+                $("#menu ul li:nth-child(1) a").addClass("active");
+
+            }else if(fileName == "/employee"){
+                $("#menu ul li:nth-child(2) a").addClass("active");
+            }
+        });
+    </script>
     <ul>
         <li>
             <a href="/index">Vagtplan</a>
