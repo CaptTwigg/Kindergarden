@@ -56,7 +56,14 @@
 
         #employeeInfoTable td {
             padding: 3px;
+        }
 
+        #infoHeader{
+            text-align: left;
+        }
+
+        .tdInfo{
+            width: 100px;
         }
 
         #employeeInfoTable tr:nth-child(even) {
@@ -104,7 +111,13 @@
         <div class="clear"></div>
     </div>
     <div id="employeeContainer">
-        <h3 style="margin-bottom: 20px">Medarbejder</h3>
+
+        <div style="margin-bottom: 20px; display: flex">
+            <table id="infoHeader">
+                <td style="width: 61%"><h3>Medarbejder</h3></td>
+                <td style="width: 40%"><h3>Medarbejder Information</h3></td>
+            </table>
+        </div>
 
         <table id="employeeList">
             <tbody>
@@ -124,48 +137,36 @@
 
         <table id="employeeInfoTable">
             <tr>
-                <td id="headInfo">
-                    <h3>Medarbejder Information</h3>
-                </td>
-            </tr>
-            <tr>
-                <td>Fornavn</td>
+                <td class="tdInfo">Fornavn</td>
                 <td th:text="${details.firstName}"></td>
             </tr>
             <tr>
-                <td>Efternavn</td>
+                <td class="tdInfo">Efternavn</td>
                 <td th:text="${details.lastName}">&nbsp;</td>
             </tr>
             <tr>
-                <td>Vejnavn</td>
+                <td class="tdInfo">Vejnavn</td>
                 <td th:text="${details.roadName}">&nbsp;</td>
             </tr>
             <tr>
-                <td>Vejnr</td>
+                <td class="tdInfo">Vejnr</td>
                 <td th:text="${details.roadNumber}">&nbsp;</td>
             </tr>
             <tr>
-                <td>By</td>
+                <td class="tdInfo">By</td>
                 <td th:text="${details.city}">&nbsp;</td>
             </tr>
             <tr>
-                <td>Postnummer</td>
+                <td class="tdInfo">Postnummer</td>
                 <td th:text="${details.postalCode}">&nbsp;</td>
             </tr>
             <tr>
-                <td>Tlf</td>
+                <td class="tdInfo">Tlf</td>
                 <td th:text="${details.phoneNumber}">&nbsp;</td>
             </tr>
             <tr>
-                <td>E-mail</td>
+                <td class="tdInfo">E-mail</td>
                 <td th:text="${details.email}">&nbsp;</td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>
-                    <input type="button" value="Redigér" class="blue-btn buttonsInfo">
-                    <input type="submit" value="Slet" class="red-btn buttonsInfo">
-                </td>
             </tr>
         </table>
 
