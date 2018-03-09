@@ -311,7 +311,7 @@
 
         $(window).resize(function () {
             $("#calendar-table").css({"height": ($(document).height() - 120) + "px"});
-            $("#calendar-table td").css({"height": $(("#calendar-table tbody").height() - 5) / 6 + "px"});
+            $("#calendar-table td").css({"height": $($("#calendar-table tbody").height() - 5) / 6 + "px"});
         });
     </script>
 </head>
@@ -331,7 +331,10 @@
         <div class="clear"></div>
         <input type="button" name="closeSingleViewSchedule" value="Luk" style="float:left;" class="red-btn" />
         <input type="button" value="Rediger" style="float:right;" class="green-btn" />
-        <input type="submit" value="Slet" style="float:right; margin-right: 10px;" class="red-btn" />
+        <form method="post">
+            <input type="hidden" name="deleteSingleScheduleID" value="" />
+            <input type="submit" name="deleteSingleShcedule" value="Slet" style="float:right; margin-right: 10px;" class="red-btn" />
+        </form>
     </div>
     <div id="calendar">
         <div id="topbar">
@@ -384,7 +387,8 @@
                                  data-from-time=${daysInThisMonth[index + 0]} ? ${schedule.fromTime},
                                  data-to-time=${daysInThisMonth[index + 0]} ? ${schedule.toTime},
                                  data-employee=${daysInThisMonth[index + 0]} ? ${schedule.employeeFullName},
-                                 data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey}"
+                                 data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey},
+                                 data-schedule-id=${daysInThisMonth[index + 0]} ? ${schedule.Id}"
                                  th:if="${days[index + 0]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 0]} and ${iterStat.index} <= ${toIndex[index + 0]}">
                                 <p th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime}+' '+${schedule.employeeName})"></p>
                             </div>
@@ -408,7 +412,8 @@
                                  data-from-time=${daysInThisMonth[index + 0]} ? ${schedule.fromTime},
                                  data-to-time=${daysInThisMonth[index + 0]} ? ${schedule.toTime},
                                  data-employee=${daysInThisMonth[index + 0]} ? ${schedule.employeeFullName},
-                                 data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey}"
+                                 data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey},
+                                 data-schedule-id=${daysInThisMonth[index + 0]} ? ${schedule.Id}"
                                  th:if="${days[index + 1]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 1]} and ${iterStat.index} <= ${toIndex[index + 1]}">
                                 <p th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime}+' '+${schedule.employeeName})"></p>
                             </div>
@@ -429,7 +434,8 @@
                                  data-from-time=${daysInThisMonth[index + 0]} ? ${schedule.fromTime},
                                  data-to-time=${daysInThisMonth[index + 0]} ? ${schedule.toTime},
                                  data-employee=${daysInThisMonth[index + 0]} ? ${schedule.employeeFullName},
-                                 data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey}"
+                                 data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey},
+                                 data-schedule-id=${daysInThisMonth[index + 0]} ? ${schedule.Id}"
                                  th:if="${days[index + 2]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 2]} and ${iterStat.index} <= ${toIndex[index + 2]}">
                                 <p th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime}+' '+${schedule.employeeName})"></p>
                             </div>
@@ -450,7 +456,8 @@
                                  data-from-time=${daysInThisMonth[index + 0]} ? ${schedule.fromTime},
                                  data-to-time=${daysInThisMonth[index + 0]} ? ${schedule.toTime},
                                  data-employee=${daysInThisMonth[index + 0]} ? ${schedule.employeeFullName},
-                                 data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey}"
+                                 data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey},
+                                 data-schedule-id=${daysInThisMonth[index + 0]} ? ${schedule.Id}"
                                  th:if="${days[index + 3]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 3]} and ${iterStat.index} <= ${toIndex[index + 3]}">
                                 <p th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime}+' '+${schedule.employeeName})"></p>
                             </div>
@@ -471,7 +478,8 @@
                                  data-from-time=${daysInThisMonth[index + 0]} ? ${schedule.fromTime},
                                  data-to-time=${daysInThisMonth[index + 0]} ? ${schedule.toTime},
                                  data-employee=${daysInThisMonth[index + 0]} ? ${schedule.employeeFullName},
-                                 data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey}"
+                                 data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey},
+                                 data-schedule-id=${daysInThisMonth[index + 0]} ? ${schedule.Id}"
                                  th:if="${days[index + 4]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 4]} and ${iterStat.index} <= ${toIndex[index + 4]}">
                                 <p th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime}+' '+${schedule.employeeName})"></p>
                             </div>
@@ -492,7 +500,8 @@
                                  data-from-time=${daysInThisMonth[index + 0]} ? ${schedule.fromTime},
                                  data-to-time=${daysInThisMonth[index + 0]} ? ${schedule.toTime},
                                  data-employee=${daysInThisMonth[index + 0]} ? ${schedule.employeeFullName},
-                                 data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey}"
+                                 data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey},
+                                 data-schedule-id=${daysInThisMonth[index + 0]} ? ${schedule.Id}"
                                  th:if="${days[index + 5]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 5]} and ${iterStat.index} <= ${toIndex[index + 5]}">
                                 <p th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime}+' '+${schedule.employeeName})"></p>
                             </div>
@@ -513,7 +522,8 @@
                                  data-from-time=${daysInThisMonth[index + 0]} ? ${schedule.fromTime},
                                  data-to-time=${daysInThisMonth[index + 0]} ? ${schedule.toTime},
                                  data-employee=${daysInThisMonth[index + 0]} ? ${schedule.employeeFullName},
-                                 data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey}   "
+                                 data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey},
+                                 data-schedule-id=${daysInThisMonth[index + 0]} ? ${schedule.Id}"
                                  th:if="${days[index + 6]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 6]} and ${iterStat.index} <= ${toIndex[index + 6]}">
                                 <p th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime}+' '+${schedule.employeeName})"></p>
                             </div>
