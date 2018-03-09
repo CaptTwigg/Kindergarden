@@ -45,4 +45,10 @@ public class EmployeeController {
     serviceEmployee.editEmployee(em);
     return "redirect:/employee";
   }
+
+  @PostMapping("/details")
+  public void details(@RequestParam int id, Model model) {
+    int index = serviceEmployee.getIndex(id);
+    model.addAttribute("employee", serviceEmployee.getEmployees().get(index));
+  }
 }

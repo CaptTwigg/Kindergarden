@@ -60,7 +60,7 @@ public class ServiceEmployee {
 
   }
 
-  private int getIndex(int id) {
+  public int getIndex(int id) {
     for (int i = 0; i < employees.size(); i++)
       if (employees.get(i).getId() == id)
         return i;
