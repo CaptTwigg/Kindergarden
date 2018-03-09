@@ -1,0 +1,34 @@
+<div id="editSchedule" class="popup-formular" th:fragment="editSchedule">
+    <h2>Rediger vagt</h2>
+    <form method="post">
+        <table class="popup-table">
+            <tr>
+                <td><label for="editEmployeeField">Medarbejder:</label></td>
+                <td>
+                    <select id="editEmployeeField" name="editEmployee">
+                        <option value="0" selected>Vælg</option>
+                        <option value="1">Bjarne</option>
+                    </select>
+                    <div class="fail editEmployeeFail"><div class="arrow-left"></div>Du skal vælge en medarbejder</div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="editDateField">Dato:</label></td>
+                <td><input id="editDateField" name="editDate" type="date"/><div class="fail editDateFail"><div class="arrow-left"></div>Du mangler at vælge en dato</div></td>
+            </tr>
+            <tr>
+                <td><label for="editFromField">Fra:</label></td>
+                <td><input id="editFromField" name="editFromTime" type="time"/><div class="fail editFromTimeFail"><div class="arrow-left"></div>Du mangler at vælge et start tidspunkt</div></td>
+            </tr>
+            <tr>
+                <td><label for="editToField">Til:</label></td>
+                <td><input id="editToField" name="editToTime" type="time"/><div class="fail editToTimeFail"><div class="arrow-left"></div>Du mangler at vælge et slut tidspunkt</div><div class="fail editTimeIsBeforeStartFail"><div class="arrow-left"></div>Slut tidspunktet kan ikke være før start tidspunkt</div></td>
+            </tr>
+            <tr>
+                <td><input id="cancelScheduleEdit" type="button" value="Annuller" class="red-btn"/></td>
+                <td><input name="saveEditSchedule" type="submit" value="Gem" class="green-btn" style="float: right"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
