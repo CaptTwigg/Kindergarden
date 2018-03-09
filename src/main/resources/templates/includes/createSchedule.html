@@ -1,0 +1,34 @@
+<div id="createNewSchedule" class="popup-formular" th:fragment="createSchedule">
+    <h2>Opret ny vagt</h2>
+    <form method="post">
+        <table class="popup-table">
+            <tr>
+                <td><label for="employeeField">Medarbejder:</label></td>
+                <td>
+                    <select id="employeeField" name="employee">
+                        <option value="0" selected>Vælg</option>
+                        <option value="1">Bjarne</option>
+                    </select>
+                    <div class="fail employeeFail"><div class="arrow-left"></div>Du skal vælge en medarbejder</div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="dateField">Dato:</label></td>
+                <td><input id="dateField" name="date" type="date"/><div class="fail dateFail"><div class="arrow-left"></div>Du mangler at vælge en dato</div></td>
+            </tr>
+            <tr>
+                <td><label for="fromField">Fra:</label></td>
+                <td><input id="fromField" name="fromTime" type="time"/><div class="fail fromTimeFail"><div class="arrow-left"></div>Du mangler at vælge et start tidspunkt</div></td>
+            </tr>
+            <tr>
+                <td><label for="toField">Til:</label></td>
+                <td><input id="toField" name="toTime" type="time"/><div class="fail toTimeFail"><div class="arrow-left"></div>Du mangler at vælge et slut tidspunkt</div><div class="fail timeIsBeforeStartFail"><div class="arrow-left"></div>Slut tidspunktet kan ikke være før start tidspunkt</div></td>
+            </tr>
+            <tr>
+                <td><input id="cancelScheduleCreate" type="button" value="Annuller" class="red-btn"/></td>
+                <td><input name="saveNewSchedule" type="submit" value="Opret" class="green-btn" style="float: right"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
