@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @Controller
 public class SchedulerController {
@@ -18,6 +19,7 @@ public class SchedulerController {
 
     private String successMessage = "";
     private int numberOfDeletedSchedules = 0;
+    private int viewCalendarFor = 0;
 
     @GetMapping("/index")
     public String index(Model model) {
@@ -28,12 +30,14 @@ public class SchedulerController {
             model.addAttribute("today", serviceCalendar.getToday());
             model.addAttribute("dateArray", serviceCalendar.getDateArray());
             model.addAttribute("daysToAdd", serviceCalendar.daysToBypass());
-            model.addAttribute("schedules", serviceSchedule.getSchedules(serviceCalendar.getMonthAsString(), serviceCalendar.getYearAsString()));
+            model.addAttribute("schedules", serviceSchedule.getSchedules(serviceCalendar.getMonthAsString(), serviceCalendar.getYearAsString(), viewCalendarFor));
             model.addAttribute("schedulesPerDay", serviceSchedule.getCountSchedulesPerDay(serviceCalendar));
             model.addAttribute("toIndex", serviceSchedule.getToIndexArray(serviceCalendar));
             model.addAttribute("employees", serviceSchedule.getEmployees());
             model.addAttribute("success_TXT", successMessage);
             model.addAttribute("numberOfDeletedSchedules", numberOfDeletedSchedules);
+            model.addAttribute("viewCalendarFor", viewCalendarFor);
+            model.addAttribute("countSchedulesPerDayForPerson", serviceSchedule.getGetCountSchedulesPerDayForPerson(serviceCalendar, viewCalendarFor));
             successMessage = "";
             numberOfDeletedSchedules = 0;
             return "index";
@@ -94,5 +98,11 @@ public class SchedulerController {
 
     private void emptyDeletedSchedules() {
         lastDeletedSchedules = new ArrayList<>();
+    }
+
+    @PostMapping(value = "/index", params = "changeCalendar=Yes")
+    public String changeCalendarFor(@RequestParam("showCalendar") String id) {
+        viewCalendarFor = Integer.parseInt(id);
+        return "redirect:/";
     }
 }

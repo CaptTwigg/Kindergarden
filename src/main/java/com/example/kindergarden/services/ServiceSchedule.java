@@ -14,6 +14,7 @@ public class ServiceSchedule {
     private ArrayList<Employee> employees = new ArrayList<>();
     private FileHandler fileHandler;
     private int[] countSchedulesPerDay = new int[42];
+    private int[] countSchedulesPerDayForPerson = new int[42];
     private int[] toIndexArray = new int[42];
     private String[] employeesNames;
 
@@ -25,8 +26,8 @@ public class ServiceSchedule {
         }
     }
 
-    public ArrayList<Schedule> getSchedules(String month, String year) {
-        return schedules = fileHandler.getSchedules(month, year);
+    public ArrayList<Schedule> getSchedules(String month, String year, int id) {
+        return schedules = fileHandler.getSchedules(month, year, id);
     }
 
     public ArrayList<Employee> getEmployees() {
@@ -46,6 +47,28 @@ public class ServiceSchedule {
         }
 
         return countSchedulesPerDay;
+    }
+
+    public int[] getGetCountSchedulesPerDayForPerson(ServiceCalendar serviceCalendar, int id) {
+        if(id != 0){
+            resetCountPerPerson();
+
+            for(int i = 0; i < countSchedulesPerDayForPerson.length; i++) {
+                for(Schedule schedule: schedules) {
+                    if(Integer.parseInt(schedule.getDate()) == i+1 && schedule.getEmployeeKey() == id) {
+                        countSchedulesPerDayForPerson[i+serviceCalendar.getPreviousMonthDays()]++;
+                    }
+                }
+            }
+        }
+
+        return countSchedulesPerDayForPerson;
+    }
+
+    private void resetCountPerPerson() {
+        for(int i = 0; i < countSchedulesPerDayForPerson.length; i++) {
+            countSchedulesPerDayForPerson[i] = 0;
+        }
     }
 
     public int[] getToIndexArray(ServiceCalendar serviceCalendar) {
@@ -83,11 +106,7 @@ public class ServiceSchedule {
 
     private void resetAllSchedules() {
         for(int i = 0; i < countSchedulesPerDay.length; i++) {
-            countSchedulesPerDay[i] = 0;
-        }
-
-        for(int i = 0; i < toIndexArray.length; i++) {
-            toIndexArray[i] = 0;
+            countSchedulesPerDay[i] = toIndexArray[i] = 0;
         }
     }
 
