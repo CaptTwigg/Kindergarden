@@ -58,11 +58,11 @@
             padding: 3px;
         }
 
-        #infoHeader{
+        #infoHeader {
             text-align: left;
         }
 
-        .tdInfo{
+        .tdInfo {
             width: 100px;
         }
 
@@ -94,6 +94,13 @@
         $("#cancelEmployeeCreate, #overlay").click(function () {
           $("#overlay, .popup-formular").hide();
         });
+        // $("#userButton").click(function () {
+        //   $("#overlay, #user").show();
+        // });
+        //
+        // $("#cancelUser, #overlay").click(function () {
+        //   $("#overlay, .popup-formular").hide();
+        // });
       });
     </script>
 </head>
@@ -104,6 +111,7 @@
 <div id="content">
     <div id="overlay"></div>
     <div th:replace="/includes/createEmployeePopUp::createNewEmployee"></div>
+    <div th:replace="/includes/user:: user"></div>
     <div id="topbar">
         <form method="post">
             <input type="button" value="Opret ny medarbejder" class="green-btn" id="openCreateNewEmployee"/>
@@ -125,8 +133,10 @@
                 <td th:text="${employee.firstName} + ' ' + ${employee.lastName}"/>
 
                 <td>
+                    <form method="post" th:action="@{'deleteEmployee?id='+${employee.id}}">
                     <input type="submit" value="Slet" class="red-btn buttonsList"/>
-                    <input type="button" value="Redigér" class="blue-btn buttonsList"/>
+                    </form>
+                    <input id="userButton" type="button" value="Redigér" class="blue-btn buttonsList"/>
                     <form method="post" th:action="@{'details?id=' + ${employee.id}}">
                         <input type="submit" value="Detaljer" class="green-btn buttonsList"/>
                     </form>

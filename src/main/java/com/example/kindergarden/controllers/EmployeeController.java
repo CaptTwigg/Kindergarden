@@ -36,10 +36,9 @@ public class EmployeeController {
   }
 
   @PostMapping("/deleteEmployee")
-//  @ResponseStatus(value = HttpStatus.OK)
-  public void deleteEmployee(@RequestParam int id) {
+  public String deleteEmployee(@RequestParam int id) {
     serviceEmployee.deleteEmployee(id);
-    //return "redirect:/employee";
+    return "redirect:/employee";
   }
 
   @PostMapping("/editEmployee")
@@ -49,7 +48,7 @@ public class EmployeeController {
   }
 
   @PostMapping("/details")
-  public String details(@RequestParam int id, Model model) {
+  public String details(@RequestParam int id) {
     index = serviceEmployee.getIndex(id);
     return "redirect:/employee";
   }
