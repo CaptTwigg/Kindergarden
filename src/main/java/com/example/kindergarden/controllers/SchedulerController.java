@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class SchedulerController {
     private ServiceCalendar serviceCalendar = new ServiceCalendar();
     private ServiceSchedule serviceSchedule = new ServiceSchedule();
+    private Schedule lastestDelete;
 
     String successMessage = "";
 
@@ -56,6 +57,7 @@ public class SchedulerController {
 
     @PostMapping(value = "/index", params = "saveNewSchedule=Opret")
     public String createNewSchedule(@RequestParam("fromTime") String fromTime, @RequestParam("toTime") String toTime, @RequestParam("date") String date ,@RequestParam("employee") int employeeKey) {
+        lastestDelete = new Schedule(date, fromTime, toTime, employeeKey);
         serviceSchedule.add(new Schedule(date, fromTime, toTime, employeeKey));
         successMessage = "Den nye vagt er blevet tilføjet og gemt. Kalenderen er opdateret!";
         return "redirect:/index";

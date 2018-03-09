@@ -98,7 +98,7 @@ public class FileHandler {
                 if (Integer.parseInt(date.substring(0, 6)) == Integer.parseInt(year + month)) {
                     for(Employee employee: tempEmployees) {
                         if(employee.getId() == employeeKey) {
-                            schedules.add(new Schedule(ID, date, fromTime, toTime, employee.getFirstName(), employeeKey));
+                            schedules.add(new Schedule(ID, date, fromTime, toTime, employee.getFirstName(), employeeKey, employee.getFirstName()+" "+employee.getLastName()));
                         }
                     }
                 }

@@ -7,14 +7,16 @@ public class Schedule implements Comparable<Schedule> {
     private String toTime;
     private int employeeKey;
     private String employeeName;
+    private String employeeFullName;
 
-    public Schedule(int id, String date, String fromTime, String toTime, String employeeName, int employeeKey) {
+    public Schedule(int id, String date, String fromTime, String toTime, String employeeName, int employeeKey, String employeeFullName) {
         Id = id;
         this.date = date.substring(6, 8);
         this.fromTime = fromTime.substring(0,2)+":"+fromTime.substring(2,4);
         this.toTime = toTime.substring(0,2)+":"+toTime.substring(2,4);
         this.employeeName = employeeName;
         this.employeeKey = employeeKey;
+        this.employeeFullName = employeeFullName;
     }
 
     //Constructor used for when getting all schedules
@@ -81,6 +83,14 @@ public class Schedule implements Comparable<Schedule> {
 
     public void setEmployeeKey(int employeeKey) {
         this.employeeKey = employeeKey;
+    }
+
+    public String getEmployeeFullName() {
+        return employeeFullName;
+    }
+
+    public void setEmployeeFullName(String employeeFullName) {
+        this.employeeFullName = employeeFullName;
     }
 
     public int compareTo(Schedule other) {
