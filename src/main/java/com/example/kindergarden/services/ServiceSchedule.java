@@ -4,7 +4,6 @@ import com.example.kindergarden.FileHandler;
 import com.example.kindergarden.base.Employee;
 import com.example.kindergarden.base.Schedule;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class ServiceSchedule {
@@ -181,6 +180,23 @@ public class ServiceSchedule {
         }
 
         return name;
+    }
+
+    public void edit(String id, int employeeKey, String date, String fromTime, String toTime) {
+        schedules = fileHandler.getAllSchedules();
+
+        for(Schedule schedule: schedules) {
+            if(schedule.getId() == Integer.parseInt(id)) {
+                schedule.setEmployeeKey(employeeKey);
+                schedule.setDate(date.replaceAll("-", ""));
+                schedule.setFromTime(fromTime.replace(":", ""));
+                schedule.setToTime(toTime.replace(":", ""));
+                break;
+            }
+        }
+
+        sort();
+        fileHandler.saveSchedulesToFile(schedules);
     }
 
     private void sort() {

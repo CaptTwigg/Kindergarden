@@ -39,6 +39,9 @@ public class SchedulerController {
             model.addAttribute("viewCalendarFor", viewCalendarFor);
             model.addAttribute("countSchedulesPerDayForPerson", serviceSchedule.getGetCountSchedulesPerDayForPerson(serviceCalendar, viewCalendarFor));
             model.addAttribute("viewCalendarForName", serviceSchedule.getViewCalendarForName(viewCalendarFor));
+            model.addAttribute("getFullTodayAsString", serviceCalendar.getFullTodayAsString());
+            System.out.println(serviceCalendar.getFullTodayAsString());
+            System.out.println(Arrays.toString(serviceCalendar.getDateArray()));
             successMessage = "";
             return "index";
         } else {
@@ -68,7 +71,10 @@ public class SchedulerController {
     }
 
     @PostMapping(value = "/index", params = "saveNewSchedule=Opret")
-    public String createNewSchedule(@RequestParam("fromTime") String fromTime, @RequestParam("toTime") String toTime, @RequestParam("date") String date ,@RequestParam("employee") int employeeKey) {
+    public String createNewSchedule(@RequestParam("fromTime") String fromTime,
+                                    @RequestParam("toTime") String toTime,
+                                    @RequestParam("date") String date ,
+                                    @RequestParam("employee") int employeeKey) {
         serviceSchedule.add(new Schedule(date, fromTime, toTime, employeeKey));
         successMessage = "Den nye vagt er blevet tilføjet og gemt. Kalenderen er opdateret!";
         emptyDeletedSchedules();
@@ -94,15 +100,10 @@ public class SchedulerController {
         return "redirect:/index";
     }
 
-    private void emptyDeletedSchedules() {
-        lastDeletedSchedules.clear();
-        numberOfDeletedSchedules = 0;
-    }
-
     @PostMapping(value = "/index", params = "changeCalendar=Yes")
     public String changeCalendarFor(@RequestParam("showCalendar") String id) {
         viewCalendarFor = Integer.parseInt(id);
-        return "redirect:/";
+        return "redirect:/index";
     }
 
     @PostMapping(value = "/index", params = "deleteMultipleSchedule=Slet valgte")
@@ -111,6 +112,23 @@ public class SchedulerController {
         lastDeletedSchedules = serviceSchedule.removeMultiple(ids);
         successMessage = "Vagterner blev fjernet. Kalenderen er opdateret!";
         numberOfDeletedSchedules = ids.length;
-        return "redirect:/";
+        return "redirect:/index";
+    }
+
+    @PostMapping(value = "/index", params = "saveEditSchedule=Gem")
+    public String editSaveSchedule(@RequestParam("editScheduleId") String id,
+                                   @RequestParam("editEmployee") int employeeKey,
+                                   @RequestParam("editDate") String date,
+                                   @RequestParam("editFromTime") String fromTime,
+                                   @RequestParam("editToTime") String toTime){
+        serviceSchedule.edit(id, employeeKey, date, fromTime, toTime);
+        successMessage = "Dine ændringer til vagten blev gemt. Kalenderen er opdateret!";
+        emptyDeletedSchedules();
+        return "redirect:/index";
+    }
+
+    private void emptyDeletedSchedules() {
+        lastDeletedSchedules.clear();
+        numberOfDeletedSchedules = 0;
     }
 }

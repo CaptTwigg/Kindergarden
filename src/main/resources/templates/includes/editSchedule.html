@@ -1,13 +1,14 @@
 <div id="editSchedule" class="popup-formular" th:fragment="editSchedule">
     <h2>Rediger vagt</h2>
     <form method="post">
+        <input type="hidden" name="editScheduleId" value="" />
         <table class="popup-table">
             <tr>
                 <td><label for="editEmployeeField">Medarbejder:</label></td>
                 <td>
                     <select id="editEmployeeField" name="editEmployee">
                         <option value="0" selected>Vælg</option>
-                        <option value="1">Bjarne</option>
+                        <option th:each="employees: ${employees}" th:value="${employees.id}" th:text="${employees.firstName}+' '+${employees.lastName}"></option>
                     </select>
                     <div class="fail editEmployeeFail"><div class="arrow-left"></div>Du skal vælge en medarbejder</div>
                 </td>
@@ -26,8 +27,7 @@
             </tr>
             <tr>
                 <td><input id="cancelScheduleEdit" type="button" value="Annuller" class="red-btn"/></td>
-                <td><input name="saveEditSchedule" type="submit" value="Gem" class="green-btn" style="float: right"/>
-                </td>
+                <td><input name="saveEditSchedule" type="submit" value="Gem" class="green-btn" style="float: right"/></td>
             </tr>
         </table>
     </form>

@@ -1,6 +1,6 @@
 package com.example.kindergarden.base;
 
-public class Schedule implements Comparable<Schedule> {
+public class Schedule {
     private int Id;
     private String date;
     private String fromTime;
@@ -93,9 +93,5 @@ public class Schedule implements Comparable<Schedule> {
 
     public void setEmployeeFullName(String employeeFullName) {
         this.employeeFullName = employeeFullName;
-    }
-
-    public int compareTo(Schedule other) {
-        return date.compareTo(other.date);
     }
 }

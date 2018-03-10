@@ -88,7 +88,7 @@
             text-align: center;
             border-radius: 15px;
             color: #333;
-            z-index: 11;
+            z-index: 9;
         }
 
         #calendar-table tr td:not(.unavailable) div .date:hover {
@@ -371,7 +371,12 @@
         </div>
         <div class="clear"></div>
         <input type="button" name="closeSingleViewSchedule" value="Luk" style="float:left;" class="red-btn" />
-        <input type="button" value="Rediger" style="float:right;" class="green-btn" />
+        <input type="button" name="goToEditSchedule" value="Rediger" style="float:right;" class="green-btn" />
+        <input type="hidden" name="toEditScheduleId" value="" />
+        <input type="hidden" name="toEditEmployeeKey" value="" />
+        <input type="hidden" name="toEditDate" value="" />
+        <input type="hidden" name="toEditFromTime" value="" />
+        <input type="hidden" name="toEditToTime" value="" />
         <form method="post">
             <input type="hidden" name="deleteSingleScheduleID" value="" />
             <input type="submit" name="deleteSingleShcedule" value="Slet" style="float:right; margin-right: 10px;" class="red-btn" />
@@ -424,7 +429,7 @@
                 <td th:classappend="${daysInThisMonth[index + 0]} ? '' : 'unavailable'"
                     th:attrappend="data-date=${daysInThisMonth[index + 0]} ? ${dateArray[index + 0]}">
                     <div>
-                        <p class="date" th:text="${days[index + 0]}"></p>
+                        <p th:text="${days[index + 0]}" th:classappend="${getFullTodayAsString} == ${dateArray[index + 0]} ? 'date today' : 'date'"></p>
                         <div class="scheduleContainer" th:if="${daysInThisMonth[index + 0]}">
                             <div class="schedule " th:each="schedule, iterStat : ${schedules}"
                                  th:attrappend="data-schedule-date=${daysInThisMonth[index + 0]} ? ${dateArray[index + 0]},
@@ -446,7 +451,7 @@
                     </div>
                     <div th:replace="${daysInThisMonth[index + 0]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
                     <div class="allSchedules popup-formular" th:if="${schedulesPerDay[index + 0]} > 3 or ${countSchedulesPerDayForPerson[index + 0]} > 3">
-                        <h2 th:text="${viewCalendarFor} == 0 ? 'Alle vagter d. '+${dateArray[index + 0]} : ${viewCalendarForName}+'\'s vagter d. '+${dateArray[index + 0]}"></h2>
+                        <h2 th:utext="${viewCalendarFor} == 0 ? 'Alle vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 0]}+'</span>' : ${viewCalendarForName}+'\'s vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 0]}+'</span>'"></h2>
                         <form method="post">
                             <div class="allSchedulesContainer">
                                 <div class="checkboxSchedule" th:each="schedule, iterStat : ${schedules}"
@@ -474,10 +479,10 @@
                 <td th:classappend="${daysInThisMonth[index + 1]} ? '' : 'unavailable'"
                     th:attrappend="data-date=${daysInThisMonth[index + 1]} ? ${dateArray[index + 1]}">
                     <div>
-                        <p class="date" th:text="${days[index + 1]}"></p>
-                        <div class="scheduleContainer" th:if="${daysInThisMonth[index + 0]}">
+                        <p th:text="${days[index + 1]}" th:classappend="${getFullTodayAsString} == ${dateArray[index + 1]} ? 'date today' : 'date'"></p>
+                        <div class="scheduleContainer" th:if="${daysInThisMonth[index + 1]}">
                             <div class="schedule" th:each="schedule, iterStat : ${schedules}"
-                                 th:attrappend="data-schedule-date=${daysInThisMonth[index + 0]} ? ${dateArray[index + 1]},
+                                 th:attrappend="data-schedule-date=${daysInThisMonth[index + 1]} ? ${dateArray[index + 1]},
                                  data-from-time=${daysInThisMonth[index + 1]} ? ${schedule.fromTime},
                                  data-to-time=${daysInThisMonth[index + 1]} ? ${schedule.toTime},
                                  data-employee=${daysInThisMonth[index + 1]} ? ${schedule.employeeFullName},
@@ -495,14 +500,39 @@
                         </div>
                     </div>
                     <div th:replace="${daysInThisMonth[index + 1]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
+                    <div class="allSchedules popup-formular" th:if="${schedulesPerDay[index + 1]} > 3 or ${countSchedulesPerDayForPerson[index + 1]} > 3">
+                        <h2 th:utext="${viewCalendarFor} == 0 ? 'Alle vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 1]}+'</span>' : ${viewCalendarForName}+'\'s vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 1]}+'</span>'"></h2>
+                        <form method="post">
+                            <div class="allSchedulesContainer">
+                                <div class="checkboxSchedule" th:each="schedule, iterStat : ${schedules}"
+                                     th:attrappend="data-schedule-date=${daysInThisMonth[index + 1]} ? ${dateArray[index + 1]},
+                                             data-from-time=${daysInThisMonth[index + 1]} ? ${schedule.fromTime},
+                                             data-to-time=${daysInThisMonth[index + 1]} ? ${schedule.toTime},
+                                             data-employee=${daysInThisMonth[index + 1]} ? ${schedule.employeeFullName},
+                                             data-employeeKey=${daysInThisMonth[index + 1]} ? ${schedule.employeeKey},
+                                             data-schedule-id=${daysInThisMonth[index + 1]} ? ${schedule.Id}"
+                                     th:if="${days[index + 0]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 1]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
+                                    <label class="checkboxContainer">
+                                        <input type="checkbox" name="deleteMultipleSchedules" th:value="${schedule.Id}" />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <div class="multipleScheduleBlock" th:text="${schedule.fromTime}+' - '+${schedule.toTime}+' '+${schedule.employeeName}"></div>
+                                </div>
+                            </div>
+                            <div class="allSchedulesButtons">
+                                <input type="button" name="closeMultipleViewSchedule" value="Luk" style="float:left;" class="red-btn closeMultipleViewSchedule" />
+                                <input type="submit" name="deleteMultipleSchedule" value="Slet valgte" style="float:right;" class="red-btn deleteMultipleSchedule" />
+                            </div>
+                        </form>
+                    </div>
                 </td>
                 <td th:classappend="${daysInThisMonth[index + 2]} ? '' : 'unavailable'"
                     th:attrappend="data-date=${daysInThisMonth[index + 2]} ? ${dateArray[index + 2]}">
                     <div>
-                        <p class="date" th:text="${days[index + 2]}"></p>
-                        <div class="scheduleContainer" th:if="${daysInThisMonth[index + 0]}">
+                        <p th:text="${days[index + 2]}" th:classappend="${getFullTodayAsString} == ${dateArray[index + 2]} ? 'date today' : 'date'"></p>
+                        <div class="scheduleContainer" th:if="${daysInThisMonth[index + 2]}">
                             <div class="schedule" th:each="schedule, iterStat : ${schedules}"
-                                 th:attrappend="data-schedule-date=${daysInThisMonth[index + 0]} ? ${dateArray[index + 2]},
+                                 th:attrappend="data-schedule-date=${daysInThisMonth[index + 2]} ? ${dateArray[index + 2]},
                                  data-from-time=${daysInThisMonth[index + 2]} ? ${schedule.fromTime},
                                  data-to-time=${daysInThisMonth[index + 2]} ? ${schedule.toTime},
                                  data-employee=${daysInThisMonth[index + 2]} ? ${schedule.employeeFullName},
@@ -520,14 +550,39 @@
                         </div>
                     </div>
                     <div th:replace="${daysInThisMonth[index + 2]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
+                    <div class="allSchedules popup-formular" th:if="${schedulesPerDay[index + 2]} > 3 or ${countSchedulesPerDayForPerson[index + 0]} > 3">
+                        <h2 th:utext="${viewCalendarFor} == 0 ? 'Alle vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 2]}+'</span>' : ${viewCalendarForName}+'\'s vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 2]}+'</span>'"></h2>
+                        <form method="post">
+                            <div class="allSchedulesContainer">
+                                <div class="checkboxSchedule" th:each="schedule, iterStat : ${schedules}"
+                                     th:attrappend="data-schedule-date=${daysInThisMonth[index + 2]} ? ${dateArray[index + 2]},
+                                             data-from-time=${daysInThisMonth[index + 2]} ? ${schedule.fromTime},
+                                             data-to-time=${daysInThisMonth[index + 2]} ? ${schedule.toTime},
+                                             data-employee=${daysInThisMonth[index + 2]} ? ${schedule.employeeFullName},
+                                             data-employeeKey=${daysInThisMonth[index + 2]} ? ${schedule.employeeKey},
+                                             data-schedule-id=${daysInThisMonth[index + 2]} ? ${schedule.Id}"
+                                     th:if="${days[index + 0]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 2]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
+                                    <label class="checkboxContainer">
+                                        <input type="checkbox" name="deleteMultipleSchedules" th:value="${schedule.Id}" />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <div class="multipleScheduleBlock" th:text="${schedule.fromTime}+' - '+${schedule.toTime}+' '+${schedule.employeeName}"></div>
+                                </div>
+                            </div>
+                            <div class="allSchedulesButtons">
+                                <input type="button" name="closeMultipleViewSchedule" value="Luk" style="float:left;" class="red-btn closeMultipleViewSchedule" />
+                                <input type="submit" name="deleteMultipleSchedule" value="Slet valgte" style="float:right;" class="red-btn deleteMultipleSchedule" />
+                            </div>
+                        </form>
+                    </div>
                 </td>
                 <td th:classappend="${daysInThisMonth[index + 3]} ? '' : 'unavailable'"
                     th:attrappend="data-date=${daysInThisMonth[index + 3]} ? ${dateArray[index + 3]}">
                     <div>
-                        <p class="date" th:text="${days[index + 3]}"></p>
-                        <div class="scheduleContainer" th:if="${daysInThisMonth[index + 0]}">
+                        <p th:text="${days[index + 3]}" th:classappend="${getFullTodayAsString} == ${dateArray[index + 3]} ? 'date today' : 'date'"></p>
+                        <div class="scheduleContainer" th:if="${daysInThisMonth[index + 3]}">
                             <div class="schedule" th:each="schedule, iterStat : ${schedules}"
-                                 th:attrappend="data-schedule-date=${daysInThisMonth[index + 0]} ? ${dateArray[index + 3]},
+                                 th:attrappend="data-schedule-date=${daysInThisMonth[index + 3]} ? ${dateArray[index + 3]},
                                  data-from-time=${daysInThisMonth[index + 3]} ? ${schedule.fromTime},
                                  data-to-time=${daysInThisMonth[index + 3]} ? ${schedule.toTime},
                                  data-employee=${daysInThisMonth[index + 3]} ? ${schedule.employeeFullName},
@@ -545,14 +600,39 @@
                         </div>
                     </div>
                     <div th:replace="${daysInThisMonth[index + 3]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
+                    <div class="allSchedules popup-formular" th:if="${schedulesPerDay[index + 3]} > 3 or ${countSchedulesPerDayForPerson[index + 3]} > 3">
+                        <h2 th:utext="${viewCalendarFor} == 0 ? 'Alle vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 3]}+'</span>' : ${viewCalendarForName}+'\'s vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 3]}+'</span>'"></h2>
+                        <form method="post">
+                            <div class="allSchedulesContainer">
+                                <div class="checkboxSchedule" th:each="schedule, iterStat : ${schedules}"
+                                     th:attrappend="data-schedule-date=${daysInThisMonth[index + 3]} ? ${dateArray[index + 3]},
+                                             data-from-time=${daysInThisMonth[index + 3]} ? ${schedule.fromTime},
+                                             data-to-time=${daysInThisMonth[index + 3]} ? ${schedule.toTime},
+                                             data-employee=${daysInThisMonth[index + 3]} ? ${schedule.employeeFullName},
+                                             data-employeeKey=${daysInThisMonth[index + 3]} ? ${schedule.employeeKey},
+                                             data-schedule-id=${daysInThisMonth[index + 3]} ? ${schedule.Id}"
+                                     th:if="${days[index + 0]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 3]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
+                                    <label class="checkboxContainer">
+                                        <input type="checkbox" name="deleteMultipleSchedules" th:value="${schedule.Id}" />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <div class="multipleScheduleBlock" th:text="${schedule.fromTime}+' - '+${schedule.toTime}+' '+${schedule.employeeName}"></div>
+                                </div>
+                            </div>
+                            <div class="allSchedulesButtons">
+                                <input type="button" name="closeMultipleViewSchedule" value="Luk" style="float:left;" class="red-btn closeMultipleViewSchedule" />
+                                <input type="submit" name="deleteMultipleSchedule" value="Slet valgte" style="float:right;" class="red-btn deleteMultipleSchedule" />
+                            </div>
+                        </form>
+                    </div>
                 </td>
                 <td th:classappend="${daysInThisMonth[index + 4]} ? '' : 'unavailable'"
                     th:attrappend="data-date=${daysInThisMonth[index + 4]} ? ${dateArray[index + 4]}">
                     <div>
-                        <p class="date" th:text="${days[index + 4]}"></p>
-                        <div class="scheduleContainer" th:if="${daysInThisMonth[index + 0]}">
+                        <p th:text="${days[index + 4]}" th:classappend="${getFullTodayAsString} == ${dateArray[index + 4]} ? 'date today' : 'date'"></p>
+                        <div class="scheduleContainer" th:if="${daysInThisMonth[index + 4]}">
                             <div class="schedule" th:each="schedule, iterStat : ${schedules}"
-                                 th:attrappend="data-schedule-date=${daysInThisMonth[index + 0]} ? ${dateArray[index + 4]},
+                                 th:attrappend="data-schedule-date=${daysInThisMonth[index + 4]} ? ${dateArray[index + 4]},
                                  data-from-time=${daysInThisMonth[index + 4]} ? ${schedule.fromTime},
                                  data-to-time=${daysInThisMonth[index + 4]} ? ${schedule.toTime},
                                  data-employee=${daysInThisMonth[index + 4]} ? ${schedule.employeeFullName},
@@ -570,14 +650,39 @@
                         </div>
                     </div>
                     <div th:replace="${daysInThisMonth[index + 4]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
+                    <div class="allSchedules popup-formular" th:if="${schedulesPerDay[index + 4]} > 3 or ${countSchedulesPerDayForPerson[index + 4]} > 3">
+                        <h2 th:utext="${viewCalendarFor} == 0 ? 'Alle vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 4]}+'</span>' : ${viewCalendarForName}+'\'s vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 4]}+'</span>'"></h2>
+                        <form method="post">
+                            <div class="allSchedulesContainer">
+                                <div class="checkboxSchedule" th:each="schedule, iterStat : ${schedules}"
+                                     th:attrappend="data-schedule-date=${daysInThisMonth[index + 4]} ? ${dateArray[index + 4]},
+                                             data-from-time=${daysInThisMonth[index + 4]} ? ${schedule.fromTime},
+                                             data-to-time=${daysInThisMonth[index + 4]} ? ${schedule.toTime},
+                                             data-employee=${daysInThisMonth[index + 4]} ? ${schedule.employeeFullName},
+                                             data-employeeKey=${daysInThisMonth[index + 4]} ? ${schedule.employeeKey},
+                                             data-schedule-id=${daysInThisMonth[index + 4]} ? ${schedule.Id}"
+                                     th:if="${days[index + 0]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 4]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
+                                    <label class="checkboxContainer">
+                                        <input type="checkbox" name="deleteMultipleSchedules" th:value="${schedule.Id}" />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <div class="multipleScheduleBlock" th:text="${schedule.fromTime}+' - '+${schedule.toTime}+' '+${schedule.employeeName}"></div>
+                                </div>
+                            </div>
+                            <div class="allSchedulesButtons">
+                                <input type="button" name="closeMultipleViewSchedule" value="Luk" style="float:left;" class="red-btn closeMultipleViewSchedule" />
+                                <input type="submit" name="deleteMultipleSchedule" value="Slet valgte" style="float:right;" class="red-btn deleteMultipleSchedule" />
+                            </div>
+                        </form>
+                    </div>
                 </td>
                 <td th:classappend="${daysInThisMonth[index + 5]} ? '' : 'unavailable'"
                     th:attrappend="data-date=${daysInThisMonth[index + 5]} ? ${dateArray[index + 5]}">
                     <div>
-                        <p class="date" th:text="${days[index + 5]}"></p>
-                        <div class="scheduleContainer" th:if="${daysInThisMonth[index + 0]}">
+                        <p th:text="${days[index + 5]}" th:classappend="${getFullTodayAsString} == ${dateArray[index + 5]} ? 'date today' : 'date'"></p>
+                        <div class="scheduleContainer" th:if="${daysInThisMonth[index + 5]}">
                             <div class="schedule" th:each="schedule, iterStat : ${schedules}"
-                                 th:attrappend="data-schedule-date=${daysInThisMonth[index + 0]} ? ${dateArray[index + 5]},
+                                 th:attrappend="data-schedule-date=${daysInThisMonth[index + 5]} ? ${dateArray[index + 5]},
                                  data-from-time=${daysInThisMonth[index + 5]} ? ${schedule.fromTime},
                                  data-to-time=${daysInThisMonth[index + 5]} ? ${schedule.toTime},
                                  data-employee=${daysInThisMonth[index + 5]} ? ${schedule.employeeFullName},
@@ -595,14 +700,39 @@
                         </div>
                     </div>
                     <div th:replace="${daysInThisMonth[index + 5]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
+                    <div class="allSchedules popup-formular" th:if="${schedulesPerDay[index + 5]} > 3 or ${countSchedulesPerDayForPerson[index + 5]} > 3">
+                        <h2 th:utext="${viewCalendarFor} == 0 ? 'Alle vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 5]}+'</span>' : ${viewCalendarForName}+'\'s vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 5]}+'</span>'"></h2>
+                        <form method="post">
+                            <div class="allSchedulesContainer">
+                                <div class="checkboxSchedule" th:each="schedule, iterStat : ${schedules}"
+                                     th:attrappend="data-schedule-date=${daysInThisMonth[index + 5]} ? ${dateArray[index + 5]},
+                                             data-from-time=${daysInThisMonth[index + 5]} ? ${schedule.fromTime},
+                                             data-to-time=${daysInThisMonth[index + 5]} ? ${schedule.toTime},
+                                             data-employee=${daysInThisMonth[index + 5]} ? ${schedule.employeeFullName},
+                                             data-employeeKey=${daysInThisMonth[index + 5]} ? ${schedule.employeeKey},
+                                             data-schedule-id=${daysInThisMonth[index + 5]} ? ${schedule.Id}"
+                                     th:if="${days[index + 0]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 5]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
+                                    <label class="checkboxContainer">
+                                        <input type="checkbox" name="deleteMultipleSchedules" th:value="${schedule.Id}" />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <div class="multipleScheduleBlock" th:text="${schedule.fromTime}+' - '+${schedule.toTime}+' '+${schedule.employeeName}"></div>
+                                </div>
+                            </div>
+                            <div class="allSchedulesButtons">
+                                <input type="button" name="closeMultipleViewSchedule" value="Luk" style="float:left;" class="red-btn closeMultipleViewSchedule" />
+                                <input type="submit" name="deleteMultipleSchedule" value="Slet valgte" style="float:right;" class="red-btn deleteMultipleSchedule" />
+                            </div>
+                        </form>
+                    </div>
                 </td>
                 <td th:classappend="${daysInThisMonth[index + 6]} ? '' : 'unavailable'"
                     th:attrappend="data-date=${daysInThisMonth[index + 6]} ? ${dateArray[index + 6]}">
                     <div>
-                        <p class="date" th:text="${days[index + 6]}"></p>
-                        <div class="scheduleContainer" th:if="${daysInThisMonth[index + 0]}">
+                        <p th:text="${days[index + 6]}" th:classappend="${getFullTodayAsString} == ${dateArray[index + 6]} ? 'date today' : 'date'"></p>
+                        <div class="scheduleContainer" th:if="${daysInThisMonth[index + 6]}">
                             <div class="schedule" th:each="schedule, iterStat : ${schedules}"
-                                 th:attrappend="data-schedule-date=${daysInThisMonth[index + 0]} ? ${dateArray[index + 6]},
+                                 th:attrappend="data-schedule-date=${daysInThisMonth[index + 6]} ? ${dateArray[index + 6]},
                                  data-from-time=${daysInThisMonth[index + 6]} ? ${schedule.fromTime},
                                  data-to-time=${daysInThisMonth[index + 6]} ? ${schedule.toTime},
                                  data-employee=${daysInThisMonth[index + 6]} ? ${schedule.employeeFullName},
@@ -620,6 +750,31 @@
                         </div>
                     </div>
                     <div th:replace="${daysInThisMonth[index + 6]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
+                    <div class="allSchedules popup-formular" th:if="${schedulesPerDay[index + 6]} > 3 or ${countSchedulesPerDayForPerson[index + 6]} > 3">
+                        <h2 th:utext="${viewCalendarFor} == 0 ? 'Alle vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 6]}+'</span>' : ${viewCalendarForName}+'\'s vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 6]}+'</span>'"></h2>
+                        <form method="post">
+                            <div class="allSchedulesContainer">
+                                <div class="checkboxSchedule" th:each="schedule, iterStat : ${schedules}"
+                                     th:attrappend="data-schedule-date=${daysInThisMonth[index + 6]} ? ${dateArray[index + 6]},
+                                             data-from-time=${daysInThisMonth[index + 6]} ? ${schedule.fromTime},
+                                             data-to-time=${daysInThisMonth[index + 6]} ? ${schedule.toTime},
+                                             data-employee=${daysInThisMonth[index + 6]} ? ${schedule.employeeFullName},
+                                             data-employeeKey=${daysInThisMonth[index + 6]} ? ${schedule.employeeKey},
+                                             data-schedule-id=${daysInThisMonth[index + 6]} ? ${schedule.Id}"
+                                     th:if="${days[index + 0]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 6]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
+                                    <label class="checkboxContainer">
+                                        <input type="checkbox" name="deleteMultipleSchedules" th:value="${schedule.Id}" />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <div class="multipleScheduleBlock" th:text="${schedule.fromTime}+' - '+${schedule.toTime}+' '+${schedule.employeeName}"></div>
+                                </div>
+                            </div>
+                            <div class="allSchedulesButtons">
+                                <input type="button" name="closeMultipleViewSchedule" value="Luk" style="float:left;" class="red-btn closeMultipleViewSchedule" />
+                                <input type="submit" name="deleteMultipleSchedule" value="Slet valgte" style="float:right;" class="red-btn deleteMultipleSchedule" />
+                            </div>
+                        </form>
+                    </div>
                 </td>
             </tr>
             </tbody>

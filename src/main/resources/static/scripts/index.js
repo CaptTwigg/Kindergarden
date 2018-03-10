@@ -1,5 +1,9 @@
 $(document).ready(function () {
     var clickedSchedule;
+    
+    $(".allSchedules h2 span.remakeDate").each(function () {
+        $(this).text($(this).text().split("-").reverse().join("-"));
+    });
 
     if($("#success").text() != "") {
         $("#success").css({"margin-left": "-"+($("#success").outerWidth()/2)+"px"});
@@ -14,7 +18,7 @@ $(document).ready(function () {
         $("#overlay, #createNewSchedule").show();
     });
 
-    $("#cancelScheduleCreate, #overlay").click(function () {
+    $("#cancelScheduleCreate, #overlay, #cancelScheduleEdit").click(function () {
         $("#overlay, .popup-formular, .fail, #viewSingleSchedule").hide();
         $("#dateField, #fromField, #toField").val("");
     });
@@ -37,6 +41,17 @@ $(document).ready(function () {
         $("#overlay, #createNewSchedule").show();
     });
 
+    $("input[name=goToEditSchedule]").click(function () {
+        $("input[name=editScheduleId]").val($("input[name=toEditScheduleId]").val());
+        $("select[name=editEmployee]").val($("input[name=toEditEmployeeKey]").val());
+        $("input[name=editDate]").val($("input[name=toEditDate]").val());
+        $("input[name=editFromTime]").val($("input[name=toEditFromTime]").val());
+        $("input[name=editToTime]").val($("input[name=toEditToTime]").val());
+        ;
+        $("#viewSingleSchedule").hide();
+        $("#editSchedule").show();
+    });
+
     $("#viewSingleSchedule input[name=closeSingleViewSchedule]").click(function () {
         $("#viewSingleSchedule, #overlay").hide();
     });
@@ -49,8 +64,30 @@ $(document).ready(function () {
         $("#viewSingleSchedule #fromTimeInformation").text($(clickedSchedule).data("from-time"));
         $("#viewSingleSchedule #toTimeInformation").text($(clickedSchedule).data("to-time"));
         $("#viewSingleSchedule #dateInformation").text((date.getDate() < 10 ? "0"+date.getDate() : date.getDate())+"-"+(date.getMonth()+1 < 10 ? "0"+(date.getMonth()+1) : date.getMonth()+1)+"-"+date.getFullYear());
+        transferHiddenInfoToView(clickedSchedule);
         $("#viewSingleSchedule, #overlay").show();
     });
+
+    $(".multipleScheduleBlock").click(function () {
+        clickedSchedule = $(this).parent();
+        var date = new Date($(clickedSchedule).data("schedule-date"));
+        $("#viewSingleSchedule input[name=deleteSingleScheduleID]").val($(clickedSchedule).data("schedule-id"));
+        $("#viewSingleSchedule h2").text($(clickedSchedule).data("employee"));
+        $("#viewSingleSchedule #fromTimeInformation").text($(clickedSchedule).data("from-time"));
+        $("#viewSingleSchedule #toTimeInformation").text($(clickedSchedule).data("to-time"));
+        $("#viewSingleSchedule #dateInformation").text((date.getDate() < 10 ? "0"+date.getDate() : date.getDate())+"-"+(date.getMonth()+1 < 10 ? "0"+(date.getMonth()+1) : date.getMonth()+1)+"-"+date.getFullYear());
+        transferHiddenInfoToView(clickedSchedule);
+        $(".allSchedules").hide();
+        $("#viewSingleSchedule").show();
+    });
+
+    function transferHiddenInfoToView(clickedSchedule) {
+        $("input[name=toEditScheduleId]").val($(clickedSchedule).data("schedule-id"));
+        $("input[name=toEditEmployeeKey]").val($(clickedSchedule).data("employeekey"));
+        $("input[name=toEditDate]").val($(clickedSchedule).data("schedule-date"));
+        $("input[name=toEditFromTime]").val($(clickedSchedule).data("from-time"));
+        $("input[name=toEditToTime]").val($(clickedSchedule).data("to-time"));
+    }
 
     $("#calendar-table td").css({"height": ($("#calendar-table tbody").height() - 5) / 6 + "px"});
     
@@ -134,6 +171,49 @@ $(document).ready(function () {
             isValid = false;
         } else {
             $(".timeIsBeforeStartFail").hide();
+        }
+
+        if(!isValid) {
+            e.preventDefault();
+        }
+    });
+
+    $(document).on('click', 'form input[name=saveEditSchedule]', function(e) {
+        var isValid = true;
+
+        if($("select[name=editEmployee]").val() == 0) {
+            $(".editEmployeeFail").show();
+            isValid = false;
+        } else {
+            $(".editEmployeeFail").hide();
+        }
+
+        if($("input[name=editDate]").val().length ==  0) {
+            $(".editDateFail").show();
+            isValid = false;
+        } else {
+            $(".editDateFail").hide();
+        }
+
+        if($("input[name=editFromTime]").val().length == 0) {
+            $(".editFromTimeFail").show();
+            isValid = false;
+        } else {
+            $(".editFromTimeFail").hide();
+        }
+
+        if($("input[name=editToTime]").val().length == 0) {
+            $(".editToTimeFail").show();
+            isValid = false;
+        } else {
+            $(".editToTimeFail").hide();
+        }
+
+        if($("input[name=editFromTime]").val().length != 0 && $("input[name=editToTime]").val().length != 0 && $("input[name=editToTime]").val() < $("input[name=editFromTime]").val()) {
+            $(".editTimeIsBeforeStartFail").show();
+            isValid = false;
+        } else {
+            $(".editTimeIsBeforeStartFail").hide();
         }
 
         if(!isValid) {

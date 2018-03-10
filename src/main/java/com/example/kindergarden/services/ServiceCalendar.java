@@ -101,4 +101,8 @@ public class ServiceCalendar {
   public void goToToday() {
     calendar.set(yearToday, monthToday, dateToday);
   }
+
+  public String getFullTodayAsString() {
+    return yearToday+"-"+(monthToday+1 < 10 ? "0"+(monthToday+1) : monthToday+1)+"-"+(dateToday < 10 ? "0" + dateToday : dateToday);
+  }
 }
