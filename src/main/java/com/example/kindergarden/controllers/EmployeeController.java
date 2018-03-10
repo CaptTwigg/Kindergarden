@@ -43,7 +43,12 @@ public class EmployeeController {
 
   @PostMapping("/editEmployee")
   public String editEmployee(@ModelAttribute Employee em) {
-    serviceEmployee.editEmployee(em);
+    System.out.println("kom ind");
+    System.out.println(index);
+    serviceEmployee.editEmployee(em); // kan ikke trykke på "rediger" på den sidste medarbejder, da denne ryger ud af index.
+                                      // Kan dette have noget at gøre med at sætter plus 1 et eller andet sted for at få index?
+
+    System.out.println("kom forbi");
     return "redirect:/employee";
   }
 
