@@ -8,6 +8,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 
 public class ServiceSchedule {
     private ArrayList<Schedule> schedules = new ArrayList<>();
@@ -16,7 +17,6 @@ public class ServiceSchedule {
     private int[] countSchedulesPerDay = new int[42];
     private int[] countSchedulesPerDayForPerson = new int[42];
     private int[] toIndexArray = new int[42];
-    private String[] employeesNames;
 
     public ServiceSchedule() {
         try {
@@ -129,13 +129,13 @@ public class ServiceSchedule {
         return (highestId == 0 ? 1 : highestId + 1);
     }
 
-    public Schedule remove(int ID) {
+    public Schedule remove(int id) {
         Schedule removedSchedule = new Schedule();
 
         schedules = fileHandler.getAllSchedules();
 
         for(Schedule schedule: schedules) {
-            if(schedule.getId() == ID) {
+            if(schedule.getId() == id) {
                 schedules.remove(schedule);
                 removedSchedule = schedule;
                 break;
@@ -146,5 +146,43 @@ public class ServiceSchedule {
         fileHandler.saveSchedulesToFile(schedules);
 
         return removedSchedule;
+    }
+
+    public ArrayList<Schedule> removeMultiple(int[] ids) {
+        ArrayList<Schedule> removedSchedules = new ArrayList<>();
+
+        schedules = fileHandler.getAllSchedules();
+        Iterator<Schedule> it = schedules.iterator();
+
+        while(it.hasNext()){
+            Schedule temp = it.next();
+
+            for (int id : ids) {
+                if(temp.getId() == id) {
+                    it.remove();
+                    removedSchedules.add(temp);
+                    break;
+                }
+            }
+        }
+
+        Collections.sort(schedules);
+        fileHandler.saveSchedulesToFile(schedules);
+
+        return removedSchedules;
+    }
+
+    public String getViewCalendarForName(int id) {
+        String name = "Alle";
+
+        if(id != 0) {
+            for(Employee employee: employees) {
+                if(employee.getId() == id) {
+                    name = employee.getFirstName()+" "+employee.getLastName();
+                }
+            }
+        }
+
+        return name;
     }
 }

@@ -38,8 +38,8 @@ public class SchedulerController {
             model.addAttribute("numberOfDeletedSchedules", numberOfDeletedSchedules);
             model.addAttribute("viewCalendarFor", viewCalendarFor);
             model.addAttribute("countSchedulesPerDayForPerson", serviceSchedule.getGetCountSchedulesPerDayForPerson(serviceCalendar, viewCalendarFor));
+            model.addAttribute("viewCalendarForName", serviceSchedule.getViewCalendarForName(viewCalendarFor));
             successMessage = "";
-            numberOfDeletedSchedules = 0;
             return "index";
         } else {
             return "redirect:/";
@@ -88,21 +88,29 @@ public class SchedulerController {
     public String restoreDeletedSchedules() {
         for(Schedule schedule: lastDeletedSchedules) {
             serviceSchedule.add(new Schedule(schedule.getDate(), schedule.getFromTime(), schedule.getToTime(), schedule.getEmployeeKey()));
-            //System.out.println(serviceCalendar.getYearAsString()+"-"+serviceCalendar.getMonthAsString()+"-"+schedule.getDate());
         }
-        numberOfDeletedSchedules = 1;
         successMessage = (numberOfDeletedSchedules == 1 ? numberOfDeletedSchedules + " vagt " : numberOfDeletedSchedules + " vagter ") + "blev gendannet. Kalenderen er opdateret!";
         numberOfDeletedSchedules = 0;
         return "redirect:/index";
     }
 
     private void emptyDeletedSchedules() {
-        lastDeletedSchedules = new ArrayList<>();
+        lastDeletedSchedules.clear();
+        numberOfDeletedSchedules = 0;
     }
 
     @PostMapping(value = "/index", params = "changeCalendar=Yes")
     public String changeCalendarFor(@RequestParam("showCalendar") String id) {
         viewCalendarFor = Integer.parseInt(id);
+        return "redirect:/";
+    }
+
+    @PostMapping(value = "/index", params = "deleteMultipleSchedule=Slet valgte")
+    public String deleteMultipleSchedules(@RequestParam("deleteMultipleSchedules") int[] ids) {
+        emptyDeletedSchedules();
+        lastDeletedSchedules = serviceSchedule.removeMultiple(ids);
+        successMessage = "Vagterner blev fjernet. Kalenderen er opdateret!";
+        numberOfDeletedSchedules = ids.length;
         return "redirect:/";
     }
 }

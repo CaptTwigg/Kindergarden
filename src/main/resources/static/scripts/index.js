@@ -57,6 +57,38 @@ $(document).ready(function () {
     $("#showCalendar").change(function () {
         document.getElementById("showCalendarForm").submit();
     });
+    
+    $(".allSchedules .checkboxSchedule .checkboxContainer input[type=checkbox]").change(function () {
+        var parent = $(this).parent().parent().parent();
+        var isAtleastOneChecked = false;
+
+        $(parent.find("input[type=checkbox]")).each(function () {
+
+            if(this.checked) {
+                isAtleastOneChecked = true;
+            }
+        });
+
+        if(isAtleastOneChecked) {
+            $(parent).parent().find("input[name=deleteMultipleSchedule]").show();
+        } else {
+            $(parent).parent().find("input[name=deleteMultipleSchedule]").hide();
+        }
+    });
+    
+    $(".seeMoreSchedules").click(function () {
+        $(this).parent().parent().parent().find(".allSchedules").show();
+        $("#overlay").show();
+    });
+
+    $(".closeMultipleViewSchedule").click(function () {
+        $(this).parent().parent().find("input[type=checkbox]").each(function () {
+            this.checked = false;
+        });
+
+        $("#overlay").hide();
+        $(this).parent().parent().parent().hide();
+    });
 
     $(document).keyup(function(e) {
         if (e.keyCode == 27) {

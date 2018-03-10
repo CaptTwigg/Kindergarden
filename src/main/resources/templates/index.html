@@ -232,6 +232,119 @@
         #deletedSchedules input[type=submit] {
             float: right;
         }
+
+        .allSchedules {
+            width: 540px;
+            height: 400px !important;
+            position: fixed !important;
+            margin-top: -200px !important;
+        }
+
+        .allSchedules .checkboxSchedule {
+            height: 30px !important;
+        }
+
+        .allSchedules .checkboxSchedule:not(:last-child) {
+            margin-bottom: 10px;
+        }
+
+        .allSchedules .checkboxSchedule .multipleScheduleBlock {
+            font-size: 15px;
+            color: #fff;
+            background: #4285f4;
+            border-radius: 2.5px;
+            float: right;
+            padding: 5px 10px;
+            width: 440px;
+        }
+
+        .allSchedules .checkboxSchedule .multipleScheduleBlock:hover {
+            background: #3866CF;
+            cursor: pointer;
+        }
+
+        /*--- CHECKBOXES---*/
+        .allSchedules .checkboxContainer {
+            position: relative;
+            padding-left: 35px;
+            cursor: pointer;
+            font-size: 17.5px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            width: 30px;
+            height: 40px;
+            float: left;
+        }
+
+        /* Hide the browser's default checkbox */
+        .allSchedules .checkboxContainer input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        /* Create a custom checkbox */
+        .allSchedules .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 30px;
+            width: 30px;
+            border-radius: 2.5px;
+            background-color: #eee;
+        }
+
+        /* On mouse-over, add a grey background color */
+        .allSchedules .checkboxContainer:hover input ~ .checkmark {
+            background-color: #ccc;
+        }
+
+        /* When the checkbox is checked, add a blue background */
+        .allSchedules .checkboxContainer input:checked ~ .checkmark {
+            background-color: #4285f4;
+        }
+
+        /* Create the checkmark/indicator (hidden when not checked) */
+        .allSchedules .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        /* Show the checkmark when checked */
+        .allSchedules .checkboxContainer input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        /* Style the checkmark/indicator */
+        .allSchedules .checkboxContainer .checkmark:after {
+            left: 11px;
+            top: 7px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+
+        .allSchedules .allSchedulesButtons {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
+        }
+
+        .allSchedules .allSchedulesButtons input[name=deleteMultipleSchedule] {
+            display: none;
+        }
+
+        .allSchedules .allSchedulesContainer {
+            height: 230px !important;
+            overflow-y:  auto;
+        }
     </style>
     <link rel="stylesheet" href="stylesheets/css.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -332,6 +445,31 @@
                         </div>
                     </div>
                     <div th:replace="${daysInThisMonth[index + 0]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
+                    <div class="allSchedules popup-formular" th:if="${schedulesPerDay[index + 0]} > 3 or ${countSchedulesPerDayForPerson[index + 0]} > 3">
+                        <h2 th:text="${viewCalendarFor} == 0 ? 'Alle vagter d. '+${dateArray[index + 0]} : ${viewCalendarForName}+'\'s vagter d. '+${dateArray[index + 0]}"></h2>
+                        <form method="post">
+                            <div class="allSchedulesContainer">
+                                <div class="checkboxSchedule" th:each="schedule, iterStat : ${schedules}"
+                                     th:attrappend="data-schedule-date=${daysInThisMonth[index + 0]} ? ${dateArray[index + 0]},
+                                             data-from-time=${daysInThisMonth[index + 0]} ? ${schedule.fromTime},
+                                             data-to-time=${daysInThisMonth[index + 0]} ? ${schedule.toTime},
+                                             data-employee=${daysInThisMonth[index + 0]} ? ${schedule.employeeFullName},
+                                             data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey},
+                                             data-schedule-id=${daysInThisMonth[index + 0]} ? ${schedule.Id}"
+                                     th:if="${days[index + 0]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 0]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
+                                    <label class="checkboxContainer">
+                                        <input type="checkbox" name="deleteMultipleSchedules" th:value="${schedule.Id}" />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <div class="multipleScheduleBlock" th:text="${schedule.fromTime}+' - '+${schedule.toTime}+' '+${schedule.employeeName}"></div>
+                                </div>
+                            </div>
+                            <div class="allSchedulesButtons">
+                                <input type="button" name="closeMultipleViewSchedule" value="Luk" style="float:left;" class="red-btn closeMultipleViewSchedule" />
+                                <input type="submit" name="deleteMultipleSchedule" value="Slet valgte" style="float:right;" class="red-btn deleteMultipleSchedule" />
+                            </div>
+                        </form>
+                    </div>
                 </td>
                 <td th:classappend="${daysInThisMonth[index + 1]} ? '' : 'unavailable'"
                     th:attrappend="data-date=${daysInThisMonth[index + 1]} ? ${dateArray[index + 1]}">
@@ -340,11 +478,11 @@
                         <div class="scheduleContainer" th:if="${daysInThisMonth[index + 0]}">
                             <div class="schedule" th:each="schedule, iterStat : ${schedules}"
                                  th:attrappend="data-schedule-date=${daysInThisMonth[index + 0]} ? ${dateArray[index + 1]},
-                                 data-from-time=${daysInThisMonth[index + 0]} ? ${schedule.fromTime},
-                                 data-to-time=${daysInThisMonth[index + 0]} ? ${schedule.toTime},
-                                 data-employee=${daysInThisMonth[index + 0]} ? ${schedule.employeeFullName},
-                                 data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey},
-                                 data-schedule-id=${daysInThisMonth[index + 0]} ? ${schedule.Id}"
+                                 data-from-time=${daysInThisMonth[index + 1]} ? ${schedule.fromTime},
+                                 data-to-time=${daysInThisMonth[index + 1]} ? ${schedule.toTime},
+                                 data-employee=${daysInThisMonth[index + 1]} ? ${schedule.employeeFullName},
+                                 data-employeeKey=${daysInThisMonth[index + 1]} ? ${schedule.employeeKey},
+                                 data-schedule-id=${daysInThisMonth[index + 1]} ? ${schedule.Id}"
                                  th:if="${days[index + 1]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 1]} and ${iterStat.index} <= ${toIndex[index + 1]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
                                 <p th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime}+' '+${schedule.employeeName})"></p>
                             </div>
@@ -365,11 +503,11 @@
                         <div class="scheduleContainer" th:if="${daysInThisMonth[index + 0]}">
                             <div class="schedule" th:each="schedule, iterStat : ${schedules}"
                                  th:attrappend="data-schedule-date=${daysInThisMonth[index + 0]} ? ${dateArray[index + 2]},
-                                 data-from-time=${daysInThisMonth[index + 0]} ? ${schedule.fromTime},
-                                 data-to-time=${daysInThisMonth[index + 0]} ? ${schedule.toTime},
-                                 data-employee=${daysInThisMonth[index + 0]} ? ${schedule.employeeFullName},
-                                 data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey},
-                                 data-schedule-id=${daysInThisMonth[index + 0]} ? ${schedule.Id}"
+                                 data-from-time=${daysInThisMonth[index + 2]} ? ${schedule.fromTime},
+                                 data-to-time=${daysInThisMonth[index + 2]} ? ${schedule.toTime},
+                                 data-employee=${daysInThisMonth[index + 2]} ? ${schedule.employeeFullName},
+                                 data-employeeKey=${daysInThisMonth[index + 2]} ? ${schedule.employeeKey},
+                                 data-schedule-id=${daysInThisMonth[index + 2]} ? ${schedule.Id}"
                                  th:if="${days[index + 2]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 2]} and ${iterStat.index} <= ${toIndex[index + 2]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
                                 <p th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime}+' '+${schedule.employeeName})"></p>
                             </div>
@@ -390,11 +528,11 @@
                         <div class="scheduleContainer" th:if="${daysInThisMonth[index + 0]}">
                             <div class="schedule" th:each="schedule, iterStat : ${schedules}"
                                  th:attrappend="data-schedule-date=${daysInThisMonth[index + 0]} ? ${dateArray[index + 3]},
-                                 data-from-time=${daysInThisMonth[index + 0]} ? ${schedule.fromTime},
-                                 data-to-time=${daysInThisMonth[index + 0]} ? ${schedule.toTime},
-                                 data-employee=${daysInThisMonth[index + 0]} ? ${schedule.employeeFullName},
-                                 data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey},
-                                 data-schedule-id=${daysInThisMonth[index + 0]} ? ${schedule.Id}"
+                                 data-from-time=${daysInThisMonth[index + 3]} ? ${schedule.fromTime},
+                                 data-to-time=${daysInThisMonth[index + 3]} ? ${schedule.toTime},
+                                 data-employee=${daysInThisMonth[index + 3]} ? ${schedule.employeeFullName},
+                                 data-employeeKey=${daysInThisMonth[index + 3]} ? ${schedule.employeeKey},
+                                 data-schedule-id=${daysInThisMonth[index + 3]} ? ${schedule.Id}"
                                  th:if="${days[index + 3]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 3]} and ${iterStat.index} <= ${toIndex[index + 3]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
                                 <p th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime}+' '+${schedule.employeeName})"></p>
                             </div>
@@ -415,11 +553,11 @@
                         <div class="scheduleContainer" th:if="${daysInThisMonth[index + 0]}">
                             <div class="schedule" th:each="schedule, iterStat : ${schedules}"
                                  th:attrappend="data-schedule-date=${daysInThisMonth[index + 0]} ? ${dateArray[index + 4]},
-                                 data-from-time=${daysInThisMonth[index + 0]} ? ${schedule.fromTime},
-                                 data-to-time=${daysInThisMonth[index + 0]} ? ${schedule.toTime},
-                                 data-employee=${daysInThisMonth[index + 0]} ? ${schedule.employeeFullName},
-                                 data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey},
-                                 data-schedule-id=${daysInThisMonth[index + 0]} ? ${schedule.Id}"
+                                 data-from-time=${daysInThisMonth[index + 4]} ? ${schedule.fromTime},
+                                 data-to-time=${daysInThisMonth[index + 4]} ? ${schedule.toTime},
+                                 data-employee=${daysInThisMonth[index + 4]} ? ${schedule.employeeFullName},
+                                 data-employeeKey=${daysInThisMonth[index + 4]} ? ${schedule.employeeKey},
+                                 data-schedule-id=${daysInThisMonth[index + 4]} ? ${schedule.Id}"
                                  th:if="${days[index + 4]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 4]} and ${iterStat.index} <= ${toIndex[index + 4]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
                                 <p th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime}+' '+${schedule.employeeName})"></p>
                             </div>
@@ -440,11 +578,11 @@
                         <div class="scheduleContainer" th:if="${daysInThisMonth[index + 0]}">
                             <div class="schedule" th:each="schedule, iterStat : ${schedules}"
                                  th:attrappend="data-schedule-date=${daysInThisMonth[index + 0]} ? ${dateArray[index + 5]},
-                                 data-from-time=${daysInThisMonth[index + 0]} ? ${schedule.fromTime},
-                                 data-to-time=${daysInThisMonth[index + 0]} ? ${schedule.toTime},
-                                 data-employee=${daysInThisMonth[index + 0]} ? ${schedule.employeeFullName},
-                                 data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey},
-                                 data-schedule-id=${daysInThisMonth[index + 0]} ? ${schedule.Id}"
+                                 data-from-time=${daysInThisMonth[index + 5]} ? ${schedule.fromTime},
+                                 data-to-time=${daysInThisMonth[index + 5]} ? ${schedule.toTime},
+                                 data-employee=${daysInThisMonth[index + 5]} ? ${schedule.employeeFullName},
+                                 data-employeeKey=${daysInThisMonth[index + 5]} ? ${schedule.employeeKey},
+                                 data-schedule-id=${daysInThisMonth[index + 5]} ? ${schedule.Id}"
                                  th:if="${days[index + 5]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 5]} and ${iterStat.index} <= ${toIndex[index + 5]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
                                 <p th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime}+' '+${schedule.employeeName})"></p>
                             </div>
@@ -465,11 +603,11 @@
                         <div class="scheduleContainer" th:if="${daysInThisMonth[index + 0]}">
                             <div class="schedule" th:each="schedule, iterStat : ${schedules}"
                                  th:attrappend="data-schedule-date=${daysInThisMonth[index + 0]} ? ${dateArray[index + 6]},
-                                 data-from-time=${daysInThisMonth[index + 0]} ? ${schedule.fromTime},
-                                 data-to-time=${daysInThisMonth[index + 0]} ? ${schedule.toTime},
-                                 data-employee=${daysInThisMonth[index + 0]} ? ${schedule.employeeFullName},
-                                 data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey},
-                                 data-schedule-id=${daysInThisMonth[index + 0]} ? ${schedule.Id}"
+                                 data-from-time=${daysInThisMonth[index + 6]} ? ${schedule.fromTime},
+                                 data-to-time=${daysInThisMonth[index + 6]} ? ${schedule.toTime},
+                                 data-employee=${daysInThisMonth[index + 6]} ? ${schedule.employeeFullName},
+                                 data-employeeKey=${daysInThisMonth[index + 6]} ? ${schedule.employeeKey},
+                                 data-schedule-id=${daysInThisMonth[index + 6]} ? ${schedule.Id}"
                                  th:if="${days[index + 6]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 6]} and ${iterStat.index} <= ${toIndex[index + 6]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
                                 <p th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime}+' '+${schedule.employeeName})"></p>
                             </div>
