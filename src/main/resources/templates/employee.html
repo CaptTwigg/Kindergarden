@@ -94,6 +94,14 @@
         $("#cancelEmployeeCreate, #overlay").click(function () {
           $("#overlay, .popup-formular").hide();
         });
+
+        $("#openEditEmployee").click(function () {
+            $("#overlay, #editEmployee").show();
+        });
+
+        $("#cancelEmployeeEdit, #overlay").click(function () {
+            $("#overlay, .popup-formular").hide();
+        });
         // $("#userButton").click(function () {
         //   $("#overlay, #user").show();
         // });
@@ -111,6 +119,7 @@
 <div id="content">
     <div id="overlay"></div>
     <div th:replace="/includes/createEmployeePopUp::createNewEmployee"></div>
+    <div th:replace="/includes/editEmployeePopUp::editEmployee"></div>
     <div th:replace="/includes/user:: user"></div>
     <div id="topbar">
         <form method="post">
@@ -136,7 +145,9 @@
                     <form method="post" th:action="@{'deleteEmployee?id='+${employee.id}}">
                     <input type="submit" value="Slet" class="red-btn buttonsList"/>
                     </form>
-                    <input id="userButton" type="button" value="Redigér" class="blue-btn buttonsList"/>
+                    <form method="post" th:action="@{'editEmployee?id='+${employee.id}}">
+                    <input id="openEditEmployee" type="submit" value="Redigér" class="blue-btn buttonsList"/> <!--Denne vises frem men den bliver ikke på siden.-->
+                    </form>
                     <form method="post" th:action="@{'details?id=' + ${employee.id}}">
                         <input type="submit" value="Detaljer" class="green-btn buttonsList"/>
                     </form>
