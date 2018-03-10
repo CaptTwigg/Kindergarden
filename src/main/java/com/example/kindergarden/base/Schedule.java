@@ -32,7 +32,7 @@ public class Schedule implements Comparable<Schedule> {
 
     //Constructor used for when saving a new one
     public Schedule(String date, String fromTime, String toTime, int employeeKey) {
-        this.date = date.replaceAll("-", "");
+        this.date = date.replaceAll(    "-", "");
         this.fromTime = fromTime.replace(":", "");
         this.toTime = toTime.replace(":", "");
         this.employeeKey = employeeKey;

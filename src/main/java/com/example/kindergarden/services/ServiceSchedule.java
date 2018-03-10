@@ -5,10 +5,7 @@ import com.example.kindergarden.base.Employee;
 import com.example.kindergarden.base.Schedule;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
+import java.util.*;
 
 public class ServiceSchedule {
     private ArrayList<Schedule> schedules = new ArrayList<>();
@@ -113,7 +110,7 @@ public class ServiceSchedule {
     public void add(Schedule schedule) {
         schedules = fileHandler.getAllSchedules();
         schedules.add(schedule.setId(getHighestId()));
-        Collections.sort(schedules);
+        sort();
         fileHandler.saveSchedulesToFile(schedules);
     }
 
@@ -142,7 +139,7 @@ public class ServiceSchedule {
             }
         }
 
-        Collections.sort(schedules);
+        sort();
         fileHandler.saveSchedulesToFile(schedules);
 
         return removedSchedule;
@@ -166,7 +163,7 @@ public class ServiceSchedule {
             }
         }
 
-        Collections.sort(schedules);
+        sort();
         fileHandler.saveSchedulesToFile(schedules);
 
         return removedSchedules;
@@ -184,5 +181,23 @@ public class ServiceSchedule {
         }
 
         return name;
+    }
+
+    private void sort() {
+        Collections.sort(schedules, new Comparator<Schedule>() {
+            @Override
+            public int compare(Schedule o1, Schedule o2) {
+                int date = o1.getDate().compareTo(o2.getDate());
+                if(date != 0){
+                    return date;
+                }
+                int fromTime = o1.getFromTime().compareTo(o2.getFromTime());
+                if(fromTime != 0) {
+                    return fromTime;
+                }
+
+                return o1.getDate().compareTo(o2.getDate());
+            }
+        });
     }
 }
