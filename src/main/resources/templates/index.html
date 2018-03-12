@@ -353,17 +353,16 @@
 <body>
 <div th:replace="/includes/menu::menu"></div>
 <div id="content">
+    <div id="success" th:text="${success_TXT}"></div>
+    <div id="overlay"></div>
+    <div th:replace="/includes/createSchedule::createSchedule"></div>
+    <div th:replace="/includes/editSchedule::editSchedule"></div>
     <div id="deletedSchedules" th:if="${numberOfDeletedSchedules} != 0">
         <span id="deletedSchedulesText" th:text="${numberOfDeletedSchedules} > 1 ? ${numberOfDeletedSchedules}+' vagter blev slettet' : ${numberOfDeletedSchedules}+' vagt blev slettet'"></span>
         <form method="post">
             <input name="restoreDeletedSchedules" value="Fortryd" type="submit" class="green-btn" />
         </form>
     </div>
-    <div id="success" th:text="${success_TXT}"></div>
-    <div id="overlay"></div>
-    <div th:replace="/includes/user:: user"></div>
-    <div th:replace="/includes/createSchedule::createSchedule"></div>
-    <div th:replace="/includes/editSchedule::editSchedule"></div>
     <div id="viewSingleSchedule" class="popup-show">
         <h2></h2>
         <div id="timeInformation">
@@ -449,8 +448,20 @@
                             </div>
                         </div>
                     </div>
-                    <div th:replace="${daysInThisMonth[index + 0]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
-                    <div class="allSchedules popup-formular" th:if="${schedulesPerDay[index + 0]} > 3 or ${countSchedulesPerDayForPerson[index + 0]} > 3">
+                    <div class="dateMenu" th:fragment="dateMenu">
+                        <div>
+                            <p class="dateMenuClose">X</p>
+                            <ul>
+                                <li>
+                                    <input type="button" value="Opret vagt" class="green-btn createScheduleAtDate" />
+                                </li>
+                                <li  th:if="${schedulesPerDay[index + 0]} > 0 or ${countSchedulesPerDayForPerson[index + 0]} > 0">
+                                    <input type="button" value="Slet vagter" class="red-btn openDeleteMultipleSchedules" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="allSchedules popup-formular" th:if="${schedulesPerDay[index + 0]} > 0 or ${countSchedulesPerDayForPerson[index + 0]} > 0">
                         <h2 th:utext="${viewCalendarFor} == 0 ? 'Alle vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 0]}+'</span>' : ${viewCalendarForName}+'\'s vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 0]}+'</span>'"></h2>
                         <form method="post">
                             <div class="allSchedulesContainer">
@@ -499,8 +510,20 @@
                             </div>
                         </div>
                     </div>
-                    <div th:replace="${daysInThisMonth[index + 1]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
-                    <div class="allSchedules popup-formular" th:if="${schedulesPerDay[index + 1]} > 3 or ${countSchedulesPerDayForPerson[index + 1]} > 3">
+                    <div class="dateMenu" th:fragment="dateMenu">
+                        <div>
+                            <p class="dateMenuClose">X</p>
+                            <ul>
+                                <li>
+                                    <input type="button" value="Opret vagt" class="green-btn createScheduleAtDate" />
+                                </li>
+                                <li  th:if="${schedulesPerDay[index + 1]} > 0 or ${countSchedulesPerDayForPerson[index + 1]} > 0">
+                                    <input type="button" value="Slet vagter" class="red-btn openDeleteMultipleSchedules" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="allSchedules popup-formular" th:if="${schedulesPerDay[index + 1]} > 0 or ${countSchedulesPerDayForPerson[index + 1]} > 0">
                         <h2 th:utext="${viewCalendarFor} == 0 ? 'Alle vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 1]}+'</span>' : ${viewCalendarForName}+'\'s vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 1]}+'</span>'"></h2>
                         <form method="post">
                             <div class="allSchedulesContainer">
@@ -511,7 +534,7 @@
                                              data-employee=${daysInThisMonth[index + 1]} ? ${schedule.employeeFullName},
                                              data-employeeKey=${daysInThisMonth[index + 1]} ? ${schedule.employeeKey},
                                              data-schedule-id=${daysInThisMonth[index + 1]} ? ${schedule.Id}"
-                                     th:if="${days[index + 0]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 1]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
+                                     th:if="${days[index + 1]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 1]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
                                     <label class="checkboxContainer">
                                         <input type="checkbox" name="deleteMultipleSchedules" th:value="${schedule.Id}" />
                                         <span class="checkmark"></span>
@@ -549,8 +572,20 @@
                             </div>
                         </div>
                     </div>
-                    <div th:replace="${daysInThisMonth[index + 2]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
-                    <div class="allSchedules popup-formular" th:if="${schedulesPerDay[index + 2]} > 3 or ${countSchedulesPerDayForPerson[index + 0]} > 3">
+                    <div class="dateMenu" th:fragment="dateMenu">
+                        <div>
+                            <p class="dateMenuClose">X</p>
+                            <ul>
+                                <li>
+                                    <input type="button" value="Opret vagt" class="green-btn createScheduleAtDate" />
+                                </li>
+                                <li  th:if="${schedulesPerDay[index + 2]} > 0 or ${countSchedulesPerDayForPerson[index + 2]} > 0">
+                                    <input type="button" value="Slet vagter" class="red-btn openDeleteMultipleSchedules" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="allSchedules popup-formular" th:if="${schedulesPerDay[index + 2]} > 0 or ${countSchedulesPerDayForPerson[index + 2]} > 0">
                         <h2 th:utext="${viewCalendarFor} == 0 ? 'Alle vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 2]}+'</span>' : ${viewCalendarForName}+'\'s vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 2]}+'</span>'"></h2>
                         <form method="post">
                             <div class="allSchedulesContainer">
@@ -561,7 +596,7 @@
                                              data-employee=${daysInThisMonth[index + 2]} ? ${schedule.employeeFullName},
                                              data-employeeKey=${daysInThisMonth[index + 2]} ? ${schedule.employeeKey},
                                              data-schedule-id=${daysInThisMonth[index + 2]} ? ${schedule.Id}"
-                                     th:if="${days[index + 0]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 2]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
+                                     th:if="${days[index + 2]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 2]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
                                     <label class="checkboxContainer">
                                         <input type="checkbox" name="deleteMultipleSchedules" th:value="${schedule.Id}" />
                                         <span class="checkmark"></span>
@@ -599,8 +634,20 @@
                             </div>
                         </div>
                     </div>
-                    <div th:replace="${daysInThisMonth[index + 3]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
-                    <div class="allSchedules popup-formular" th:if="${schedulesPerDay[index + 3]} > 3 or ${countSchedulesPerDayForPerson[index + 3]} > 3">
+                    <div class="dateMenu" th:fragment="dateMenu">
+                        <div>
+                            <p class="dateMenuClose">X</p>
+                            <ul>
+                                <li>
+                                    <input type="button" value="Opret vagt" class="green-btn createScheduleAtDate" />
+                                </li>
+                                <li  th:if="${schedulesPerDay[index + 3]} > 0 or ${countSchedulesPerDayForPerson[index + 3]} > 0">
+                                    <input type="button" value="Slet vagter" class="red-btn openDeleteMultipleSchedules" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="allSchedules popup-formular" th:if="${schedulesPerDay[index + 3]} > 0 or ${countSchedulesPerDayForPerson[index + 3]} > 0">
                         <h2 th:utext="${viewCalendarFor} == 0 ? 'Alle vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 3]}+'</span>' : ${viewCalendarForName}+'\'s vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 3]}+'</span>'"></h2>
                         <form method="post">
                             <div class="allSchedulesContainer">
@@ -611,7 +658,7 @@
                                              data-employee=${daysInThisMonth[index + 3]} ? ${schedule.employeeFullName},
                                              data-employeeKey=${daysInThisMonth[index + 3]} ? ${schedule.employeeKey},
                                              data-schedule-id=${daysInThisMonth[index + 3]} ? ${schedule.Id}"
-                                     th:if="${days[index + 0]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 3]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
+                                     th:if="${days[index + 3]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 3]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
                                     <label class="checkboxContainer">
                                         <input type="checkbox" name="deleteMultipleSchedules" th:value="${schedule.Id}" />
                                         <span class="checkmark"></span>
@@ -649,8 +696,20 @@
                             </div>
                         </div>
                     </div>
-                    <div th:replace="${daysInThisMonth[index + 4]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
-                    <div class="allSchedules popup-formular" th:if="${schedulesPerDay[index + 4]} > 3 or ${countSchedulesPerDayForPerson[index + 4]} > 3">
+                    <div class="dateMenu" th:fragment="dateMenu">
+                        <div>
+                            <p class="dateMenuClose">X</p>
+                            <ul>
+                                <li>
+                                    <input type="button" value="Opret vagt" class="green-btn createScheduleAtDate" />
+                                </li>
+                                <li  th:if="${schedulesPerDay[index + 4]} > 0 or ${countSchedulesPerDayForPerson[index + 4]} > 0">
+                                    <input type="button" value="Slet vagter" class="red-btn openDeleteMultipleSchedules" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="allSchedules popup-formular" th:if="${schedulesPerDay[index + 4]} > 0 or ${countSchedulesPerDayForPerson[index + 4]} > 0">
                         <h2 th:utext="${viewCalendarFor} == 0 ? 'Alle vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 4]}+'</span>' : ${viewCalendarForName}+'\'s vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 4]}+'</span>'"></h2>
                         <form method="post">
                             <div class="allSchedulesContainer">
@@ -661,7 +720,7 @@
                                              data-employee=${daysInThisMonth[index + 4]} ? ${schedule.employeeFullName},
                                              data-employeeKey=${daysInThisMonth[index + 4]} ? ${schedule.employeeKey},
                                              data-schedule-id=${daysInThisMonth[index + 4]} ? ${schedule.Id}"
-                                     th:if="${days[index + 0]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 4]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
+                                     th:if="${days[index + 4]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 4]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
                                     <label class="checkboxContainer">
                                         <input type="checkbox" name="deleteMultipleSchedules" th:value="${schedule.Id}" />
                                         <span class="checkmark"></span>
@@ -699,8 +758,20 @@
                             </div>
                         </div>
                     </div>
-                    <div th:replace="${daysInThisMonth[index + 5]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
-                    <div class="allSchedules popup-formular" th:if="${schedulesPerDay[index + 5]} > 3 or ${countSchedulesPerDayForPerson[index + 5]} > 3">
+                    <div class="dateMenu" th:fragment="dateMenu">
+                        <div>
+                            <p class="dateMenuClose">X</p>
+                            <ul>
+                                <li>
+                                    <input type="button" value="Opret vagt" class="green-btn createScheduleAtDate" />
+                                </li>
+                                <li  th:if="${schedulesPerDay[index + 5]} > 0 or ${countSchedulesPerDayForPerson[index + 5]} > 0">
+                                    <input type="button" value="Slet vagter" class="red-btn openDeleteMultipleSchedules" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="allSchedules popup-formular" th:if="${schedulesPerDay[index + 5]} > 0 or ${countSchedulesPerDayForPerson[index + 5]} > 0">
                         <h2 th:utext="${viewCalendarFor} == 0 ? 'Alle vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 5]}+'</span>' : ${viewCalendarForName}+'\'s vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 5]}+'</span>'"></h2>
                         <form method="post">
                             <div class="allSchedulesContainer">
@@ -711,7 +782,7 @@
                                              data-employee=${daysInThisMonth[index + 5]} ? ${schedule.employeeFullName},
                                              data-employeeKey=${daysInThisMonth[index + 5]} ? ${schedule.employeeKey},
                                              data-schedule-id=${daysInThisMonth[index + 5]} ? ${schedule.Id}"
-                                     th:if="${days[index + 0]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 5]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
+                                     th:if="${days[index + 5]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 5]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
                                     <label class="checkboxContainer">
                                         <input type="checkbox" name="deleteMultipleSchedules" th:value="${schedule.Id}" />
                                         <span class="checkmark"></span>
@@ -749,8 +820,20 @@
                             </div>
                         </div>
                     </div>
-                    <div th:replace="${daysInThisMonth[index + 6]} ? ~{/includes/dateMenu::dateMenu} : ~{}"></div>
-                    <div class="allSchedules popup-formular" th:if="${schedulesPerDay[index + 6]} > 3 or ${countSchedulesPerDayForPerson[index + 6]} > 3">
+                    <div class="dateMenu" th:fragment="dateMenu">
+                        <div>
+                            <p class="dateMenuClose">X</p>
+                            <ul>
+                                <li>
+                                    <input type="button" value="Opret vagt" class="green-btn createScheduleAtDate" />
+                                </li>
+                                <li  th:if="${schedulesPerDay[index + 6]} > 0 or ${countSchedulesPerDayForPerson[index + 6]} > 0">
+                                    <input type="button" value="Slet vagter" class="red-btn openDeleteMultipleSchedules" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="allSchedules popup-formular" th:if="${schedulesPerDay[index + 6]} > 0 or ${countSchedulesPerDayForPerson[index + 6]} > 0">
                         <h2 th:utext="${viewCalendarFor} == 0 ? 'Alle vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 6]}+'</span>' : ${viewCalendarForName}+'\'s vagter d. <span class=\'remakeDate\'>'+${dateArray[index + 6]}+'</span>'"></h2>
                         <form method="post">
                             <div class="allSchedulesContainer">
@@ -761,7 +844,7 @@
                                              data-employee=${daysInThisMonth[index + 6]} ? ${schedule.employeeFullName},
                                              data-employeeKey=${daysInThisMonth[index + 6]} ? ${schedule.employeeKey},
                                              data-schedule-id=${daysInThisMonth[index + 6]} ? ${schedule.Id}"
-                                     th:if="${days[index + 0]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 6]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
+                                     th:if="${days[index + 6]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 6]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
                                     <label class="checkboxContainer">
                                         <input type="checkbox" name="deleteMultipleSchedules" th:value="${schedule.Id}" />
                                         <span class="checkmark"></span>
