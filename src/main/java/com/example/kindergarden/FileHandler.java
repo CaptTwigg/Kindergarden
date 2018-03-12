@@ -1,15 +1,13 @@
 package com.example.kindergarden;
 
 import com.example.kindergarden.base.Employee;
-import com.example.kindergarden.base.Login;
 import com.example.kindergarden.base.Schedule;
-import com.example.kindergarden.services.ServiceEmployee;
+import com.example.kindergarden.base.Session;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,6 +23,15 @@ public class FileHandler {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public FileHandler setFileName(String fileName) {
+        this.fileName = fileName;
+        return this;
     }
 
     public ArrayList<Employee> loadEmployees(String fileName){
@@ -53,7 +60,7 @@ public class FileHandler {
 
         for (Employee employeeSave: employees){
             try {
-                newEmployeeInfo = new PrintStream(new FileOutputStream("./src/main/resources/files/"+fileName, true));
+                newEmployeeInfo = new PrintStream(new FileOutputStream(path+fileName, true));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -73,12 +80,12 @@ public class FileHandler {
         }
     }
 
-    public void saveLoginToFile(ArrayList<Login> logins){
-      /*try {
+    /*public void saveLoginToFile(ArrayList<Login> logins){
+      try {
         new PrintStream(new File(path+fileName));
       } catch (FileNotFoundException e) {
         e.printStackTrace();
-      }*/
+      }
 
       PrintStream newLoginInfo = null;
 
@@ -95,15 +102,54 @@ public class FileHandler {
         newLoginInfo.print(loginInfo);
         System.out.print("\n");
       }
+    }*/
+
+    public boolean checkLogin(String username, String password) {
+        try {
+            scanner = new Scanner(new File(path + fileName)).useDelimiter(";");
+
+            while (scanner.hasNextLine()) {
+                int ID = scanner.nextInt();
+                String userNameTemp = scanner.next();
+                String passWordTemp = scanner.next();
+
+                if(userNameTemp.equals(username) && passWordTemp.equals(password)){
+                    return true;
+                }
+
+                scanner.nextLine();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
-    public String getFileName() {
-        return fileName;
-    }
+    public Session getLogion(String username, String password) {
+        Session session = null;
 
-    public FileHandler setFileName(String fileName) {
-        this.fileName = fileName;
-        return this;
+        try {
+            scanner = new Scanner(new File(path+ fileName)).useDelimiter(";");
+
+            while (scanner.hasNextLine()) {
+                int ID = scanner.nextInt();
+                String userNameTemp = scanner.next();
+                String passWordTemp = scanner.next();
+                int niveau = scanner.nextInt();
+
+                if(userNameTemp.equals(username) && passWordTemp.equals(password)){
+                    session = new Session(userNameTemp, passWordTemp, ID, niveau);
+                    break;
+                }
+
+                scanner.nextLine();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return session;
     }
 
     public ArrayList<Schedule> getSchedules(String month, String year, int id)  {
@@ -111,7 +157,7 @@ public class FileHandler {
         ArrayList<Employee> tempEmployees = loadEmployees("employees.txt");
 
         try {
-            scanner = new Scanner(new File("./src/main/resources/files/" + fileName)).useDelimiter(";");
+            scanner = new Scanner(new File(path + fileName)).useDelimiter(";");
 
             while (scanner.hasNextLine()) {
                 int ID = scanner.nextInt();

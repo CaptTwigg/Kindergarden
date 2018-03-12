@@ -40,6 +40,7 @@ public class SchedulerController {
             model.addAttribute("countSchedulesPerDayForPerson", serviceSchedule.getGetCountSchedulesPerDayForPerson(serviceCalendar, viewCalendarFor));
             model.addAttribute("viewCalendarForName", serviceSchedule.getViewCalendarForName(viewCalendarFor));
             model.addAttribute("getFullTodayAsString", serviceCalendar.getFullTodayAsString());
+            model.addAttribute("niveau", ServiceSession.getCurrentSession().getUserNiveau());
             successMessage = "";
             return "index";
         } else {

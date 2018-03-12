@@ -85,8 +85,6 @@
             <tbody>
             <tr><td colspan="2" ><h2 style="margin-top: 10px">Medarbejder</h2></td></tr>
             <tr th:each="employee: ${employees}" th:attrappend="data-employee-id=${employee.id},
-                                 data-employee-username=${login.username},
-                                 data-employee-password=${login.password},
                                  data-employee-firstname=${employee.firstName},
                                  data-employee-lastname=${employee.lastName},
                                  data-employee-roadname=${employee.roadName},

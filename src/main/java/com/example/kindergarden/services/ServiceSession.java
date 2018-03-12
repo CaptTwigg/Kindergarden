@@ -1,43 +1,41 @@
 package com.example.kindergarden.services;
 
+import com.example.kindergarden.FileHandler;
 import com.example.kindergarden.base.Session;
 import org.springframework.util.DigestUtils;
 
 import java.util.ArrayList;
 
 public class ServiceSession {
-    static ArrayList<Session> sessions = new ArrayList<>();
+    private static Session session = null;
+    private FileHandler fileHandler;
+
+    public ServiceSession(){
+        fileHandler = new FileHandler("logins.txt");
+    }
 
     public static boolean isSomeoneLoggedIn() {
-        for(Session session : sessions) {
-            if(session.isIsLoggedIn()) {
-                return true;
-            }
-        }
-
-        return false;
+        return session != null;
     }
 
-    public static void setLogin(String username, String password) {
-        for(Session session : sessions) {
-            if(session.getUserName().equals(username) && session.getPassWord().equals(md5Hasher(password))) {
-                session.setIsLoggedIn(true);
-                break;
-            }
+    public boolean checkLogin(String username, String password) {
+        if(fileHandler.checkLogin(username, md5Hasher(password))) {
+            session = fileHandler.getLogion(username, md5Hasher(password));
+            return true;
+        } else {
+            return false;
         }
     }
 
-    private static String md5Hasher(String password) {
-        return DigestUtils.md5DigestAsHex(password.getBytes()).toUpperCase();
+    private String md5Hasher(String password) {
+        return DigestUtils.md5DigestAsHex(password.getBytes());
     }
 
-    public static ArrayList<Session> getSessions() {
-        return sessions;
+    public static Session getCurrentSession() {
+        return session;
     }
 
     public static void logOut() {
-        for(Session session : sessions) {
-            session.setIsLoggedIn(false);
-        }
+        session = null;
     }
 }

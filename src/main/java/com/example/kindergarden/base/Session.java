@@ -5,19 +5,22 @@ import org.springframework.util.DigestUtils;
 public class Session {
     private String userName;
     private String passWord;
-    private boolean isLoggedIn = false;
+    private int userKey;
+    private int userNiveau;
 
-    public Session(String userName, String passWord) {
+    public Session(String userName, String passWord, int userKey, int userNiveau) {
         this.userName = userName;
-        this.passWord = md5Hasher(passWord);
+        this.passWord = passWord;
+        this.userKey = userKey;
+        this.userNiveau = userNiveau;
     }
 
-    public boolean isIsLoggedIn() {
-        return isLoggedIn;
+    public int getUserKey() {
+        return userKey;
     }
 
-    public void setIsLoggedIn(boolean isLoggedIn) {
-        this.isLoggedIn = isLoggedIn;
+    public void setUserKey(int userKey) {
+        this.userKey = userKey;
     }
 
     public String getUserName() {
@@ -36,7 +39,11 @@ public class Session {
         this.passWord = passWord;
     }
 
-    private String md5Hasher(String password) {
-        return DigestUtils.md5DigestAsHex(password.getBytes()).toUpperCase();
+    public int getUserNiveau() {
+        return userNiveau;
+    }
+
+    public void setUserNiveau(int userNiveau) {
+        this.userNiveau = userNiveau;
     }
 }
