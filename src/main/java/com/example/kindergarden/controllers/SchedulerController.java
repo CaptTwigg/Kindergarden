@@ -49,6 +49,7 @@ public class SchedulerController {
         }
     }
 
+    //Klikker på forrige måned
     @PostMapping(value = "/index", params = "month_chooser=Forrige")
     public String goToPreviousMonth() {
         serviceCalendar.decrement();
@@ -56,6 +57,7 @@ public class SchedulerController {
         return "redirect:/index";
     }
 
+    //Klikker på næste måned
     @PostMapping(value = "/index", params = "month_chooser=Næste")
     public String goToNextMonth() {
         serviceCalendar.increment();
@@ -63,6 +65,7 @@ public class SchedulerController {
         return "redirect:/index";
     }
 
+    //Klikker på Gå til idag
     @PostMapping(value = "/index", params = "go_to=Gå til idag")
     public String goToToday() {
         serviceCalendar.goToToday();
@@ -70,6 +73,7 @@ public class SchedulerController {
         return "redirect:/index";
     }
 
+    //Opretter ny vagt
     @PostMapping(value = "/index", params = "saveNewSchedule=Opret")
     public String createNewSchedule(@RequestParam("fromTime") String fromTime,
                                     @RequestParam("toTime") String toTime,
@@ -81,6 +85,7 @@ public class SchedulerController {
         return "redirect:/index";
     }
 
+    //Slet enkelt vagt
     @PostMapping(value = "/index", params = "deleteSingleShcedule=Slet")
     public String deleteSingleSchedule(@RequestParam("deleteSingleScheduleID") String ID) {
         emptyDeletedSchedules();
@@ -90,6 +95,7 @@ public class SchedulerController {
         return "redirect:/index";
     }
 
+    //Fortryd slettede vagter
     @PostMapping(value = "/index", params = "restoreDeletedSchedules=Fortryd")
     public String restoreDeletedSchedules() {
         for(Schedule schedule: lastDeletedSchedules) {
@@ -100,12 +106,14 @@ public class SchedulerController {
         return "redirect:/index";
     }
 
+    //Skifter kalender for
     @PostMapping(value = "/index", params = "changeCalendar=Yes")
     public String changeCalendarFor(@RequestParam("showCalendar") String id) {
         viewCalendarFor = Integer.parseInt(id);
         return "redirect:/index";
     }
 
+    //Slet flere vagter
     @PostMapping(value = "/index", params = "deleteMultipleSchedule=Slet valgte")
     public String deleteMultipleSchedules(@RequestParam("deleteMultipleSchedules") int[] ids) {
         emptyDeletedSchedules();
@@ -115,6 +123,7 @@ public class SchedulerController {
         return "redirect:/index";
     }
 
+    //Gem redigeret vagt
     @PostMapping(value = "/index", params = "saveEditSchedule=Gem")
     public String editSaveSchedule(@RequestParam("editScheduleId") String id,
                                    @RequestParam("editEmployee") int employeeKey,
