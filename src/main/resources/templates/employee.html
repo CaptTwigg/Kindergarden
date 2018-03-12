@@ -5,6 +5,7 @@
     <title>Employees</title>
     <link rel="stylesheet" href="stylesheets/css.css" type="text/css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="scripts/employee.js"></script>
 
     <style>
         #content {
@@ -48,6 +49,7 @@
 
         .tdInfo {
             width: 100px;
+            font-weight: bold;
         }
 
         .buttonsList {
@@ -59,41 +61,10 @@
             padding: 20px 20px 0px 20px !important;
         }
 
+        #popUpBoldFont{
+            font-weight: bold;
+        }
     </style>
-    <script>
-      $(document).ready(function () {
-        $("#openCreateNewEmployee").click(function () {
-          $("#overlay, #createNewEmployee").show();
-        });
-
-        $("#cancelEmployeeCreate, #overlay").click(function () {
-          $("#overlay, .popup-formular").hide();
-        });
-
-        $(".openEditEmployee").click(function () {
-            var employee = $(this).parent().parent().parent();
-
-            $("input[name=id]").val($(employee).data("employee-id"));
-            $("input[name=firstName]").val($(employee).data("employee-firstname"));
-            $("input[name=lastName]").val($(employee).data("employee-lastname"));
-            $("input[name=roadName]").val($(employee).data("employee-roadname"));
-            $("input[name=roadNumber]").val($(employee).data("employee-roadnumber"));
-            $("input[name=city]").val($(employee).data("employee-city"));
-            $("input[name=postalCode]").val($(employee).data("employee-postalcode"));
-            $("input[name=phoneNumber]").val($(employee).data("employee-phonenumber"));
-            $("input[name=email]").val($(employee).data("employee-email"));
-
-            $("#overlay, #editEmployee").show();
-        });
-
-        $("#cancelEmployeeEdit, #overlay").click(function () {
-            $("#overlay, .popup-formular").hide();
-        });
-
-
-
-      });
-    </script>
 </head>
 <body>
 <div th:replace="/includes/menu::menu"></div>
@@ -114,6 +85,8 @@
             <tbody>
             <tr><td colspan="2" ><h2 style="margin-top: 10px">Medarbejder</h2></td></tr>
             <tr th:each="employee: ${employees}" th:attrappend="data-employee-id=${employee.id},
+                                 data-employee-username=${employee.username},
+                                 data-employee-password=${employee.password},
                                  data-employee-firstname=${employee.firstName},
                                  data-employee-lastname=${employee.lastName},
                                  data-employee-roadname=${employee.roadName},
@@ -142,16 +115,17 @@
 
         <table id="employeeInfoTable">
             <tr><td colspan="2"><h2 style="margin-bottom: 0px; margin-top: 10px">Medarbejder Information</h2></td></tr>
+
             <tr>
-                <td class="tdInfo">Fornavn</td>
+                <td class="tdInfo">Fornavn:</td>
                 <td th:text="${details.firstName}"></td>
             </tr>
             <tr>
-                <td class="tdInfo">Efternavn</td>
+                <td class="tdInfo">Efternavn:</td>
                 <td th:text="${details.lastName}">&nbsp;</td>
             </tr>
             <tr>
-                <td class="tdInfo">Vejnavn</td>
+                <td class="tdInfo">Vejnavn:</td>
                 <td th:text="${details.roadName}">&nbsp;</td>
             </tr>
             <tr>

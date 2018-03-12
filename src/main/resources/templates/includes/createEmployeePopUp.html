@@ -3,6 +3,19 @@
     <form method="post" th:action="@{/employee}">
         <table class="popup-table">
             <tr>
+                <td><label for="employeeUsername">Brugernavn:</label></td>
+                <td>
+                    <input id="employeeUsername" name="username" type="text" th:field="${employee.username}" required="true" style="background-color: #cccccc; width: 250px"/>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="employeePassword">Adgangskode:</label></td>
+                <td>
+                    <!--Skal password udstreges? -->
+                    <input id="employeePassword" name="password" type="text" th:field="${employee.password}" required="true" style="background-color: #cccccc; width: 250px"/>
+                </td>
+            </tr>
+            <tr>
                 <td><label for="employeeFirstName">Fornavn:</label></td>
                 <td>
                     <input id="employeeFirstName" name="firstName" type="text" th:field="${employee.firstName}" required="true" style="background-color: #cccccc; width: 250px"/>

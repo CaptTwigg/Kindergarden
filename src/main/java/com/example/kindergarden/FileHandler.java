@@ -56,8 +56,10 @@ public class FileHandler {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            String employeeInfo = String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;\n",
+            String employeeInfo = String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;\n",
               employeeSave.getId(),
+              employeeSave.getUsername(),
+              employeeSave.getPassword(),
               employeeSave.getFirstName(),
               employeeSave.getLastName(),
               employeeSave.getRoadName(),

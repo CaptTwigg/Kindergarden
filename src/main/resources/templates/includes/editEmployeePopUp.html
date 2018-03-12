@@ -1,16 +1,20 @@
-
-/*
-    Der skal nok være "th:field" i stedet for "th:value". Men med field så kan man ikke se informationerne.
-    Forkerte oplysninger popper op på den første "redigér". (Den sidste i arrayet vises frem)
-    De to andre "redigér" knapper vises ikke frem.
-    Når man trykker på den sidste "redigér" så kommer der en index fejl.
-*/
-
 <div id="editEmployee" class="popup-formular" th:fragment="editEmployee"  xmlns:th="http://www.thymeleaf.org" style="margin-left: -270px; margin-top: -161px;">
     <h2>Redigér oplysning om medarbejder</h2>
     <form method="post">
         <input type="hidden" name="id" value=""/>
         <table class="popup-table">
+            <tr>
+                <td><label for="employeeUsername">Brugernavn:</label></td>
+                <td>
+                    <input id="employeeUsername" name="username" type="text" value="" required="true" style="background-color: #cccccc; width: 250px"/>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="employeePassword">Adgangskode:</label></td>
+                <td>
+                    <input id="employeePassword" name="password" type="text" value="" required="true" style="background-color: #cccccc; width: 250px"/>
+                </td>
+            </tr>
             <tr>
                 <td><label for="employeeFirstName">Fornavn:</label></td>
                 <td>
