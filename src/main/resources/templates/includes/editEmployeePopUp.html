@@ -9,6 +9,7 @@
 <div id="editEmployee" class="popup-formular" th:fragment="editEmployee"  th:each="employees: ${employees}" xmlns:th="http://www.thymeleaf.org" style="margin-left: -270px; margin-top: -161px;">
     <h2>Redigér oplysning om medarbejder</h2>
     <form method="post">
+        <input type="hidden" th:value="${employees.id}" name="id" />
         <table class="popup-table">
             <tr>
                 <td><label for="employeeFirstName">Fornavn:</label></td>
@@ -27,7 +28,7 @@
                 <td><label>Adresse:</label></td>
                 <td><p for="employeeAddress">Vej navn: <br/></p>
 
-                    <input id="employeeAddress" name="streetName" type="text" th:value="${employees.roadName}" required="true" style="background-color: #cccccc; width: 250px"/>
+                    <input id="employeeAddress" name="roadName" type="text" th:value="${employees.roadName}" required="true" style="background-color: #cccccc; width: 250px"/>
 
                 </td>
             </tr>

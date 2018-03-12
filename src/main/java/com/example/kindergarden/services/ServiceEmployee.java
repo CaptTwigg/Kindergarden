@@ -52,8 +52,9 @@ public class ServiceEmployee {
   }
 
   public void editEmployee(Employee employee){
-    employees.set(getIndex(employee.getId()), employee);
-    employees.remove(getIndex(employee.getId())+1);
+      employees.add(getIndex(employee.getId()), employee);
+      employees.remove(getIndex(employee.getId())+1);
+      fileHandler.saveEmployeeToFile(employees);
   }
 
   public int getIndex(int id) {
