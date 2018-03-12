@@ -7,10 +7,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <style>
-        tbody {
-            min-width: 500px;
-        }
-
         #content {
             height: calc(100% - 50px);
         }
@@ -22,60 +18,39 @@
         #employeeList {
             float: left;
             width: 59%;
-            box-shadow: 0 0 0 2px #cccccc;
-            table-layout: fixed;
-            white-space: nowrap;
+            border-radius: 5px;
+            box-shadow: 0 0 5px #aaaaaa;
         }
 
-        #employeeList h1 {
-            text-align: center;
-        }
-
-        #employeeList tr:nth-child(even) {
+        #employeeList tr:nth-child(odd) {
             background-color: white;
-        }
-
-        #employeeList td {
-            text-align: left;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            padding: 3px;
-        }
-
-        #headInfo {
-            display: flex;
+            border-radius: 5px  ;
         }
 
         #employeeInfoTable {
             float: right;
             width: 39%;
-            box-shadow: 0 0 0 2px #cccccc;
-            padding: 3px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 5px #aaaaaa;
         }
 
-        #employeeInfoTable td {
-            padding: 3px;
+        #employeeInfoTable td,
+        #employeeList td{
+            padding: 5px 20px;
         }
 
-        #infoHeader {
-            text-align: left;
+        #employeeInfoTable tr:last-child td,
+        #employeeList tr:last-child td{
+            padding-bottom: 20px;
+            border-radius: 5px;
         }
 
         .tdInfo {
             width: 100px;
         }
 
-        #employeeInfoTable tr:nth-child(even) {
-            background: white;
-        }
-
         .buttonsList {
-            margin-left: 10px;
-            float: right !important;
-        }
-
-        .buttonsInfo {
             margin-left: 10px;
             float: right !important;
         }
@@ -135,16 +110,9 @@
         <div class="clear"></div>
     </div>
     <div id="employeeContainer">
-
-        <div style="margin-bottom: 20px; display: flex">
-            <table id="infoHeader">
-                <td style="width: 61%"><h3>Medarbejder</h3></td>
-                <td style="width: 40%"><h3>Medarbejder Information</h3></td>
-            </table>
-        </div>
-
         <table id="employeeList">
             <tbody>
+            <tr><td colspan="2" ><h2 style="margin-top: 10px">Medarbejder</h2></td></tr>
             <tr th:each="employee: ${employees}" th:attrappend="data-employee-id=${employee.id},
                                  data-employee-firstname=${employee.firstName},
                                  data-employee-lastname=${employee.lastName},
@@ -173,6 +141,7 @@
         </table>
 
         <table id="employeeInfoTable">
+            <tr><td colspan="2"><h2 style="margin-bottom: 0px; margin-top: 10px">Medarbejder Information</h2></td></tr>
             <tr>
                 <td class="tdInfo">Fornavn</td>
                 <td th:text="${details.firstName}"></td>
