@@ -95,7 +95,7 @@
           $("#overlay, .popup-formular").hide();
         });
 
-        $("#openEditEmployee").click(function () {
+        $(".openEditEmployee").click(function () {
             $("#overlay, #editEmployee").show();
         });
 
@@ -143,10 +143,10 @@
 
                 <td>
                     <form method="post" th:action="@{'deleteEmployee?id='+${employee.id}}">
-                    <input type="submit" value="Slet" class="red-btn buttonsList"/>
+                        <input type="submit" value="Slet" class="red-btn buttonsList"/>
                     </form>
-                    <form method="post" th:action="@{'editEmployee?id='+${employee.id}}">
-                    <input id="openEditEmployee" type="submit" value="Redigér" class="blue-btn buttonsList"/> <!--Denne vises frem men den bliver ikke på siden.-->
+                    <form method="post">
+                        <input type="button" value="Redigér" class="blue-btn buttonsList openEditEmployee"/> <!--Denne vises frem men den bliver ikke på siden.-->
                     </form>
                     <form method="post" th:action="@{'details?id=' + ${employee.id}}">
                         <input type="submit" value="Detaljer" class="green-btn buttonsList"/>
