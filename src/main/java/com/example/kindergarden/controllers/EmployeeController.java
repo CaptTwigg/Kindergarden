@@ -41,7 +41,7 @@ public class EmployeeController {
     return "redirect:/employee";
   }
 
-  @PostMapping("/editEmployee")
+  @PostMapping(value = "/employee", params = "saveEmployee=Gem")
   public String editEmployee(@ModelAttribute Employee em) {
     System.out.println("kom ind");
     System.out.println(index);
