@@ -2,7 +2,9 @@ package com.example.kindergarden.controllers;
 
 import com.example.kindergarden.base.Employee;
 import com.example.kindergarden.FileHandler;
+import com.example.kindergarden.base.Login;
 import com.example.kindergarden.services.ServiceEmployee;
+import com.example.kindergarden.services.ServiceLogin;
 import com.example.kindergarden.services.ServiceSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class EmployeeController {
   ServiceEmployee serviceEmployee = new ServiceEmployee();
+  ServiceLogin serviceLogin = new ServiceLogin();
   int index;
 
   @GetMapping("/employee")
@@ -20,7 +23,8 @@ public class EmployeeController {
     if (ServiceSession.isSomeoneLoggedIn()) {
       model.addAttribute("employees", serviceEmployee.getEmployees()); //får fat i arraylist
       model.addAttribute("employee", new Employee());
-      model.addAttribute("details", serviceEmployee.getEmployees().get(index));
+      model.addAttribute("login", new Login());
+      model.addAttribute("details", serviceEmployee.getEmployees().get(index)); //
 
       return "employee";
 
@@ -30,8 +34,9 @@ public class EmployeeController {
   }
 
   @PostMapping("/employee")
-  public String addEmployee(@ModelAttribute Employee em) {
+  public String addEmployee(@ModelAttribute Employee em, Login log) {
     serviceEmployee.addEmployeeToList(em); //Metode i serviceEmployee der gemmer employee til arraylist
+    serviceLogin.addLoginToList(log);
     return "redirect:/employee";
   }
 

@@ -61,7 +61,7 @@
             padding: 20px 20px 0px 20px !important;
         }
 
-        #popUpBoldFont{
+        .popUpBoldFont{
             font-weight: bold;
         }
     </style>
@@ -85,8 +85,8 @@
             <tbody>
             <tr><td colspan="2" ><h2 style="margin-top: 10px">Medarbejder</h2></td></tr>
             <tr th:each="employee: ${employees}" th:attrappend="data-employee-id=${employee.id},
-                                 data-employee-username=${employee.username},
-                                 data-employee-password=${employee.password},
+                                 data-employee-username=${login.username},
+                                 data-employee-password=${login.password},
                                  data-employee-firstname=${employee.firstName},
                                  data-employee-lastname=${employee.lastName},
                                  data-employee-roadname=${employee.roadName},
@@ -109,49 +109,37 @@
                     </form>
                 </td>
             </tr>
-
             </tbody>
         </table>
 
         <table id="employeeInfoTable">
             <tr><td colspan="2"><h2 style="margin-bottom: 0px; margin-top: 10px">Medarbejder Information</h2></td></tr>
-
             <tr>
-                <td class="tdInfo">Fornavn:</td>
-                <td th:text="${details.firstName}"></td>
+                <td class="tdInfo">Navn:</td>
+                <td th:text="${details.firstName}+' '+${details.lastName}"></td>
             </tr>
             <tr>
-                <td class="tdInfo">Efternavn:</td>
-                <td th:text="${details.lastName}">&nbsp;</td>
+                <td class="tdInfo">Adresse:</td>
+                <td th:text="${details.roadName}+' '+${details.roadNumber}">&nbsp;</td>
             </tr>
             <tr>
-                <td class="tdInfo">Vejnavn:</td>
-                <td th:text="${details.roadName}">&nbsp;</td>
-            </tr>
-            <tr>
-                <td class="tdInfo">Vejnr</td>
-                <td th:text="${details.roadNumber}">&nbsp;</td>
-            </tr>
-            <tr>
-                <td class="tdInfo">By</td>
+                <td class="tdInfo">By:</td>
                 <td th:text="${details.city}">&nbsp;</td>
             </tr>
             <tr>
-                <td class="tdInfo">Postnummer</td>
+                <td class="tdInfo">Postnr.:</td>
                 <td th:text="${details.postalCode}">&nbsp;</td>
             </tr>
             <tr>
-                <td class="tdInfo">Tlf</td>
+                <td class="tdInfo">Tlf.:</td>
                 <td th:text="${details.phoneNumber}">&nbsp;</td>
             </tr>
             <tr>
-                <td class="tdInfo">E-mail</td>
+                <td class="tdInfo">Email:</td>
                 <td th:text="${details.email}">&nbsp;</td>
             </tr>
         </table>
-
     </div>
-
 </div>
 </body>
 </html>

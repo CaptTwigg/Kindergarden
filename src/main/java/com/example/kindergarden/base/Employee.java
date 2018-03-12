@@ -5,35 +5,29 @@ import java.util.Arrays;
 
 public class Employee {
     private int id;
-    private String username;
-    private String password;
+    private String firstName;
+    private String lastName;
+    private String roadName;
+    private int roadNumber;
+    private String city;
+    private int postalCode;
+    private int phoneNumber;
+    private String email;
 
-  private String firstName;
-
-  private String lastName;
-  private String roadName;
-  private int roadNumber;
-  private String city;
-  private int postalCode;
-  private int phoneNumber;
-  private String email;
     public Employee(){
-
     }
 
     public Employee(String line) {
       String[] employee = line.split(";");
       this.id = Integer.parseInt(employee[0]);
-      this.username = employee[1];
-      this.password = employee[2];
-      this.firstName = employee[3];
-      this.lastName = employee[4];
-      this.roadName = employee[5];
-      this.roadNumber = Integer.parseInt(employee[6]);
-      this.city = employee[7];
-      this.postalCode = Integer.parseInt(employee[8]);
-      this.phoneNumber = Integer.parseInt(employee[9]);
-      this.email = employee[10];
+      this.firstName = employee[1];
+      this.lastName = employee[2];
+      this.roadName = employee[3];
+      this.roadNumber = Integer.parseInt(employee[4]);
+      this.city = employee[5];
+      this.postalCode = Integer.parseInt(employee[6]);
+      this.phoneNumber = Integer.parseInt(employee[7]);
+      this.email = employee[8];
     }
 
     public Employee(int id, String firstName, String lastName, String roadName, int roadNumber, String city, int postalCode, int phoneNumber, String email) {
@@ -52,8 +46,6 @@ public class Employee {
   public String toString() {
     return "Employee{" +
         "id=" + id +
-        ", username='" + username + '\'' +
-        ", password='" + password + '\'' +
         ", firstName='" + firstName + '\'' +
         ", lastName='" + lastName + '\'' +
         ", roadName='" + roadName + '\'' +
@@ -63,22 +55,6 @@ public class Employee {
         ", phoneNumber=" + phoneNumber +
         ", email='" + email + '\'' +
         '}';
-  }
-
-  public String getUsername() {
-    return username;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
   }
 
   public String getRoadName() {

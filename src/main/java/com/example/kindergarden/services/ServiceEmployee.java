@@ -4,12 +4,8 @@ import com.example.kindergarden.base.Employee;
 import com.example.kindergarden.FileHandler;
 import com.example.kindergarden.base.Schedule;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class ServiceEmployee {
   private ArrayList<Employee> employees = new ArrayList<>();

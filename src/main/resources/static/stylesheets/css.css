@@ -45,6 +45,8 @@ input[type=date], input[type=time], select {
     font-size: 15px;
 }
 
+/*------------------Buttons--------------------*/
+
 .blue-btn:hover {
     cursor: pointer;
     background: #3866CF;
@@ -82,6 +84,8 @@ input[type=date], input[type=time], select {
     background: #BC3D34;
 }
 
+/*---------End of buttons----------*/
+
 #overlay {
     position: fixed;
     top: 0;
@@ -92,6 +96,8 @@ input[type=date], input[type=time], select {
     display: none;
     z-index: 10;
 }
+
+/*----------PopUp Formular--------------*/
 
 .popup-formular {
     background: #fff;
@@ -202,3 +208,5 @@ input[type=date], input[type=time], select {
 #menu ul li:nth-last-child(-n+2) {
     float: right;
 }
+
+/*--------------------End of menu----------------------*/

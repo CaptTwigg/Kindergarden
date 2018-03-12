@@ -1,6 +1,7 @@
 package com.example.kindergarden;
 
 import com.example.kindergarden.base.Employee;
+import com.example.kindergarden.base.Login;
 import com.example.kindergarden.base.Schedule;
 import com.example.kindergarden.services.ServiceEmployee;
 
@@ -56,10 +57,8 @@ public class FileHandler {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            String employeeInfo = String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;\n",
+            String employeeInfo = String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;\n",
               employeeSave.getId(),
-              employeeSave.getUsername(),
-              employeeSave.getPassword(),
               employeeSave.getFirstName(),
               employeeSave.getLastName(),
               employeeSave.getRoadName(),
@@ -72,6 +71,30 @@ public class FileHandler {
           newEmployeeInfo.print(employeeInfo);
           System.out.print("\n");
         }
+    }
+
+    public void saveLoginToFile(ArrayList<Login> logins){
+      /*try {
+        new PrintStream(new File(path+fileName));
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+      }*/
+
+      PrintStream newLoginInfo = null;
+
+      for (Login loginSave: logins){
+        try {
+          newLoginInfo = new PrintStream(new FileOutputStream("./src/main/resources/files/"+fileName, true));
+        } catch (FileNotFoundException e) {
+          e.printStackTrace();
+        }
+        String loginInfo = String.format("%s;%s;\n",
+            loginSave.getUsername(),
+            loginSave.getPassword());
+
+        newLoginInfo.print(loginInfo);
+        System.out.print("\n");
+      }
     }
 
     public String getFileName() {
