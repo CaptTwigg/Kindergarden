@@ -432,12 +432,12 @@
                         <p th:text="${days[index + 0]}" th:classappend="${getFullTodayAsString} == ${dateArray[index + 0]} ? 'date today' : 'date'"></p>
                         <div class="scheduleContainer" th:if="${daysInThisMonth[index + 0]}">
                             <div class="schedule " th:each="schedule, iterStat : ${schedules}"
-                                 th:attrappend="data-schedule-date=${daysInThisMonth[index + 0]} ? ${dateArray[index + 0]},
-                                 data-from-time=${daysInThisMonth[index + 0]} ? ${schedule.fromTime},
-                                 data-to-time=${daysInThisMonth[index + 0]} ? ${schedule.toTime},
-                                 data-employee=${daysInThisMonth[index + 0]} ? ${schedule.employeeFullName},
-                                 data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey},
-                                 data-schedule-id=${daysInThisMonth[index + 0]} ? ${schedule.Id}"
+                                     th:attrappend="data-schedule-date=${daysInThisMonth[index + 0]} ? ${dateArray[index + 0]},
+                                     data-from-time=${daysInThisMonth[index + 0]} ? ${schedule.fromTime},
+                                     data-to-time=${daysInThisMonth[index + 0]} ? ${schedule.toTime},
+                                     data-employee=${daysInThisMonth[index + 0]} ? ${schedule.employeeFullName},
+                                     data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey},
+                                     data-schedule-id=${daysInThisMonth[index + 0]} ? ${schedule.Id}"
                                  th:if="${days[index + 0]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 0]} and ${iterStat.index} <= ${toIndex[index + 0]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
                                 <p th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime}+' '+${schedule.employeeName})"></p>
                             </div>

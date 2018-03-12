@@ -95,7 +95,12 @@ public class FileHandler {
                 String toTime = scanner.next();
                 int employeeKey = scanner.nextInt();
 
-                if (Integer.parseInt(date.substring(0, 6)) == Integer.parseInt(year + month)) {
+                if(Integer.parseInt(month)==0 && Integer.parseInt(year)==0){
+                        if(id == employeeKey) {
+                            schedules.add(new Schedule(ID, date, fromTime, toTime, employeeKey));
+                        }
+
+                } else if (Integer.parseInt(date.substring(0, 6)) == Integer.parseInt(year + month)) {
                     for(Employee employee: tempEmployees) {
                         if(employee.getId() == employeeKey && id == 0) {
                             schedules.add(new Schedule(ID, date, fromTime, toTime, employee.getFirstName(), employeeKey, employee.getFirstName()+" "+employee.getLastName()));

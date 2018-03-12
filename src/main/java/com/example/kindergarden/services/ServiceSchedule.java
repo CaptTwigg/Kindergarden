@@ -168,6 +168,12 @@ public class ServiceSchedule {
         return removedSchedules;
     }
 
+    public int[] getAllIdForSchedulesFromEmployee(int id){
+
+
+        return null;
+    }
+
     public String getViewCalendarForName(int id) {
         String name = "Alle";
 

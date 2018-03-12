@@ -6,21 +6,21 @@
     Når man trykker på den sidste "redigér" så kommer der en index fejl.
 */
 
-<div id="editEmployee" class="popup-formular" th:fragment="editEmployee"  th:each="employees: ${employees}" xmlns:th="http://www.thymeleaf.org" style="margin-left: -270px; margin-top: -161px;">
+<div id="editEmployee" class="popup-formular" th:fragment="editEmployee"  xmlns:th="http://www.thymeleaf.org" style="margin-left: -270px; margin-top: -161px;">
     <h2>Redigér oplysning om medarbejder</h2>
     <form method="post">
-        <input type="hidden" th:value="${employees.id}" name="id" />
+        <input type="hidden" name="id" value=""/>
         <table class="popup-table">
             <tr>
                 <td><label for="employeeFirstName">Fornavn:</label></td>
                 <td>
-                    <input id="employeeFirstName" name="firstName" type="text" th:value="${employees.firstName}"  required="true" style="background-color: #cccccc; width: 250px"/>
+                    <input id="employeeFirstName" name="firstName" type="text" value="" required="true" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
             <tr>
                 <td><label for="employeeLastName">Efternavn:</label></td>
                 <td>
-                    <input id="employeeLastName" name="lastName" type="text" th:value="${employees.lastName}" required="true" style="background-color: #cccccc; width: 250px"/>
+                    <input id="employeeLastName" name="lastName" type="text" value="" required="true" style="background-color: #cccccc; width: 250px"/>
 
                 </td>
             </tr>
@@ -28,38 +28,38 @@
                 <td><label>Adresse:</label></td>
                 <td><p for="employeeAddress">Vej navn: <br/></p>
 
-                    <input id="employeeAddress" name="roadName" type="text" th:value="${employees.roadName}" required="true" style="background-color: #cccccc; width: 250px"/>
+                    <input id="employeeAddress" name="roadName" type="text" value="" required="true" style="background-color: #cccccc; width: 250px"/>
 
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td><p for="employeeAddressRoadNumber">Vej nr.: </p>
-                    <input id="employeeAddressRoadNumber" name="roadNumber" type="number" th:value="${employees.roadNumber}" required="true" style="background-color: #cccccc; width: 250px"/>
+                    <input id="employeeAddressRoadNumber" name="roadNumber" type="number" value="" required="true" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td><p for="employeeAddressCity">By: </p>
-                    <input id="employeeAddressCity" name="city" type="text" th:value="${employees.city}" required="true" style="background-color: #cccccc; width: 250px"/>
+                    <input id="employeeAddressCity" name="city" type="text" value="" required="true" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td><p for="employeeAddressPostalCode">Post nr.: </p>
-                    <input id="employeeAddressPostalCode" name="postalCode" type="number" th:value="${employees.postalCode}"  required="true" style="background-color: #cccccc; width: 250px"/>
+                    <input id="employeeAddressPostalCode" name="postalCode" type="number" value=""  required="true" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
             <tr>
                 <td><label for="employeePhoneNumber">Tlf. nr.:</label></td>
                 <td>
-                    <input id="employeePhoneNumber" name="phoneNumber" type="number" th:value="${employees.phoneNumber}"  required="true" style="background-color: #cccccc; width: 250px"/>
+                    <input id="employeePhoneNumber" name="phoneNumber" type="number" value="" required="true" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
             <tr>
                 <td><label for="employeeEmail">Email:</label></td>
                 <td>
-                    <input id="employeeEmail" name="email" type="email" th:value="${employees.email}" required="true" style="background-color: #cccccc; width: 250px"/>
+                    <input id="employeeEmail" name="email" type="email" value="" required="true" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
             <tr>

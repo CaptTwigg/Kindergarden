@@ -8,10 +8,6 @@ import java.util.ArrayList;
 public class ServiceSession {
     static ArrayList<Session> sessions = new ArrayList<>();
 
-    public void getUsers() {
-
-    }
-
     public static boolean isSomeoneLoggedIn() {
         for(Session session : sessions) {
             if(session.isIsLoggedIn()) {

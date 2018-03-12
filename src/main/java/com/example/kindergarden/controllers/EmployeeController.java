@@ -35,23 +35,20 @@ public class EmployeeController {
     return "redirect:/employee";
   }
 
+  //Sletter en medarbejder
   @PostMapping("/deleteEmployee")
   public String deleteEmployee(@RequestParam int id) {
     serviceEmployee.deleteEmployee(id);
     return "redirect:/employee";
   }
-
+  //
   @PostMapping(value = "/employee", params = "saveEmployee=Gem")
-  public String editEmployee(@ModelAttribute Employee em) {
-    System.out.println("kom ind");
-    System.out.println(em.getId());
-    serviceEmployee.editEmployee(em); // kan ikke trykke på "rediger" på den sidste medarbejder, da denne ryger ud af index.
-                                      // Kan dette have noget at gøre med at sætter plus 1 et eller andet sted for at få index?
-
-    System.out.println("kom forbi");
+  public String editEmployee(@ModelAttribute Employee em){
+    serviceEmployee.editEmployee(em);
     return "redirect:/employee";
   }
 
+  //Viser detaljer for personen.
   @PostMapping("/details")
   public String details(@RequestParam int id) {
     index = serviceEmployee.getIndex(id);

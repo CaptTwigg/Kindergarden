@@ -96,19 +96,27 @@
         });
 
         $(".openEditEmployee").click(function () {
+            var employee = $(this).parent().parent().parent();
+
+            $("input[name=id]").val($(employee).data("employee-id"));
+            $("input[name=firstName]").val($(employee).data("employee-firstname"));
+            $("input[name=lastName]").val($(employee).data("employee-lastname"));
+            $("input[name=roadName]").val($(employee).data("employee-roadname"));
+            $("input[name=roadNumber]").val($(employee).data("employee-roadnumber"));
+            $("input[name=city]").val($(employee).data("employee-city"));
+            $("input[name=postalCode]").val($(employee).data("employee-postalcode"));
+            $("input[name=phoneNumber]").val($(employee).data("employee-phonenumber"));
+            $("input[name=email]").val($(employee).data("employee-email"));
+
             $("#overlay, #editEmployee").show();
         });
 
         $("#cancelEmployeeEdit, #overlay").click(function () {
             $("#overlay, .popup-formular").hide();
         });
-        // $("#userButton").click(function () {
-        //   $("#overlay, #user").show();
-        // });
-        //
-        // $("#cancelUser, #overlay").click(function () {
-        //   $("#overlay, .popup-formular").hide();
-        // });
+
+
+
       });
     </script>
 </head>
@@ -120,7 +128,6 @@
     <div id="overlay"></div>
     <div th:replace="/includes/createEmployeePopUp::createNewEmployee"></div>
     <div th:replace="/includes/editEmployeePopUp::editEmployee"></div>
-    <div th:replace="/includes/user:: user"></div>
     <div id="topbar">
         <form method="post">
             <input type="button" value="Opret ny medarbejder" class="green-btn" id="openCreateNewEmployee"/>
@@ -138,7 +145,15 @@
 
         <table id="employeeList">
             <tbody>
-            <tr th:each="employee: ${employees}">
+            <tr th:each="employee: ${employees}" th:attrappend="data-employee-id=${employee.id},
+                                 data-employee-firstname=${employee.firstName},
+                                 data-employee-lastname=${employee.lastName},
+                                 data-employee-roadname=${employee.roadName},
+                                 data-employee-roadnumber=${employee.roadNumber},
+                                 data-employee-city=${employee.city},
+                                 data-employee-postalcode=${employee.postalCode},
+                                 data-employee-phonenumber=${employee.phoneNumber},
+                                 data-employee-email=${employee.email}">
                 <td th:text="${employee.firstName} + ' ' + ${employee.lastName}"/>
 
                 <td>
@@ -146,13 +161,14 @@
                         <input type="submit" value="Slet" class="red-btn buttonsList"/>
                     </form>
                     <form method="post">
-                        <input type="button" value="Redigér" class="blue-btn buttonsList openEditEmployee"/> <!--Denne vises frem men den bliver ikke på siden.-->
+                        <input type="button" value="Redigér" class="blue-btn buttonsList openEditEmployee"/>
                     </form>
                     <form method="post" th:action="@{'details?id=' + ${employee.id}}">
                         <input type="submit" value="Detaljer" class="green-btn buttonsList"/>
                     </form>
                 </td>
             </tr>
+
             </tbody>
         </table>
 
