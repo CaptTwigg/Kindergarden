@@ -118,6 +118,12 @@ $(document).ready(function () {
         $("#overlay").show();
     });
 
+    $(".openDeleteMultipleSchedules").click(function () {
+        $(this).parent().parent().parent().parent().parent().find(".allSchedules").show();
+        $(".dateMenu").hide();
+        $("#overlay").show();
+    });
+
     $(".closeMultipleViewSchedule").click(function () {
         $(this).parent().parent().find("input[type=checkbox]").each(function () {
             this.checked = false;
