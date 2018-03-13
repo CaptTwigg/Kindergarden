@@ -251,8 +251,6 @@ public class FileHandler {
     public void deleteLogin(int id) {
         String[] logins = new String[new ServiceEmployee().getEmployees().size()];
 
-        System.out.println(new ServiceEmployee().getEmployees().size());
-
         try {
             scanner = new Scanner(new File(path + "logins.txt")).useDelimiter(";");
             int counter = 0;
@@ -299,6 +297,33 @@ public class FileHandler {
         try {
             new PrintStream(new File(path + fileName));
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveLoginInfo(Session session, ArrayList<Employee> employees) {
+        String[] logins = new String[employees.size()];
+
+        try {
+            scanner = new Scanner(new File(path + "logins.txt")).useDelimiter(";");
+            int counter = 0;
+
+            while (scanner.hasNextLine()) {
+                    logins[counter] = scanner.nextInt() + ";" + scanner.next() + ";" + scanner.next() + ";" + scanner.nextInt() + ";";
+                    counter++;
+
+                scanner.nextLine();
+            }
+
+            PrintStream printStream = new PrintStream(new FileOutputStream(path + "logins.txt"));
+
+            for (String s : logins) {
+                printStream.println(s);
+            }
+
+            printStream.println(session.getUserKey()+";"+session.getUserName()+";"+session.getPassWord()+";"+session.getUserNiveau()+";");
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

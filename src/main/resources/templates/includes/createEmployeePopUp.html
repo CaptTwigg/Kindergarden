@@ -2,19 +2,18 @@
     <h2>Opret ny medarbejder</h2>
     <form method="post" th:action="@{/employee}">
         <table class="popup-table">
-            <!--<tr>
+            <tr>
                 <td class="popUpBoldFont"><label for="employeeUsername">Brugernavn:</label></td>
                 <td>
-                    <input id="employeeUsername" name="username" type="text" th:field="${login.username}" required="true" style="background-color: #cccccc; width: 250px"/>
+                    <input id="employeeUsername" name="username" type="text" th:field="${session.userName}" required="true" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
             <tr>
                 <td class="popUpBoldFont"><label for="employeePassword">Adgangskode:</label></td>
                 <td>
-                    <!--Skal password udstreges? -
-                    <input id="employeePassword" name="password" type="text" th:field="${login.password}" required="true" style="background-color: #cccccc; width: 250px"/>
+                    <input id="employeePassword" name="password" type="text" th:field="${session.passWord}" required="true" style="background-color: #cccccc; width: 250px"/>
                 </td>
-            </tr>-->
+            </tr>
             <tr>
                 <td class="popUpBoldFont"><label for="employeeFirstName">Fornavn:</label></td>
                 <td>

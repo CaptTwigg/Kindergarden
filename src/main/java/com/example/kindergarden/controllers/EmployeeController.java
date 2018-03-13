@@ -1,6 +1,7 @@
 package com.example.kindergarden.controllers;
 
 import com.example.kindergarden.base.Employee;
+import com.example.kindergarden.base.Session;
 import com.example.kindergarden.services.ServiceEmployee;
 import com.example.kindergarden.services.ServiceSession;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ public class EmployeeController {
       model.addAttribute("employee", new Employee());
       if(serviceEmployee.getEmployees().size() != 0) { model.addAttribute("details", serviceEmployee.getEmployees().get(index)); }//
       model.addAttribute("niveau", ServiceSession.getCurrentSession().getUserNiveau());
+      model.addAttribute("session", new Session());
 
       return "employee";
 
@@ -31,9 +33,8 @@ public class EmployeeController {
   }
 
   @PostMapping("/employee")
-  public String addEmployee(@ModelAttribute Employee em) {
-    serviceEmployee.addEmployeeToList(em); //Metode i serviceEmployee der gemmer employee til arraylist
-    //serviceLogin.addLoginToList(log);
+  public String addEmployee(@ModelAttribute Employee em, @ModelAttribute Session session) {
+    serviceEmployee.addEmployeeToList(em, session); //Metode i serviceEmployee der gemmer employee til arraylist
     return "redirect:/employee";
   }
 

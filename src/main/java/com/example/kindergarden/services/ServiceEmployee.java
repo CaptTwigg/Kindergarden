@@ -3,6 +3,7 @@ package com.example.kindergarden.services;
 import com.example.kindergarden.base.Employee;
 import com.example.kindergarden.FileHandler;
 import com.example.kindergarden.base.Schedule;
+import com.example.kindergarden.base.Session;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,10 +20,12 @@ public class ServiceEmployee {
     }
   }
 
-  public void addEmployeeToList(Employee em) {
+  public void addEmployeeToList(Employee em, Session session) {
     int id = employees.size() == 0 ? 1 : getHighestIdOfEmployees();
+    ServiceSession.saveLogin(session, id, employees);
     employees.add(em.setId(id));
     fileHandler.saveEmployeeToFile(employees);
+
   }
 
   public ArrayList<Employee> getEmployees() {

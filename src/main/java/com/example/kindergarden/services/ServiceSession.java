@@ -1,6 +1,7 @@
 package com.example.kindergarden.services;
 
 import com.example.kindergarden.FileHandler;
+import com.example.kindergarden.base.Employee;
 import com.example.kindergarden.base.Session;
 import org.springframework.util.DigestUtils;
 
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 
 public class ServiceSession {
     private static Session session = null;
+
 
     private static FileHandler fileHandler;
 
@@ -28,10 +30,14 @@ public class ServiceSession {
         }
     }
 
-
+    public static void saveLogin(Session session, int id, ArrayList<Employee> employees){
+        session.setUserKey(id);
+        session.setPassWord(md5Hasher(session.getPassWord()));
+        fileHandler.saveLoginInfo(session, employees);
+    }
 
     //hasher password
-    private String md5Hasher(String password) {
+    private static String md5Hasher(String password) {
         return DigestUtils.md5DigestAsHex(password.getBytes());
     }
 

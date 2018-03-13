@@ -11,8 +11,16 @@ public class Session {
     public Session(String userName, String passWord, int userKey, int userNiveau) {
         this.userName = userName;
         this.passWord = passWord;
-        this.userKey = userKey;
+        this.userKey = userKey;//id
         this.userNiveau = userNiveau;
+    }
+
+    public Session() {userNiveau = 2;}
+
+    public Session(String userName, String passWord) {
+        this.userName = userName;
+        this.passWord = passWord;
+        userNiveau = 2; //Fordi alle de fremtidige medarbejdere skal bare have læserettigheder
     }
 
     public int getUserKey() {
