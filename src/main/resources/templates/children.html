@@ -73,33 +73,33 @@
     <div th:replace="/includes/editMemberPopUp::editMember"></div>-->
     <div id="topbar">
         <form method="post">
-            <input type="button" value="Opret nyt medlem" class="green-btn" id="openCreateNewMember"/>
+            <input type="button" value="Opret nyt barn" class="green-btn" id="openCreateNewMember"/>
         </form>
         <div class="clear"></div>
     </div>
     <div id="memberContainer">
         <table id="memberList">
             <tbody>
-            <tr><td colspan="2" ><h2 style="margin-top: 10px">Medlemmer</h2></td></tr>
-            <tr th:each="member: ${members}" th:attrappend="data-member-id=${member.id},
-                                 data-member-firstname=${member.firstName},
-                                 data-member-lastname=${member.lastName},
-                                 data-member-roadname=${member.roadName},
-                                 data-member-roadnumber=${member.roadNumber},
-                                 data-member-city=${member.city},
-                                 data-member-postalcode=${member.postalCode},
-                                 data-member-phonenumber=${member.phoneNumber},
-                                 data-member-email=${member.email}">
-                <td th:text="${member.firstName} + ' ' + ${member.lastName}"/>
+            <tr><td colspan="2" ><h2 style="margin-top: 10px">Børneliste</h2></td></tr>
+            <tr th:each="child: ${children}" th:attrappend="data-child-id=${child.id},
+                                 data-child-firstname=${child.firstName},
+                                 data-child-lastname=${child.lastName},
+                                 data-child-roadname=${child.roadName},
+                                 data-child-roadnumber=${child.roadNumber},
+                                 data-child-city=${child.city},
+                                 data-child-postalcode=${child.postalCode},
+                                 data-child-phonenumber=${child.phoneNumber},
+                                 data-child-email=${child.email}">
+                <td th:text="${child.firstName} + ' ' + ${child.lastName}"/>
 
                 <td>
-                    <form method="post" th:action="@{'deleteMember?id='+${member.id}}">
+                    <form method="post" th:action="@{'deleteChild?id='+${child.id}}">
                         <input type="submit" value="Slet" class="red-btn buttonsList"/>
                     </form>
                     <form method="post">
                         <input type="button" value="Redigér" class="blue-btn buttonsList openEditMember"/>
                     </form>
-                    <form method="post" th:action="@{'detailsMember?id=' + ${member.id}}">
+                    <form method="post" th:action="@{'detailsChild?id=' + ${child.id}}">
                         <input type="submit" value="Detaljer" class="green-btn buttonsList"/>
                     </form>
                 </td>
@@ -108,7 +108,7 @@
         </table>
 
         <table id="memberInfoTable">
-            <tr><td colspan="2"><h2 style="margin-bottom: 0px; margin-top: 10px">Medlems Information</h2></td></tr>
+            <tr><td colspan="2"><h2 th:text="${details.firstName}+' '+${details.lastName}" style="margin-bottom: 0px; margin-top: 10px"></h2></td></tr>
             <tr>
                 <td class="tdInfo">Navn:</td>
                 <td th:text="${details.firstName}+' '+${details.lastName}"></td>

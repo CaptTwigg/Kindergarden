@@ -1,6 +1,6 @@
 package com.example.kindergarden.base;
 
-public class Member {
+public class Child {
     private int id;
     private String firstName;
     private String lastName;
@@ -10,13 +10,14 @@ public class Member {
     private int postalCode;
     private int phoneNumber;
     private String email;
+    Parent[] parent = new Parent[2];
 
-    public Member() {
+    public Child() {
 
     }
 
     //
-    public Member(int id, String firstName, String lastName, String roadName, int roadNumber, String city, int postalCode, int phoneNumber, String email) {
+    public Child(int id, String firstName, String lastName, String roadName, int roadNumber, String city, int postalCode, int phoneNumber, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -29,7 +30,7 @@ public class Member {
     }
 
     //Read from file
-    public Member(String line) {
+    public Child(String line) {
         String[] member = line.split(";");
         this.id = Integer.parseInt(member[0]);
         this.firstName = member[1];
@@ -44,7 +45,7 @@ public class Member {
 
     @Override
     public String toString() {
-        return "Member{" +
+        return "Child{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
@@ -60,7 +61,7 @@ public class Member {
         return id;
     }
 
-    public Member setId(int id) {
+    public Child setId(int id) {
         this.id = id;
         return this;
     }
