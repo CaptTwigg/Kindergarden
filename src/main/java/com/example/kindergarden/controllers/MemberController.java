@@ -35,7 +35,7 @@ public class MemberController {
         return "redirect:/member";
     }
 
-    //deletes members
+    //delete member
     @PostMapping("/deleteMember")
     public String deleteMember(@RequestParam int id) {
         serviceMember.deleteMember(id);
@@ -50,9 +50,9 @@ public class MemberController {
     }
 
     //Show details for a specific member
-    /*@PostMapping("/details")
+    @PostMapping("/detailsMember")
     public String details(@RequestParam int id) {
         index = serviceMember.getIndex(id);
         return "redirect:/member";
-    }*/
+    }
 }
