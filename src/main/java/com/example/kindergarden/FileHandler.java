@@ -305,8 +305,8 @@ public class FileHandler {
         ArrayList array = new ArrayList();
         try {
             FileInputStream fileIn = new FileInputStream(path+fileName);
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            array = (ArrayList) in.readObject();
+            ObjectInputStream in = new ObjectInputStream(fileIn); //Den konventerer objektet til bytecode og gemmer til fil.
+            array = (ArrayList) in.readObject(); //Den læser bytecoden og laver det til et objekt/arraylist.
             in.close();
             fileIn.close();
             System.out.println("Data loaded.");
