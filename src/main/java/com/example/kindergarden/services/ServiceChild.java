@@ -19,20 +19,19 @@ public class ServiceChild {
         }
     }
 
-    //Adds new member to children
-    public void addMemberToList(Child me) {
-        int id = children.size() == 0 ? 1 : getHighestIdOfMembers();
-        children.add(me.setId(id));
-        fileHandler.saveMemberToFile(children);
+    public void addChildToList(Child child) {
+        int id = children.size() == 0 ? 1 : getHighestIdOfChild();
+        children.add(child.setId(id));
+        fileHandler.saveChildren(children);
     }
 
     //Creates arraylist and gets children from file
     public ArrayList<Child> getChildren() {
-        return children = fileHandler.loadMembers("children.txt");
+        return children = fileHandler.loadChildren();
     }
 
     //Find highest id and +1 to increment id
-    private int getHighestIdOfMembers(){
+    private int getHighestIdOfChild(){
         int id = 1;
 
         for(Child child : children){
@@ -44,24 +43,22 @@ public class ServiceChild {
     }
 
     //Removes member from arraylist and file
-    public void deleteMember(int id) {
+    public void deleteChild(int id) {
         int index = getIndex(id);
 
         if (index > -1) {
             children.remove(index);
-            System.out.println(id);
-            System.out.println(Arrays.toString(children.toArray()));
 
             //Saves children to file
-            fileHandler.saveMemberToFile(children);
+            fileHandler.saveChildren(children);
 
         } else System.out.println("not found");
     }
 
-    public void editMember(Child child){
+    public void editChild(Child child){
         children.add(getIndex(child.getId()), child);
         children.remove(getIndex(child.getId())+1);
-        fileHandler.saveMemberToFile(children);
+        fileHandler.saveChildren(children);
     }
 
     public int getIndex(int id) {

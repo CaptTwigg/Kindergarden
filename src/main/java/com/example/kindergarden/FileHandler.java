@@ -6,10 +6,7 @@ import com.example.kindergarden.base.Schedule;
 import com.example.kindergarden.base.Session;
 import com.example.kindergarden.services.ServiceEmployee;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -276,31 +273,6 @@ public class FileHandler {
         }
     }
 
-    //Get members from file
-    public ArrayList<Child> loadMembers(String fileName){
-        ArrayList<Child> children = new ArrayList<>();
-        try {
-            Scanner read = new Scanner(new File(path + fileName));
-            while (read.hasNextLine()) {
-                String line = read.nextLine();
-                children.add(new Child(line));
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("Filen blev ikke fundet");
-        }
-
-        return children;
-    }
-
-    //Save children to file
-    public void saveMemberToFile(ArrayList<Child> children) {
-        try {
-            new PrintStream(new File(path + fileName));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void saveLoginInfo(Session session, ArrayList<Employee> employees) {
         String[] logins = new String[employees.size()];
 
@@ -326,5 +298,42 @@ public class FileHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    public ArrayList loadChildren() {
+        ArrayList array = new ArrayList();
+        try {
+            FileInputStream fileIn = new FileInputStream(path+fileName);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            array = (ArrayList) in.readObject();
+            in.close();
+            fileIn.close();
+            System.out.println("Data loaded.");
+        } catch (EOFException E) {
+            System.out.println("File may be empty -" + E);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
+
+    public void saveChildren( java.lang.Object object){
+        FileOutputStream fileOut = null;
+        ObjectOutputStream out = null;
+        try {
+            fileOut = new FileOutputStream(path+fileName);
+            out = new ObjectOutputStream(fileOut);
+            out.writeObject(object);
+            out.close();
+            fileOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

@@ -1,6 +1,8 @@
 package com.example.kindergarden.controllers;
 
+import com.example.kindergarden.FileHandler;
 import com.example.kindergarden.base.Child;
+import com.example.kindergarden.base.Parent;
 import com.example.kindergarden.services.ServiceChild;
 import com.example.kindergarden.services.ServiceSession;
 import org.springframework.stereotype.Controller;
@@ -14,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ChildController {
     ServiceChild serviceChild = new ServiceChild();
     int index;
+    Parent[] parents = {new Parent(), new Parent()};
 
     @GetMapping("/children")
     public String member(Model model){
         if(ServiceSession.isSomeoneLoggedIn()) {
-        //Gets arraylist with members
             model.addAttribute("children", serviceChild.getChildren());
             model.addAttribute("child", new Child());
             model.addAttribute("details", serviceChild.getChildren().get(index));
@@ -31,21 +33,21 @@ public class ChildController {
     @PostMapping("/children")
     public String addMember(@ModelAttribute Child me){
         //Saves member to arraylist
-        serviceChild.addMemberToList(me);
+        serviceChild.addChildToList(me);
         return "redirect:/children";
     }
 
     //delete member
     @PostMapping("/deleteChild")
     public String deleteMember(@RequestParam int id) {
-        serviceChild.deleteMember(id);
-        return "redirect:/member";
+        serviceChild.deleteChild(id);
+        return "redirect:/children";
     }
 
     //Edit a specific member
     @PostMapping(value = "/children", params = "saveMember=Gem")
     public String editMember(@ModelAttribute Child me){
-        serviceChild.editMember(me);
+        serviceChild.editChild(me);
         return "redirect:/children";
     }
 

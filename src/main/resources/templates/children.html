@@ -70,7 +70,7 @@
 <div id="content">
     <div id="overlay"></div>
     <!--<div th:replace="/includes/createMemberPopUp::createNewMember"></div>
-    <div th:replace="/includes/editMemberPopUp::editMember"></div>-->
+    <div th:replace="/includes/editMemberPopUp::editChild"></div>-->
     <div id="topbar">
         <form method="post">
             <input type="button" value="Opret nyt barn" class="green-btn" id="openCreateNewMember"/>
@@ -83,13 +83,7 @@
             <tr><td colspan="2" ><h2 style="margin-top: 10px">Børneliste</h2></td></tr>
             <tr th:each="child: ${children}" th:attrappend="data-child-id=${child.id},
                                  data-child-firstname=${child.firstName},
-                                 data-child-lastname=${child.lastName},
-                                 data-child-roadname=${child.roadName},
-                                 data-child-roadnumber=${child.roadNumber},
-                                 data-child-city=${child.city},
-                                 data-child-postalcode=${child.postalCode},
-                                 data-child-phonenumber=${child.phoneNumber},
-                                 data-child-email=${child.email}">
+                                 data-child-lastname=${child.lastName}">
                 <td th:text="${child.firstName} + ' ' + ${child.lastName}"/>
 
                 <td>
@@ -112,26 +106,6 @@
             <tr>
                 <td class="tdInfo">Navn:</td>
                 <td th:text="${details.firstName}+' '+${details.lastName}"></td>
-            </tr>
-            <tr>
-                <td class="tdInfo">Adresse:</td>
-                <td th:text="${details.roadName}+' '+${details.roadNumber}">&nbsp;</td>
-            </tr>
-            <tr>
-                <td class="tdInfo">By:</td>
-                <td th:text="${details.city}">&nbsp;</td>
-            </tr>
-            <tr>
-                <td class="tdInfo">Postnr.:</td>
-                <td th:text="${details.postalCode}">&nbsp;</td>
-            </tr>
-            <tr>
-                <td class="tdInfo">Tlf.:</td>
-                <td th:text="${details.phoneNumber}">&nbsp;</td>
-            </tr>
-            <tr>
-                <td class="tdInfo">Email:</td>
-                <td th:text="${details.email}">&nbsp;</td>
             </tr>
         </table>
     </div>
