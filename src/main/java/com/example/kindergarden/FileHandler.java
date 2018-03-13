@@ -1,6 +1,7 @@
 package com.example.kindergarden;
 
 import com.example.kindergarden.base.Employee;
+import com.example.kindergarden.base.Member;
 import com.example.kindergarden.base.Schedule;
 import com.example.kindergarden.base.Session;
 
@@ -231,5 +232,30 @@ public class FileHandler {
         }
 
         return schedules;
+    }
+
+    //Get members from file
+    public ArrayList<Member> loadMembers(String fileName){
+        ArrayList<Member> members = new ArrayList<>();
+        try {
+            Scanner read = new Scanner(new File(path + fileName));
+            while (read.hasNextLine()) {
+                String line = read.nextLine();
+                members.add(new Member(line));
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Filen blev ikke fundet");
+        }
+
+        return members;
+    }
+
+    //Save members to file
+    public void saveMemberToFile(ArrayList<Member> members) {
+        try {
+            new PrintStream(new File(path + fileName));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
