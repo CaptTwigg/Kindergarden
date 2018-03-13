@@ -17,15 +17,15 @@ public class MemberController {
 
     @GetMapping("/member")
     public String member(Model model){
-        //if(ServiceSession.isSomeoneLoggedIn()) {
+        if(ServiceSession.isSomeoneLoggedIn()) {
         //Gets arraylist with members
             model.addAttribute("members", serviceMember.getMembers());
             model.addAttribute("member", new Member());
             model.addAttribute("details", serviceMember.getMembers().get(index));
             return "member";
-        /*}else{
+        }else{
             return "redirect:/";
-        }*/
+        }
     }
 
     @PostMapping("/member")
