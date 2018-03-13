@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Member</title>
+    <link rel="stylesheet" href="stylesheets/css.css" type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        #content {
+            height: calc(100% - 50px);
+        }
+
+        #memberContainer {
+            padding: 20px;
+        }
+
+        #memberList {
+            float: left;
+            width: 59%;
+            border-radius: 5px;
+            box-shadow: 0 0 5px #aaaaaa;
+        }
+
+        #memberList tr:nth-child(odd) {
+            background-color: white;
+            border-radius: 5px  ;
+        }
+
+        #memberInfoTable {
+            float: right;
+            width: 39%;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 5px #aaaaaa;
+        }
+
+        #memberInfoTable td,
+        #memberList td{
+            padding: 5px 20px;
+        }
+
+        #memberInfoTable tr:last-child td,
+        #memberList tr:last-child td{
+            padding-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .tdInfo {
+            width: 100px;
+            font-weight: bold;
+        }
+
+        .buttonsList {
+            margin-left: 10px;
+            float: right !important;
+        }
+
+        #topbar {
+            padding: 20px 20px 0px 20px !important;
+        }
+
+        .popUpBoldFont{
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="/includes/menu::menu"></div>
+
+<div id="content">
+    <div id="overlay"></div>
+    <!--<div th:replace="/includes/createMemberPopUp::createNewMember"></div>
+    <div th:replace="/includes/editMemberPopUp::editMember"></div>-->
+    <div id="topbar">
+        <form method="post">
+            <input type="button" value="Opret nyt medlem" class="green-btn" id="openCreateNewMember"/>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <div id="memberContainer">
+        <table id="memberList">
+            <tbody>
+            <tr><td colspan="2" ><h2 style="margin-top: 10px">Medlemmer</h2></td></tr>
+            <tr th:each="member: ${members}" th:attrappend="data-member-id=${member.id},
+                                 data-member-firstname=${member.firstName},
+                                 data-member-lastname=${member.lastName},
+                                 data-member-roadname=${member.roadName},
+                                 data-member-roadnumber=${member.roadNumber},
+                                 data-member-city=${member.city},
+                                 data-member-postalcode=${member.postalCode},
+                                 data-member-phonenumber=${member.phoneNumber},
+                                 data-member-email=${member.email}">
+                <td th:text="${member.firstName} + ' ' + ${member.lastName}"/>
+
+                <td>
+                    <form method="post" th:action="@{'deleteMember?id='+${member.id}}">
+                        <input type="submit" value="Slet" class="red-btn buttonsList"/>
+                    </form>
+                    <form method="post">
+                        <input type="button" value="Redigér" class="blue-btn buttonsList openEditMember"/>
+                    </form>
+                    <form method="post" th:action="@{'detailsMember?id=' + ${member.id}}">
+                        <input type="submit" value="Detaljer" class="green-btn buttonsList"/>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table id="memberInfoTable">
+            <tr><td colspan="2"><h2 style="margin-bottom: 0px; margin-top: 10px">Medlems Information</h2></td></tr>
+            <tr>
+                <td class="tdInfo">Navn:</td>
+                <td th:text="${details.firstName}+' '+${details.lastName}"></td>
+            </tr>
+            <tr>
+                <td class="tdInfo">Adresse:</td>
+                <td th:text="${details.roadName}+' '+${details.roadNumber}">&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="tdInfo">By:</td>
+                <td th:text="${details.city}">&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="tdInfo">Postnr.:</td>
+                <td th:text="${details.postalCode}">&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="tdInfo">Tlf.:</td>
+                <td th:text="${details.phoneNumber}">&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="tdInfo">Email:</td>
+                <td th:text="${details.email}">&nbsp;</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.example.kindergarden;
 
 import com.example.kindergarden.base.Employee;
+import com.example.kindergarden.base.Member;
 import com.example.kindergarden.base.Schedule;
 import com.example.kindergarden.base.Session;
 import com.example.kindergarden.services.ServiceEmployee;
@@ -249,6 +250,7 @@ public class FileHandler {
         return schedules;
     }
 
+<<<<<<< HEAD
     public void deleteLogin(int id) {
         String[] logins = new String[new ServiceEmployee().getEmployees().size()];
 
@@ -275,6 +277,28 @@ public class FileHandler {
                 printStream.println(s);
             }
 
+=======
+    //Get members from file
+    public ArrayList<Member> loadMembers(String fileName){
+        ArrayList<Member> members = new ArrayList<>();
+        try {
+            Scanner read = new Scanner(new File(path + fileName));
+            while (read.hasNextLine()) {
+                String line = read.nextLine();
+                members.add(new Member(line));
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Filen blev ikke fundet");
+        }
+
+        return members;
+    }
+
+    //Save members to file
+    public void saveMemberToFile(ArrayList<Member> members) {
+        try {
+            new PrintStream(new File(path + fileName));
+>>>>>>> origin/master
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
