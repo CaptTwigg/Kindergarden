@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+
 @Controller
 public class EmployeeController {
   ServiceEmployee serviceEmployee = new ServiceEmployee();
@@ -18,8 +20,8 @@ public class EmployeeController {
     if (ServiceSession.isSomeoneLoggedIn()) {
       model.addAttribute("employees", serviceEmployee.getEmployees()); //får fat i arraylist
       model.addAttribute("employee", new Employee());
-      //model.addAttribute("login", new Login());
-      model.addAttribute("details", serviceEmployee.getEmployees().get(index)); //
+      if(serviceEmployee.getEmployees().size() != 0) { model.addAttribute("details", serviceEmployee.getEmployees().get(index)); }//
+      model.addAttribute("niveau", ServiceSession.getCurrentSession().getUserNiveau());
 
       return "employee";
 
@@ -39,6 +41,7 @@ public class EmployeeController {
   @PostMapping("/deleteEmployee")
   public String deleteEmployee(@RequestParam int id) {
     serviceEmployee.deleteEmployee(id);
+    index = serviceEmployee.getEmployees().size()-1;
     return "redirect:/employee";
   }
   //

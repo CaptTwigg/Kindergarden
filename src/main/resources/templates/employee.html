@@ -60,10 +60,6 @@
         #topbar {
             padding: 20px 20px 0px 20px !important;
         }
-
-        .popUpBoldFont{
-            font-weight: bold;
-        }
     </style>
 </head>
 <body>
@@ -76,7 +72,7 @@
     <div th:replace="/includes/editEmployeePopUp::editEmployee"></div>
     <div id="topbar">
         <form method="post">
-            <input type="button" value="Opret ny medarbejder" class="green-btn" id="openCreateNewEmployee"/>
+            <input type="button" value="Opret ny medarbejder" class="green-btn" id="openCreateNewEmployee" th:if="${niveau} == 1"/>
         </form>
         <div class="clear"></div>
     </div>
@@ -97,10 +93,10 @@
 
                 <td>
                     <form method="post" th:action="@{'deleteEmployee?id='+${employee.id}}">
-                        <input type="submit" value="Slet" class="red-btn buttonsList"/>
+                        <input type="submit" value="Slet" class="red-btn buttonsList" th:if="${niveau} == 1 and ${employee.niveau} != 1"/>
                     </form>
                     <form method="post">
-                        <input type="button" value="Redigér" class="blue-btn buttonsList openEditEmployee"/>
+                        <input type="button" value="Redigér" class="blue-btn buttonsList openEditEmployee" th:if="${niveau} == 1"/>
                     </form>
                     <form method="post" th:action="@{'details?id=' + ${employee.id}}">
                         <input type="submit" value="Detaljer" class="green-btn buttonsList"/>

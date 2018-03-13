@@ -1,8 +1,5 @@
 package com.example.kindergarden.base;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-
 public class Employee {
     private int id;
     private String firstName;
@@ -13,6 +10,7 @@ public class Employee {
     private int postalCode;
     private int phoneNumber;
     private String email;
+    private int niveau;
 
     public Employee(){
     }
@@ -28,33 +26,15 @@ public class Employee {
       this.postalCode = Integer.parseInt(employee[6]);
       this.phoneNumber = Integer.parseInt(employee[7]);
       this.email = employee[8];
+      this.niveau = Integer.parseInt(employee[9]);
     }
 
-    public Employee(int id, String firstName, String lastName, String roadName, int roadNumber, String city, int postalCode, int phoneNumber, String email) {
-      this.id = id;
-      this.firstName = firstName;
-      this.lastName = lastName;
-      this.roadName = roadName;
-      this.roadNumber = roadNumber;
-      this.city = city;
-      this.postalCode = postalCode;
-      this.phoneNumber = phoneNumber;
-      this.email = email;
-    }
+  public int getNiveau() {
+    return niveau;
+  }
 
-  @Override
-  public String toString() {
-    return "Employee{" +
-        "id=" + id +
-        ", firstName='" + firstName + '\'' +
-        ", lastName='" + lastName + '\'' +
-        ", roadName='" + roadName + '\'' +
-        ", roadNumber=" + roadNumber +
-        ", city='" + city + '\'' +
-        ", postalCode=" + postalCode +
-        ", phoneNumber=" + phoneNumber +
-        ", email='" + email + '\'' +
-        '}';
+  public void setNiveau(int niveau) {
+    this.niveau = niveau;
   }
 
   public String getRoadName() {

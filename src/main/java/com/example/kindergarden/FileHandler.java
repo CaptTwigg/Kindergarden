@@ -3,12 +3,15 @@ package com.example.kindergarden;
 import com.example.kindergarden.base.Employee;
 import com.example.kindergarden.base.Schedule;
 import com.example.kindergarden.base.Session;
+import com.example.kindergarden.services.ServiceEmployee;
+import com.example.kindergarden.services.ServiceSession;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class FileHandler {
@@ -40,6 +43,19 @@ public class FileHandler {
           Scanner read = new Scanner(new File(path + fileName));
           while (read.hasNextLine()) {
             String line = read.nextLine();
+
+            Scanner readLogins = new Scanner(new File(path+"logins.txt")).useDelimiter(";");
+            while(readLogins.hasNextLine()) {
+                //If employee id is id in logins, get the right row
+                if(readLogins.nextInt() == Integer.parseInt(line.split(";")[0])) {
+                    String temp = readLogins.next();
+                    temp = readLogins.next();
+                    line += readLogins.nextInt();
+                }
+
+                readLogins.nextLine();
+            }
+
             employees.add(new Employee(line));
           }
         } catch (FileNotFoundException e) {
@@ -231,5 +247,36 @@ public class FileHandler {
         }
 
         return schedules;
+    }
+
+    public void deleteLogin(int id) {
+        String[] logins = new String[new ServiceEmployee().getEmployees().size()];
+
+        System.out.println(new ServiceEmployee().getEmployees().size());
+
+        try {
+            scanner = new Scanner(new File(path+"logins.txt")).useDelimiter(";");
+            int counter = 0;
+
+            while(scanner.hasNextLine()) {
+                int tempID = scanner.nextInt();
+
+                if(tempID != id) {
+                    logins[counter] = tempID+";"+scanner.next()+";"+scanner.next()+";"+scanner.nextInt()+";";
+                    counter++;
+                }
+
+                scanner.nextLine();
+            }
+
+            PrintStream printStream = new PrintStream(new FileOutputStream(path+"logins.txt"));
+
+            for(String s: logins) {
+                printStream.println(s);
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

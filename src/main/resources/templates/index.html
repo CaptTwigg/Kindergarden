@@ -375,7 +375,7 @@
     <div id="deletedSchedules" th:if="${numberOfDeletedSchedules} != 0">
         <span id="deletedSchedulesText" th:text="${numberOfDeletedSchedules} > 1 ? ${numberOfDeletedSchedules}+' vagter blev slettet' : ${numberOfDeletedSchedules}+' vagt blev slettet'"></span>
         <form method="post">
-            <input name="restoreDeletedSchedules" value="Fortryd" type="submit" class="green-btn" />
+            <input name="restoreDeletedSchedules" value="Fortryd" type="submit" class="green-btn"/>
         </form>
     </div>
     <div id="viewSingleSchedule" class="popup-show">
@@ -385,13 +385,13 @@
         </div>
         <div class="clear"></div>
         <input type="button" name="closeSingleViewSchedule" value="Luk" style="float:left;" class="red-btn" />
-        <input type="button" name="goToEditSchedule" value="Rediger" style="float:right;" class="green-btn" />
-        <input type="hidden" name="toEditScheduleId" value="" />
-        <input type="hidden" name="toEditEmployeeKey" value="" />
-        <input type="hidden" name="toEditDate" value="" />
-        <input type="hidden" name="toEditFromTime" value="" />
-        <input type="hidden" name="toEditToTime" value="" />
-        <form method="post">
+        <input type="button" name="goToEditSchedule" value="Rediger" style="float:right;" class="green-btn" th:if="${niveau} == 1"/>
+        <input type="hidden" name="toEditScheduleId" value="" th:if="${niveau} == 1"/>
+        <input type="hidden" name="toEditEmployeeKey" value="" th:if="${niveau} == 1"/>
+        <input type="hidden" name="toEditDate" value="" th:if="${niveau} == 1" />
+        <input type="hidden" name="toEditFromTime" value="" th:if="${niveau} == 1" />
+        <input type="hidden" name="toEditToTime" value="" th:if="${niveau} == 1" />
+        <form method="post" th:if="${niveau} == 1">
             <input type="hidden" name="deleteSingleScheduleID" value="" />
             <input type="submit" name="deleteSingleShcedule" value="Slet" style="float:right; margin-right: 10px;" class="red-btn" />
         </form>
@@ -488,7 +488,7 @@
                                              data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey},
                                              data-schedule-id=${daysInThisMonth[index + 0]} ? ${schedule.Id}"
                                      th:if="${days[index + 0]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 0]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
-                                    <label class="checkboxContainer">
+                                    <label class="checkboxContainer" th:if="${niveau} == 1">
                                         <input type="checkbox" name="deleteMultipleSchedules" th:value="${schedule.Id}" />
                                         <span class="checkmark"></span>
                                     </label>
@@ -497,7 +497,7 @@
                             </div>
                             <div class="allSchedulesButtons">
                                 <input type="button" name="closeMultipleViewSchedule" value="Luk" style="float:left;" class="red-btn closeMultipleViewSchedule" />
-                                <input type="submit" name="deleteMultipleSchedule" value="Slet valgte" style="float:right;" class="red-btn deleteMultipleSchedule" />
+                                <input type="submit" name="deleteMultipleSchedule" value="Slet valgte" style="float:right;" class="red-btn deleteMultipleSchedule" th:if="${niveau} == 1"/>
                             </div>
                         </form>
                     </div>
@@ -530,7 +530,7 @@
                             <p class="dateMenuClose">X</p>
                             <ul>
                                 <li>
-                                    <input type="button" value="Opret vagt" class="green-btn createScheduleAtDate" />
+                                    <input type="button" value="Opret vagt" class="green-btn createScheduleAtDate"/>
                                 </li>
                                 <li  th:if="${schedulesPerDay[index + 1]} > 0 or ${countSchedulesPerDayForPerson[index + 1]} > 0">
                                     <input type="button" value="Slet vagter" class="red-btn openDeleteMultipleSchedules" />
@@ -550,7 +550,7 @@
                                              data-employeeKey=${daysInThisMonth[index + 1]} ? ${schedule.employeeKey},
                                              data-schedule-id=${daysInThisMonth[index + 1]} ? ${schedule.Id}"
                                      th:if="${days[index + 1]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 1]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
-                                    <label class="checkboxContainer">
+                                    <label class="checkboxContainer"  th:if="${niveau} == 1">
                                         <input type="checkbox" name="deleteMultipleSchedules" th:value="${schedule.Id}" />
                                         <span class="checkmark"></span>
                                     </label>
@@ -559,7 +559,7 @@
                             </div>
                             <div class="allSchedulesButtons">
                                 <input type="button" name="closeMultipleViewSchedule" value="Luk" style="float:left;" class="red-btn closeMultipleViewSchedule" />
-                                <input type="submit" name="deleteMultipleSchedule" value="Slet valgte" style="float:right;" class="red-btn deleteMultipleSchedule" />
+                                <input type="submit" name="deleteMultipleSchedule" value="Slet valgte" style="float:right;" class="red-btn deleteMultipleSchedule" th:if="${niveau} == 1"/>
                             </div>
                         </form>
                     </div>
@@ -612,7 +612,7 @@
                                              data-employeeKey=${daysInThisMonth[index + 2]} ? ${schedule.employeeKey},
                                              data-schedule-id=${daysInThisMonth[index + 2]} ? ${schedule.Id}"
                                      th:if="${days[index + 2]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 2]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
-                                    <label class="checkboxContainer">
+                                    <label class="checkboxContainer" th:if="${niveau} == 1">
                                         <input type="checkbox" name="deleteMultipleSchedules" th:value="${schedule.Id}" />
                                         <span class="checkmark"></span>
                                     </label>
@@ -621,7 +621,7 @@
                             </div>
                             <div class="allSchedulesButtons">
                                 <input type="button" name="closeMultipleViewSchedule" value="Luk" style="float:left;" class="red-btn closeMultipleViewSchedule" />
-                                <input type="submit" name="deleteMultipleSchedule" value="Slet valgte" style="float:right;" class="red-btn deleteMultipleSchedule" />
+                                <input type="submit" name="deleteMultipleSchedule" value="Slet valgte" style="float:right;" class="red-btn deleteMultipleSchedule" th:if="${niveau} == 1"/>
                             </div>
                         </form>
                     </div>
@@ -674,7 +674,7 @@
                                              data-employeeKey=${daysInThisMonth[index + 3]} ? ${schedule.employeeKey},
                                              data-schedule-id=${daysInThisMonth[index + 3]} ? ${schedule.Id}"
                                      th:if="${days[index + 3]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 3]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
-                                    <label class="checkboxContainer">
+                                    <label class="checkboxContainer"  th:if="${niveau} == 1">
                                         <input type="checkbox" name="deleteMultipleSchedules" th:value="${schedule.Id}" />
                                         <span class="checkmark"></span>
                                     </label>
@@ -683,7 +683,7 @@
                             </div>
                             <div class="allSchedulesButtons">
                                 <input type="button" name="closeMultipleViewSchedule" value="Luk" style="float:left;" class="red-btn closeMultipleViewSchedule" />
-                                <input type="submit" name="deleteMultipleSchedule" value="Slet valgte" style="float:right;" class="red-btn deleteMultipleSchedule" />
+                                <input type="submit" name="deleteMultipleSchedule" value="Slet valgte" style="float:right;" class="red-btn deleteMultipleSchedule" th:if="${niveau} == 1"/>
                             </div>
                         </form>
                     </div>
@@ -736,7 +736,7 @@
                                              data-employeeKey=${daysInThisMonth[index + 4]} ? ${schedule.employeeKey},
                                              data-schedule-id=${daysInThisMonth[index + 4]} ? ${schedule.Id}"
                                      th:if="${days[index + 4]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 4]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
-                                    <label class="checkboxContainer">
+                                    <label class="checkboxContainer" th:if="${niveau} == 1">
                                         <input type="checkbox" name="deleteMultipleSchedules" th:value="${schedule.Id}" />
                                         <span class="checkmark"></span>
                                     </label>
@@ -745,7 +745,7 @@
                             </div>
                             <div class="allSchedulesButtons">
                                 <input type="button" name="closeMultipleViewSchedule" value="Luk" style="float:left;" class="red-btn closeMultipleViewSchedule" />
-                                <input type="submit" name="deleteMultipleSchedule" value="Slet valgte" style="float:right;" class="red-btn deleteMultipleSchedule" />
+                                <input type="submit" name="deleteMultipleSchedule" value="Slet valgte" style="float:right;" class="red-btn deleteMultipleSchedule" th:if="${niveau} == 1"/>
                             </div>
                         </form>
                     </div>
@@ -798,7 +798,7 @@
                                              data-employeeKey=${daysInThisMonth[index + 5]} ? ${schedule.employeeKey},
                                              data-schedule-id=${daysInThisMonth[index + 5]} ? ${schedule.Id}"
                                      th:if="${days[index + 5]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 5]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
-                                    <label class="checkboxContainer">
+                                    <label class="checkboxContainer" th:if="${niveau} == 1">
                                         <input type="checkbox" name="deleteMultipleSchedules" th:value="${schedule.Id}" />
                                         <span class="checkmark"></span>
                                     </label>
@@ -807,7 +807,7 @@
                             </div>
                             <div class="allSchedulesButtons">
                                 <input type="button" name="closeMultipleViewSchedule" value="Luk" style="float:left;" class="red-btn closeMultipleViewSchedule" />
-                                <input type="submit" name="deleteMultipleSchedule" value="Slet valgte" style="float:right;" class="red-btn deleteMultipleSchedule" />
+                                <input type="submit" name="deleteMultipleSchedule" value="Slet valgte" style="float:right;" class="red-btn deleteMultipleSchedule" th:if="${niveau} == 1"/>
                             </div>
                         </form>
                     </div>
@@ -860,7 +860,7 @@
                                              data-employeeKey=${daysInThisMonth[index + 6]} ? ${schedule.employeeKey},
                                              data-schedule-id=${daysInThisMonth[index + 6]} ? ${schedule.Id}"
                                      th:if="${days[index + 6]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 6]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
-                                    <label class="checkboxContainer">
+                                    <label class="checkboxContainer" th:if="${niveau} == 1">
                                         <input type="checkbox" name="deleteMultipleSchedules" th:value="${schedule.Id}" />
                                         <span class="checkmark"></span>
                                     </label>
@@ -869,7 +869,7 @@
                             </div>
                             <div class="allSchedulesButtons">
                                 <input type="button" name="closeMultipleViewSchedule" value="Luk" style="float:left;" class="red-btn closeMultipleViewSchedule" />
-                                <input type="submit" name="deleteMultipleSchedule" value="Slet valgte" style="float:right;" class="red-btn deleteMultipleSchedule" />
+                                <input type="submit" name="deleteMultipleSchedule" value="Slet valgte" style="float:right;" class="red-btn deleteMultipleSchedule" th:if="${niveau} == 1"/>
                             </div>
                         </form>
                     </div>

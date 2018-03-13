@@ -8,7 +8,8 @@ import java.util.ArrayList;
 
 public class ServiceSession {
     private static Session session = null;
-    private FileHandler fileHandler;
+
+    private static FileHandler fileHandler;
 
     public ServiceSession(){
         fileHandler = new FileHandler("logins.txt");
@@ -27,6 +28,9 @@ public class ServiceSession {
         }
     }
 
+
+
+    //hasher password
     private String md5Hasher(String password) {
         return DigestUtils.md5DigestAsHex(password.getBytes());
     }
@@ -37,5 +41,9 @@ public class ServiceSession {
 
     public static void logOut() {
         session = null;
+    }
+
+    public static void deleteLogin(int id) {
+        fileHandler.setFileName("logins.txt").deleteLogin(id);
     }
 }

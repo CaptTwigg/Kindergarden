@@ -45,8 +45,6 @@ public class ServiceEmployee {
 
     if (index > -1) {
       employees.remove(index);
-      System.out.println(id);
-      System.out.println(Arrays.toString(employees.toArray()));
 
       //gemmer medarbejder til fil
       fileHandler.saveEmployeeToFile(employees);
@@ -58,6 +56,9 @@ public class ServiceEmployee {
         schedulesToRemove[i] = schedules.get(i).getId();
       }
       ArrayList<Schedule> tempSchedule = new ServiceSchedule().removeMultiple(schedulesToRemove);
+
+      //Slet login for medarbejder
+      ServiceSession.deleteLogin(id);
 
       fileHandler.setFileName("employees.txt");
     } else System.out.println("not found");
