@@ -5,14 +5,12 @@ import com.example.kindergarden.base.Member;
 import com.example.kindergarden.base.Schedule;
 import com.example.kindergarden.base.Session;
 import com.example.kindergarden.services.ServiceEmployee;
-import com.example.kindergarden.services.ServiceSession;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class FileHandler {
@@ -250,34 +248,36 @@ public class FileHandler {
         return schedules;
     }
 
-<<<<<<< HEAD
     public void deleteLogin(int id) {
         String[] logins = new String[new ServiceEmployee().getEmployees().size()];
 
         System.out.println(new ServiceEmployee().getEmployees().size());
 
         try {
-            scanner = new Scanner(new File(path+"logins.txt")).useDelimiter(";");
+            scanner = new Scanner(new File(path + "logins.txt")).useDelimiter(";");
             int counter = 0;
 
-            while(scanner.hasNextLine()) {
+            while (scanner.hasNextLine()) {
                 int tempID = scanner.nextInt();
 
-                if(tempID != id) {
-                    logins[counter] = tempID+";"+scanner.next()+";"+scanner.next()+";"+scanner.nextInt()+";";
+                if (tempID != id) {
+                    logins[counter] = tempID + ";" + scanner.next() + ";" + scanner.next() + ";" + scanner.nextInt() + ";";
                     counter++;
                 }
 
                 scanner.nextLine();
             }
 
-            PrintStream printStream = new PrintStream(new FileOutputStream(path+"logins.txt"));
+            PrintStream printStream = new PrintStream(new FileOutputStream(path + "logins.txt"));
 
-            for(String s: logins) {
+            for (String s : logins) {
                 printStream.println(s);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-=======
     //Get members from file
     public ArrayList<Member> loadMembers(String fileName){
         ArrayList<Member> members = new ArrayList<>();
@@ -298,7 +298,6 @@ public class FileHandler {
     public void saveMemberToFile(ArrayList<Member> members) {
         try {
             new PrintStream(new File(path + fileName));
->>>>>>> origin/master
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
