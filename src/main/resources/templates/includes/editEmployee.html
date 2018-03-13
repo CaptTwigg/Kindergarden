@@ -1,0 +1,75 @@
+<div id="editEmployee" class="popup-formular" th:fragment="editEmployee"  xmlns:th="http://www.thymeleaf.org" style="margin-left: -270px; margin-top: -161px;">
+    <h2>Redigér oplysning om medarbejder</h2>
+    <form method="post">
+        <input type="hidden" name="id" value=""/>
+        <table class="popup-table">
+            <tr>
+                <td class="popUpBoldFont"><label for="editEmployeeUsername">Brugernavn:</label></td>
+                <td>
+                    <input id="editEmployeeUsername" name="username" type="text" value="" required="true" style="background-color: #cccccc; width: 250px"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="popUpBoldFont"><label for="editEmployeePassword">Adgangskode:</label></td>
+                <td>
+                    <input id="editEmployeePassword" name="password" type="text" value="" required="true" style="background-color: #cccccc; width: 250px"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="popUpBoldFont"><label for="editEmployeeFirstName">Fornavn:</label></td>
+                <td>
+                    <input id="editEmployeeFirstName" name="firstName" type="text" value="" required="true" style="background-color: #cccccc; width: 250px"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="popUpBoldFont"><label for="editEmployeeLastName">Efternavn:</label></td>
+                <td>
+                    <input id="editEmployeeLastName" name="lastName" type="text" value="" required="true" style="background-color: #cccccc; width: 250px"/>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="popUpBoldFont"><label>Adresse:</label></td>
+                <td class="popUpBoldFont"><p for="editEmployeeAddress">Vej navn: <br/></p>
+
+                    <input id="editEmployeeAddress" name="roadName" type="text" value="" required="true" style="background-color: #cccccc; width: 250px"/>
+
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="popUpBoldFont"><p for="editEmployeeAddressRoadNumber">Vej nr.: </p>
+                    <input id="editEmployeeAddressRoadNumber" name="roadNumber" type="number" value="" required="true" style="background-color: #cccccc; width: 250px"/>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="popUpBoldFont"><p for="editEmployeeAddressCity">By: </p>
+                    <input id="editEmployeeAddressCity" name="city" type="text" value="" required="true" style="background-color: #cccccc; width: 250px"/>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="popUpBoldFont"><p for="editEmployeeAddressPostalCode">Post nr.: </p>
+                    <input id="editEmployeeAddressPostalCode" name="postalCode" type="number" value=""  required="true" style="background-color: #cccccc; width: 250px"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="popUpBoldFont"><label for="editEmployeePhoneNumber">Tlf. nr.:</label></td>
+                <td>
+                    <input id="editEmployeePhoneNumber" name="phoneNumber" type="number" value="" required="true" style="background-color: #cccccc; width: 250px"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="popUpBoldFont"><label for="editEmployeeEmail">Email:</label></td>
+                <td>
+                    <input id="editEmployeeEmail" name="email" type="email" value="" required="true" style="background-color: #cccccc; width: 250px"/>
+                </td>
+            </tr>
+            <tr>
+                <td><input id="cancelEmployeeEdit" type="button" value="Annuller" class="red-btn"/></td>
+                <td><input name="saveEditEmployee" type="button" value="Gem" class="green-btn" style="float: right"/></td>
+            </tr>
+        </table>
+    </form>
+</div>

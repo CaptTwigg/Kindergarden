@@ -72,8 +72,8 @@
 
 <div id="content">
     <div id="overlay"></div>
-    <div th:replace="/includes/createEmployeePopUp::createNewEmployee"></div>
-    <div th:replace="/includes/editEmployeePopUp::editEmployee"></div>
+    <div th:replace="/includes/createEmployee::createNewEmployee"></div>
+    <div th:replace="/includes/editEmployee::editEmployee"></div>
     <div id="topbar">
         <form method="post">
             <input type="button" value="Opret ny medarbejder" class="green-btn" id="openCreateNewEmployee" th:if="${niveau} == 1"/>
@@ -88,13 +88,11 @@
                                  data-employee-firstname=${employee.firstName},
                                  data-employee-lastname=${employee.lastName},
                                  data-employee-roadname=${employee.roadName},
-                                 data-employee-roadnumber=${employee.roadNumber},
                                  data-employee-city=${employee.city},
                                  data-employee-postalcode=${employee.postalCode},
                                  data-employee-phonenumber=${employee.phoneNumber},
                                  data-employee-email=${employee.email}">
                 <td th:text="${employee.firstName} + ' ' + ${employee.lastName}"/>
-
                 <td>
                     <form method="post" th:action="@{'deleteEmployee?id='+${employee.id}}">
                         <input type="submit" value="Slet" class="red-btn buttonsList" th:if="${niveau} == 1 and ${employee.niveau} != 1"/>
@@ -118,7 +116,7 @@
             </tr>
             <tr>
                 <td class="tdInfo">Adresse:</td>
-                <td th:text="${details.roadName}+' '+${details.roadNumber}">&nbsp;</td>
+                <td th:text="${details.roadName}">&nbsp;</td>
             </tr>
             <tr>
                 <td class="tdInfo">By:</td>

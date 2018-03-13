@@ -1,0 +1,76 @@
+<div id="createNewEmployee" class="popup-formular" th:fragment="createNewEmployee" style="margin-top: -318.5px;">
+    <h2>Opret ny medarbejder</h2>
+    <form method="post" th:action="@{/employee}" id="createEmployeeForm">
+        <table class="popup-table">
+            <tr>
+                <td class="popUpBoldFont"><label for="employeeUsername">Brugernavn:</label></td>
+                <td>
+                    <input id="employeeUsername" name="username" type="text" th:field="${session.userName}"/>
+                    <div class="fail employeeUsernameFail"><div class="arrow-left"></div>Ugyldigt brugernavn!</div>
+                    <div class="fail employeeUsernameTakenFail"><div class="arrow-left"></div>Brugernavnet er allerede i brug!</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="popUpBoldFont"><label for="employeePassword">Adgangskode:</label></td>
+                <td>
+                    <input id="employeePassword" name="password" type="password" th:field="${session.passWord}"/>
+                    <div class="fail employeePasswordFail"><div class="arrow-left"></div>Ugyldigt adgangskode!</div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="employeeFirstName">Fornavn:</label></td>
+                <td>
+                    <input id="employeeFirstName" name="firstName" type="text" th:field="${employee.firstName}"/>
+                    <div class="fail employeeFirstNameFail"><div class="arrow-left"></div>UgyldigtDu mangler at skrive et fornavn!</div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="employeeLastName">Efternavn:</label></td>
+                <td>
+                    <input id="employeeLastName" name="lastName" type="text" th:field="${employee.lastName}"/>
+                    <div class="fail employeeLastNameFail"><div class="arrow-left"></div>Ugyldigt efternavn!</div>
+
+                </td>
+            </tr>
+            <tr>
+                <td><label for="employeeAddress">Adresse:</label></td>
+                <td>
+                    <input id="employeeAddress" name="streetName" type="text" th:field="${employee.roadName}"/>
+                    <div class="fail employeeStreetNameFail"><div class="arrow-left"></div>Ugyldigt adresse!</div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="employeeAddressCity">By:</label></td>
+                <td>
+                    <input id="employeeAddressCity" name="city" type="text" th:field="${employee.city}"/>
+                    <div class="fail employeeCityFail"><div class="arrow-left"></div>Ugyldigt by!</div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="employeeAddressPostalCode">Post nr.:</label></td>
+                <td>
+                    <input id="employeeAddressPostalCode" name="postalCode" type="number" th:field="${employee.postalCode}"/>
+                    <div class="fail employeePostalCodeFail"><div class="arrow-left"></div>Ugyldigt postnummer</div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="employeePhoneNumber">Tlf. nr.:</label></td>
+                <td>
+                    <input id="employeePhoneNumber" name="phoneNumber" type="number" th:field="${employee.phoneNumber}"/>
+                    <div class="fail employeePhoneNumberFail"><div class="arrow-left"></div>Ugyldigt telefonnummer!</div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="employeeEmail">Email:</label></td>
+                <td>
+                    <input id="employeeEmail" name="email" type="email" th:field="${employee.email}"/>
+                    <div class="fail employeeEmailFail"><div class="arrow-left"></div>Ugyldigt email!</div>
+                </td>
+            </tr>
+            <tr>
+                <td><input id="cancelEmployeeCreate" type="button" value="Annuller" class="red-btn"/></td>
+                <td><input name="saveEmployee" type="submit" value="Opret" class="green-btn" style="float: right"/></td>
+            </tr>
+        </table>
+    </form>
+</div>

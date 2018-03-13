@@ -17,16 +17,13 @@ public class EmployeeController {
 
   @GetMapping("/employee")
   public String employee(Model model) {
-
     if (ServiceSession.isSomeoneLoggedIn()) {
       model.addAttribute("employees", serviceEmployee.getEmployees()); //får fat i arraylist
       model.addAttribute("employee", new Employee());
-      if(serviceEmployee.getEmployees().size() != 0) { model.addAttribute("details", serviceEmployee.getEmployees().get(index)); }//
+      model.addAttribute("details", serviceEmployee.getEmployees().get(index));
       model.addAttribute("niveau", ServiceSession.getCurrentSession().getUserNiveau());
       model.addAttribute("session", new Session());
-
       return "employee";
-
     } else {
       return "redirect:/";
     }
@@ -45,7 +42,8 @@ public class EmployeeController {
     index = serviceEmployee.getEmployees().size()-1;
     return "redirect:/employee";
   }
-  //
+
+  //Gemmer ny medarbejder
   @PostMapping(value = "/employee", params = "saveEmployee=Gem")
   public String editEmployee(@ModelAttribute Employee em){
     serviceEmployee.editEmployee(em);

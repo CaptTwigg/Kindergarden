@@ -37,7 +37,13 @@ input[type=submit], input[type=button] {
     float: left;
 }
 
-input[type=date], input[type=time], select {
+input[type=date],
+input[type=time],
+select,
+input[type=text],
+input[type=number],
+input[type=email],
+input[type=password]{
     width: 100%;
     padding: 5px;
     border: 1px solid #ccc;

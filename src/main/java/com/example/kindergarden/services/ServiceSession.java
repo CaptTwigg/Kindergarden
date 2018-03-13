@@ -52,4 +52,8 @@ public class ServiceSession {
     public static void deleteLogin(int id) {
         fileHandler.setFileName("logins.txt").deleteLogin(id);
     }
+
+    public static boolean checkUsername(String username) {
+        return fileHandler.setFileName("logins.txt").checkUsername(username);
+    }
 }

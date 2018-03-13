@@ -76,12 +76,11 @@ public class FileHandler {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            String employeeInfo = String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;\n",
+            String employeeInfo = String.format("%s;%s;%s;%s;%s;%s;%s;%s;\n",
               employeeSave.getId(),
               employeeSave.getFirstName(),
               employeeSave.getLastName(),
               employeeSave.getRoadName(),
-              employeeSave.getRoadNumber(),
               employeeSave.getCity(),
               employeeSave.getPostalCode(),
               employeeSave.getPhoneNumber(),
@@ -335,5 +334,24 @@ public class FileHandler {
             e.printStackTrace();
         }
 
+    }
+
+    public boolean checkUsername(String username){
+        try {
+            Scanner readLogins = new Scanner(new File(path+"logins.txt")).useDelimiter(";");
+            while(readLogins.hasNextLine()) {
+                int id = readLogins.nextInt();
+                if(readLogins.next().equals(username)) {
+                    return true;
+                }
+
+                readLogins.nextLine();
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Filen blev ikke fundet");
+        }
+
+        return false;
     }
 }

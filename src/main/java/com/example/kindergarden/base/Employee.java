@@ -5,7 +5,6 @@ public class Employee {
     private String firstName;
     private String lastName;
     private String roadName;
-    private int roadNumber;
     private String city;
     private int postalCode;
     private int phoneNumber;
@@ -21,12 +20,11 @@ public class Employee {
       this.firstName = employee[1];
       this.lastName = employee[2];
       this.roadName = employee[3];
-      this.roadNumber = Integer.parseInt(employee[4]);
-      this.city = employee[5];
-      this.postalCode = Integer.parseInt(employee[6]);
-      this.phoneNumber = Integer.parseInt(employee[7]);
-      this.email = employee[8];
-      this.niveau = Integer.parseInt(employee[9]);
+      this.city = employee[4];
+      this.postalCode = Integer.parseInt(employee[5]);
+      this.phoneNumber = Integer.parseInt(employee[6]);
+      this.email = employee[7];
+      this.niveau = Integer.parseInt(employee[8]);
     }
 
   public int getNiveau() {
@@ -43,14 +41,6 @@ public class Employee {
 
     public void setRoadName(String roadName) {
       this.roadName = roadName;
-    }
-
-    public int getRoadNumber() {
-      return roadNumber;
-    }
-
-    public void setRoadNumber(int roadNumber) {
-      this.roadNumber = roadNumber;
     }
 
     public String getCity() {
