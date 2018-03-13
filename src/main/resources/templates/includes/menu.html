@@ -2,16 +2,20 @@
 <div id="menu" th:fragment="menu" xmlns:th="http://www.w3.org/1999/xhtml">
     <script>
         $(document).ready(function () {
-            var fileName = window.location.pathname;
-            if(fileName == "/index"){
+            var path = window.location.pathname;
+            if(path == "/index"){
                 $("#menu ul li:nth-child(1) a").addClass("active");
 
-            }else if(fileName == "/employee"){
+            }else if(path == "/employee"){
                 $("#menu ul li:nth-child(2) a").addClass("active");
 
-            }else if(fileName == "/member"){
+            }else if(path == "/member"){
                 $("#menu ul li:nth-child(3) a").addClass("active");
+
+            }else if(path == "/waitingList"){
+              $("#menu ul li:nth-child(4) a").addClass("active");
             }
+
         });
     </script>
     <ul>
@@ -23,6 +27,9 @@
         </li>
         <li>
             <a href="member">Medlemmer</a>
+        </li>
+        <li>
+            <a href="waitingList">Vente Liste</a>
         </li>
         <li>
             <a href="logud">Log ud</a>
