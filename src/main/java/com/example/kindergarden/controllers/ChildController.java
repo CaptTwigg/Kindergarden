@@ -5,12 +5,19 @@ import com.example.kindergarden.base.Child;
 import com.example.kindergarden.base.Parent;
 import com.example.kindergarden.services.ServiceChild;
 import com.example.kindergarden.services.ServiceSession;
+import com.example.kindergarden.wrappers.ParentWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 @Controller
 public class ChildController {
@@ -19,9 +26,17 @@ public class ChildController {
 
     @GetMapping("/children")
     public String member(Model model){
+        ArrayList<Parent> parents = new ArrayList<>();
+        parents.add(new Parent());
+        parents.add(new Parent());
+
+        ParentWrapper parentWrapper = new ParentWrapper();
+        parentWrapper.setParents(parents);
+
         if(ServiceSession.isSomeoneLoggedIn()) {
             model.addAttribute("children", serviceChild.getChildren());
             model.addAttribute("child", new Child());
+            model.addAttribute("parentWrapper", parentWrapper);
             if(serviceChild.getChildren().size() > 0) {
                 model.addAttribute("details", serviceChild.getChildren().get(index));
             }else{
@@ -34,9 +49,10 @@ public class ChildController {
     }
 
     @PostMapping("/children")
-    public String addMember(@ModelAttribute Child me){
+    public String addMember(@ModelAttribute Child me, @ModelAttribute ParentWrapper parentWrapper){
         //Saves member to arraylist
-        serviceChild.addChildToList(me);
+        //serviceChild.addChildToList(me);
+        System.out.println(Arrays.toString(parentWrapper.getParents().toArray()));
         return "redirect:/children";
     }
 

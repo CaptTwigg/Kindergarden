@@ -40,20 +40,20 @@
             </tr>
             <tr>
                 <td><label for="childParentOneName">Navn:</label></td>
-                <td>
-                    <input id="childParentOneName" name="Name" type="text" th:field="${child.parentNameOne}" required="true" style="background-color: #cccccc; width: 250px"/>
+                <td th:object="${parentWrapper}">
+                    <input id="childParentOneName" name="name" type="text" th:field="*{parents[0].name}" required="true" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
             <tr>
                 <td><label for="childParentOnePhoneNumber">Tlf. nr.:</label></td>
-                <td>
-                    <input id="childParentOnePhoneNumber" name="phoneNumber" type="number" th:field="${child.phoneNumberOne}" required="true" style="background-color: #cccccc; width: 250px"/>
+                <td th:object="${parentWrapper}">
+                    <input id="childParentOnePhoneNumber" name="phone" type="number" th:field="*{parents[0].phone}" required="true" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
             <tr>
                 <td><label for="childParentOneEmail">E-mail:</label></td>
-                <td>
-                    <input id="childParentOneEmail" name="email" type="email" th:field="${child.emailOne}" required="true" style="background-color: #cccccc; width: 250px"/>
+                <td th:object="${parentWrapper}">
+                    <input id="childParentOneEmail" name="email" type="email" th:field="*{parents[0].email}" required="true" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
 
@@ -64,20 +64,20 @@
             </tr>
             <tr>
                 <td><label for="childParentTwoName">Navn:</label></td>
-                <td>
-                    <input id="childParentTwoName" name="Name" type="text" th:field="${child.parentNameTwo}" required="true" style="background-color: #cccccc; width: 250px"/>
+                <td th:object="${parentWrapper}">
+                    <input id="childParentTwoName" name="name" type="text" th:field="*{parents[11].name}" required="true" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
             <tr>
                 <td><label for="childParentTwoPhoneNumber">Tlf. nr.:</label></td>
-                <td>
-                    <input id="childParentTwoPhoneNumber" name="phoneNumber" type="number" th:field="${child.phoneNumberTwo}" required="true" style="background-color: #cccccc; width: 250px"/>
+                <td th:object="${parentWrapper}">
+                    <input id="childParentTwoPhoneNumber" name="phone" type="number" th:field="*{parents[1].phone}" required="true" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
             <tr>
                 <td><label for="childParentTwoEmail">E-mail:</label></td>
-                <td>
-                    <input id="childParentTwoEmail" name="email" type="email" th:field="${child.emailTwo}" required="true" style="background-color: #cccccc; width: 250px"/>
+                <td th:object="${parentWrapper}">
+                    <input id="childParentTwoEmail" name="email" type="email" th:field="*{parents[1].email}" required="true" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
 

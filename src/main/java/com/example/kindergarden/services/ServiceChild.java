@@ -10,7 +10,6 @@ public class ServiceChild {
     private ArrayList<Child> children = new ArrayList<>();
     public FileHandler fileHandler;
 
-    //
     public ServiceChild() {
         try {
             fileHandler = new FileHandler("children.txt");
