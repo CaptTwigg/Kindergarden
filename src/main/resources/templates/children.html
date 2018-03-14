@@ -5,6 +5,17 @@
     <title>Member</title>
     <link rel="stylesheet" href="stylesheets/css.css" type="text/css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#openCreateNewChild").click(function () {
+                $("#overlay, #createNewChild").show();
+            });
+
+            $("#cancelChildCreate, #overlay").click(function () {
+                $("#overlay, .popup-formular2").hide();
+            });
+        });
+    </script>
     <style>
         #content {
             height: calc(100% - 50px);
@@ -69,11 +80,11 @@
 
 <div id="content">
     <div id="overlay"></div>
-    <!--<div th:replace="/includes/createMemberPopUp::createNewMember"></div>
-    <div th:replace="/includes/editMemberPopUp::editChild"></div>-->
+    <div th:replace="/includes/createChild::createNewChild"></div>
+    <!--<div th:replace="/includes/editMemberPopUp::editChild"></div>-->
     <div id="topbar">
         <form method="post">
-            <input type="button" value="Opret nyt barn" class="green-btn" id="openCreateNewMember"/>
+            <input type="button" value="Opret nyt barn" class="green-btn" id="openCreateNewChild"/>
         </form>
         <div class="clear"></div>
     </div>

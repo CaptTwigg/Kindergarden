@@ -16,14 +16,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ChildController {
     ServiceChild serviceChild = new ServiceChild();
     int index;
-    Parent[] parents = {new Parent(), new Parent()};
 
     @GetMapping("/children")
     public String member(Model model){
         if(ServiceSession.isSomeoneLoggedIn()) {
             model.addAttribute("children", serviceChild.getChildren());
             model.addAttribute("child", new Child());
-            model.addAttribute("details", serviceChild.getChildren().get(index));
+            if(serviceChild.getChildren().size() > 0) {
+                model.addAttribute("details", serviceChild.getChildren().get(index));
+            }else{
+                model.addAttribute("details", new Child());
+            }
             return "children";
         }else{
             return "redirect:/";
