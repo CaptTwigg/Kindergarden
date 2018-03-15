@@ -1,6 +1,6 @@
 <div id="createNewChild" class="popup-formular2" th:fragment="createNewChild" xmlns:th="http://www.thymeleaf.org" style="margin-left: -270px; margin-top: -161px;">
     <h2>Opret nyt barn</h2>
-    <form method="post" th:action="@{/children}">
+    <form method="post" th:action="@{/children}" th:object="${parents}">
         <table class="popup-table">
             <tr>
                 <td><label for="childFirstName">Fornavn:</label></td>
@@ -40,19 +40,19 @@
             </tr>
             <tr>
                 <td><label for="childParentOneName">Navn:</label></td>
-                <td th:object="${parentWrapper}">
+                <td>
                     <input id="childParentOneName" name="name" type="text" th:field="*{parents[0].name}" required="true" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
             <tr>
                 <td><label for="childParentOnePhoneNumber">Tlf. nr.:</label></td>
-                <td th:object="${parentWrapper}">
+                <td>
                     <input id="childParentOnePhoneNumber" name="phone" type="number" th:field="*{parents[0].phone}" required="true" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
             <tr>
                 <td><label for="childParentOneEmail">E-mail:</label></td>
-                <td th:object="${parentWrapper}">
+                <td>
                     <input id="childParentOneEmail" name="email" type="email" th:field="*{parents[0].email}" required="true" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
@@ -64,19 +64,19 @@
             </tr>
             <tr>
                 <td><label for="childParentTwoName">Navn:</label></td>
-                <td th:object="${parentWrapper}">
+                <td>
                     <input id="childParentTwoName" name="name" type="text" th:field="*{parents[1].name}" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
             <tr>
                 <td><label for="childParentTwoPhoneNumber">Tlf. nr.:</label></td>
-                <td th:object="${parentWrapper}">
+                <td>
                     <input id="childParentTwoPhoneNumber" name="phone" type="number" th:field="*{parents[1].phone}" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
             <tr>
                 <td><label for="childParentTwoEmail">E-mail:</label></td>
-                <td th:object="${parentWrapper}">
+                <td>
                     <input id="childParentTwoEmail" name="email" type="email" th:field="*{parents[1].email}" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>

@@ -8,6 +8,10 @@ import java.util.List;
 public class ParentWrapper {
     private ArrayList<Parent> parents;
 
+    public ParentWrapper() {
+        parents = new ArrayList<>();
+    }
+
     public List<Parent> getParents() {
         return parents;
     }

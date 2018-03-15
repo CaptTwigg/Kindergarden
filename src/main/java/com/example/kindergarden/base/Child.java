@@ -9,18 +9,20 @@ public class Child implements Serializable {
   private String address;
   private String city;
   private int postalCode;
+  private boolean isOnWaitinglist;
   private int parentKeyOne;
   private int parentKeyTwo;
 
   public Child() {}
 
-  public Child(int id, String firstName, String lastName, String address, String city, int postalCode, int parentKeyOne, int parentKeyTwo) {
+  public Child(int id, String firstName, String lastName, String address, String city, int postalCode, boolean isOnWaitinglist, int parentKeyOne, int parentKeyTwo) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.address = address;
     this.city = city;
     this.postalCode = postalCode;
+    this.isOnWaitinglist = isOnWaitinglist;
     this.parentKeyOne = parentKeyOne;
     this.parentKeyTwo = parentKeyTwo;
   }
@@ -34,6 +36,7 @@ public class Child implements Serializable {
             ", address='" + address + '\'' +
             ", city='" + city + '\'' +
             ", postalCode=" + postalCode +
+            ", isOnWaitinglist" + isOnWaitinglist + '\'' +
             ", parentKeyOne='" + parentKeyOne + '\'' +
             ", parentKeyTwo='" + parentKeyTwo + '\'' +
             '}';
@@ -88,19 +91,29 @@ public class Child implements Serializable {
     this.postalCode = postalCode;
   }
 
+  public boolean isOnWaitinglist() {
+        return isOnWaitinglist;
+  }
+
+  public void setOnWaitinglist(boolean onWaitinglist) {
+      isOnWaitinglist = onWaitinglist;
+  }
+
   public int getParentKeyOne() {
     return parentKeyOne;
   }
 
-  public void setParentKeyOne(int parentKeyOne) {
+  public Child setParentKeyOne(int parentKeyOne) {
     this.parentKeyOne = parentKeyOne;
+    return this;
   }
 
   public int getParentKeyTwo() {
     return parentKeyTwo;
   }
 
-  public void setParentKeyTwo(int parentKeyTwo) {
+  public Child setParentKeyTwo(int parentKeyTwo) {
     this.parentKeyTwo = parentKeyTwo;
+    return this;
   }
 }

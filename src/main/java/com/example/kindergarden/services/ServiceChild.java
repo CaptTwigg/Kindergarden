@@ -18,9 +18,9 @@ public class ServiceChild {
         }
     }
 
-    public void addChildToList(Child child) {
+    public void addChildToList(Child child, int[] ids) {
         int id = children.size() == 0 ? 1 : getHighestIdOfChild();
-        children.add(child.setId(id));
+        children.add(child.setId(id).setParentKeyOne(ids[0]).setParentKeyTwo(ids[1]));
         fileHandler.saveChildren(children);
     }
 

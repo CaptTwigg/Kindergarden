@@ -4,6 +4,7 @@ import com.example.kindergarden.FileHandler;
 import com.example.kindergarden.base.Child;
 import com.example.kindergarden.base.Parent;
 import com.example.kindergarden.services.ServiceChild;
+import com.example.kindergarden.services.ServiceParent;
 import com.example.kindergarden.services.ServiceSession;
 import com.example.kindergarden.wrappers.ParentWrapper;
 import org.springframework.stereotype.Controller;
@@ -22,21 +23,17 @@ import java.util.Collection;
 @Controller
 public class ChildController {
     ServiceChild serviceChild = new ServiceChild();
+    ServiceParent serviceParent = new ServiceParent();
     int index;
 
     @GetMapping("/children")
     public String member(Model model){
-        ArrayList<Parent> parents = new ArrayList<>();
-        parents.add(new Parent());
-        parents.add(new Parent());
-
-        ParentWrapper parentWrapper = new ParentWrapper();
-        parentWrapper.setParents(parents);
+        System.out.println(Arrays.toString(serviceChild.getChildren().toArray()));
 
         if(ServiceSession.isSomeoneLoggedIn()) {
             model.addAttribute("children", serviceChild.getChildren());
             model.addAttribute("child", new Child());
-            model.addAttribute("parentWrapper", parentWrapper);
+            model.addAttribute("parents", new ParentWrapper());
             if(serviceChild.getChildren().size() > 0) {
                 model.addAttribute("details", serviceChild.getChildren().get(index));
             }else{
@@ -49,10 +46,8 @@ public class ChildController {
     }
 
     @PostMapping("/children")
-    public String addMember(@ModelAttribute Child me, @ModelAttribute ParentWrapper parentWrapper){
-        //Saves member to arraylist
-        serviceChild.addChildToList(me);
-        System.out.println(Arrays.toString(parentWrapper.getParents().toArray()));
+    public String addChild(@ModelAttribute Child me, @ModelAttribute ParentWrapper parentWrapper){
+        serviceChild.addChildToList(me, serviceParent.saveParents(parentWrapper.getParents()));
         return "redirect:/children";
     }
 

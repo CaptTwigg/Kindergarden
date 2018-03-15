@@ -12,6 +12,13 @@ public class Parent {
 
   }
 
+  public Parent(int id, String name, int phone, String email) {
+    this.id = id;
+    this.name = name;
+    this.phone = phone;
+    this.email = email;
+  }
+
   public int getId() {
     return id;
   }

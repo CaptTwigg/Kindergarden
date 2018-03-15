@@ -1,13 +1,12 @@
 package com.example.kindergarden;
 
-import com.example.kindergarden.base.Employee;
-import com.example.kindergarden.base.Child;
-import com.example.kindergarden.base.Schedule;
-import com.example.kindergarden.base.Session;
+import com.example.kindergarden.base.*;
 import com.example.kindergarden.services.ServiceEmployee;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class FileHandler {
@@ -353,5 +352,55 @@ public class FileHandler {
         }
 
         return false;
+    }
+
+    public void saveParents(List<Parent> parentList) {
+        try {
+            ArrayList<Parent> parentArrayList = loadAllParents();
+
+            for(Parent parent: parentList) {
+                if(parent.getId() != 0) {
+                    parentArrayList.add(new Parent(parent.getId(), parent.getName(), parent.getPhone(), parent.getEmail()));
+                }
+            }
+
+            PrintStream saveToFile = new PrintStream(new File(path+"parents.txt"));
+
+            for (Parent parent: parentArrayList){
+                try {
+                    saveToFile = new PrintStream(new FileOutputStream(path+"parents.txt", true));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                String parentInfo = String.format("%s;%s;%s;%s;\n",
+                        parent.getId(),
+                        parent.getName(),
+                        parent.getPhone(),
+                        parent.getEmail());
+
+                saveToFile.print(parentInfo);
+
+                System.out.println(Arrays.toString(parentArrayList.toArray()));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Parent> loadAllParents() {
+        ArrayList<Parent> parentArrayList = new ArrayList<>();
+
+        try {
+            Scanner readParents = new Scanner(new File(path+"parents.txt")).useDelimiter(";");
+
+            while(readParents.hasNextLine()) {
+                parentArrayList.add(new Parent(readParents.nextInt(), readParents.next(), readParents.nextInt(), readParents.next()));
+                readParents.nextLine();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return parentArrayList;
     }
 }
