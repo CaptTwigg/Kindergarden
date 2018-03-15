@@ -10,16 +10,14 @@ $(document).ready(function () {
     $(".openEditEmployee").click(function () {
         var employee = $(this).parent().parent().parent();
 
-        $("input[name=id]").val($(employee).data("employee-id"));
-        $("input[name=username]").val($(employee).data("employee-username"));
-        $("input[name=password]").val($(employee).data("employee-password"));
-        $("input[name=firstName]").val($(employee).data("employee-firstname"));
-        $("input[name=lastName]").val($(employee).data("employee-lastname"));
-        $("input[name=roadName]").val($(employee).data("employee-roadname"));
-        $("input[name=city]").val($(employee).data("employee-city"));
-        $("input[name=postalCode]").val($(employee).data("employee-postalcode"));
-        $("input[name=phoneNumber]").val($(employee).data("employee-phonenumber"));
-        $("input[name=email]").val($(employee).data("employee-email"));
+        $("#editEmployeeId").val($(employee).data("employee-id"));
+        $("#editEmployeeFirstName").val($(employee).data("employee-firstname"));
+        $("#editEmployeeLastName").val($(employee).data("employee-lastname"));
+        $("#editEmployeeAddress").val($(employee).data("employee-roadname"));
+        $("#editEmployeeAddressCity").val($(employee).data("employee-city"));
+        $("#editEmployeeAddressPostalCode").val($(employee).data("employee-postalcode"));
+        $("#editEmployeePhoneNumber").val($(employee).data("employee-phonenumber"));
+        $("#editEmployeeEmail").val($(employee).data("employee-email"));
         $("#overlay, #editEmployee").show();
     });
 
@@ -115,5 +113,63 @@ $(document).ready(function () {
                 }
             }
         })
+    });
+
+    //Validation for edit employee
+    $(document).on('click', 'form input[name=saveEditEmployee]', function(e) {
+        var isValid = true;
+
+        if($("#editEmployeeFirstName").val().length == 0) {
+            $(".employeeFirstNameFail").show();
+            isValid = false;
+        } else {
+            $(".employeeFirstNameFail").hide();
+        }
+
+        if($("#editEmployeeLastName").val().length == 0) {
+            $(".employeeLastNameFail").show();
+            isValid = false;
+        } else {
+            $(".employeeLastNameFail").hide();
+        }
+
+        if($("#editEmployeeAddress").val().length == 0) {
+            $(".employeeStreetNameFail").show();
+            isValid = false;
+        } else {
+            $(".employeeStreetNameFail").hide();
+        }
+
+        if($("#editEmployeeAddressCity").val().length == 0) {
+            $(".employeeCityFail").show();
+            isValid = false;
+        } else {
+            $(".employeeCityFail").hide();
+        }
+
+        if($("#editEmployeeAddressPostalCode").val() == 0 || $("#editEmployeeAddressPostalCode").val().length != 4) {
+            $(".employeePostalCodeFail").show();
+            isValid = false;
+        } else {
+            $(".employeePostalCodeFail").hide();
+        }
+
+        if($("#editEmployeePhoneNumber").val() == 0 || $("#editEmployeePhoneNumber").val().length != 8) {
+            $(".employeePhoneNumberFail").show();
+            isValid = false;
+        } else {
+            $(".employeePhoneNumberFail").hide();
+        }
+
+        var email = new RegExp(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+        if($("#editEmployeeEmail").val().length == 0 || !($("#editEmployeeEmail").val().match(email))) {
+            $(".employeeEmailFail").show();
+            isValid = false;
+        } else {
+            $(".employeeEmailFail").hide();
+        }
+
+        if(!isValid){e.preventDefault();}
+
     });
 });

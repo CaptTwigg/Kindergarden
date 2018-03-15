@@ -1,61 +1,60 @@
 <div id="editEmployee" class="popup-formular" th:fragment="editEmployee"  xmlns:th="http://www.thymeleaf.org" style="margin-left: -270px; margin-top: -161px;">
     <h2>Redigér oplysning om medarbejder</h2>
     <form method="post">
-        <input type="hidden" name="id" value=""/>
+        <input type="hidden" id="editEmployeeId" name="id" value=""/>
         <table class="popup-table">
-            <tr>
-                <td><label for="editEmployeePassword">Adgangskode:</label></td>
-                <td>
-                    <input id="editEmployeePassword" name="password" type="text" value="" required="true" style="background-color: #cccccc; width: 250px"/>
-                </td>
-            </tr>
             <tr>
                 <td><label for="editEmployeeFirstName">Fornavn:</label></td>
                 <td>
                     <input id="editEmployeeFirstName" name="firstName" type="text" value="" required="true" style="background-color: #cccccc; width: 250px"/>
+                    <div class="fail employeeFirstNameFail"><div class="arrow-left"></div>Ugyldigt! Du mangler at skrive et fornavn!</div>
                 </td>
             </tr>
             <tr>
                 <td><label for="editEmployeeLastName">Efternavn:</label></td>
                 <td>
                     <input id="editEmployeeLastName" name="lastName" type="text" value="" required="true" style="background-color: #cccccc; width: 250px"/>
-
+                    <div class="fail employeeLastNameFail"><div class="arrow-left"></div>Ugyldigt efternavn!</div>
                 </td>
             </tr>
             <tr>
                 <td><label for="editEmployeeAddress">Adresse:</label></td>
                 <td>
-                    <input id="editEmployeeAddress" name="streetName" type="text" value="" required="true" style="background-color: #cccccc; width: 250px"/>
-
+                    <input id="editEmployeeAddress" name="roadName" type="text" value="" required="true" style="background-color: #cccccc; width: 250px"/>
+                    <div class="fail employeeStreetNameFail"><div class="arrow-left"></div>Ugyldigt adresse!</div>
                 </td>
             </tr>
             <tr>
-                <td><label>By:</label></td>
-                <td class="popUpBoldFont"><p for="editEmployeeAddressCity">By: </p>
+                <td><label for="editEmployeeAddressCity">By:</label></td>
+                <td>
                     <input id="editEmployeeAddressCity" name="city" type="text" value="" required="true" style="background-color: #cccccc; width: 250px"/>
+                    <div class="fail employeeCityFail"><div class="arrow-left"></div>Ugyldigt by!</div>
                 </td>
             </tr>
             <tr>
-                <td><label>Adresse:</label></td>
-                <td><p for="editEmployeeAddressPostalCode">Post nr.: </p>
+                <td><label for="editEmployeeAddressPostalCode">Post nr.:</label></td>
+                <td>
                     <input id="editEmployeeAddressPostalCode" name="postalCode" type="number" value=""  required="true" style="background-color: #cccccc; width: 250px"/>
+                    <div class="fail employeePostalCodeFail"><div class="arrow-left"></div>Ugyldigt postnummer</div>
                 </td>
             </tr>
             <tr>
-                <td class="popUpBoldFont"><label for="editEmployeePhoneNumber">Tlf. nr.:</label></td>
+                <td><label for="editEmployeePhoneNumber">Tlf. nr.:</label></td>
                 <td>
                     <input id="editEmployeePhoneNumber" name="phoneNumber" type="number" value="" required="true" style="background-color: #cccccc; width: 250px"/>
+                    <div class="fail employeePhoneNumberFail"><div class="arrow-left"></div>Ugyldigt telefonnummer!</div>
                 </td>
             </tr>
             <tr>
-                <td class="popUpBoldFont"><label for="editEmployeeEmail">Email:</label></td>
+                <td><label for="editEmployeeEmail">Email:</label></td>
                 <td>
                     <input id="editEmployeeEmail" name="email" type="email" value="" required="true" style="background-color: #cccccc; width: 250px"/>
+                    <div class="fail employeeEmailFail"><div class="arrow-left"></div>Ugyldigt email!</div>
                 </td>
             </tr>
             <tr>
                 <td><input id="cancelEmployeeEdit" type="button" value="Annuller" class="red-btn"/></td>
-                <td><input name="saveEditEmployee" type="button" value="Gem" class="green-btn" style="float: right"/></td>
+                <td><input name="saveEditEmployee" type="submit" value="Gem" class="green-btn" style="float: right"/></td>
             </tr>
         </table>
     </form>

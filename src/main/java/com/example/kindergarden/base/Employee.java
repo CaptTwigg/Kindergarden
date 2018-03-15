@@ -27,6 +27,21 @@ public class Employee {
       this.niveau = Integer.parseInt(employee[8]);
     }
 
+  @Override
+  public String toString() {
+    return "Employee{" +
+        "id=" + id +
+        ", firstName='" + firstName + '\'' +
+        ", lastName='" + lastName + '\'' +
+        ", roadName='" + roadName + '\'' +
+        ", city='" + city + '\'' +
+        ", postalCode=" + postalCode +
+        ", phoneNumber=" + phoneNumber +
+        ", email='" + email + '\'' +
+        ", niveau=" + niveau +
+        '}';
+  }
+
   public int getNiveau() {
     return niveau;
   }

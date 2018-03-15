@@ -3,7 +3,7 @@
     <form method="post" th:action="@{/employee}" id="createEmployeeForm">
         <table class="popup-table">
             <tr>
-                <td class="popUpBoldFont"><label for="employeeUsername">Brugernavn:</label></td>
+                <td><label for="employeeUsername">Brugernavn:</label></td>
                 <td>
                     <input id="employeeUsername" name="username" type="text" th:field="${session.userName}"/>
                     <div class="fail employeeUsernameFail"><div class="arrow-left"></div>Ugyldigt brugernavn!</div>
@@ -11,17 +11,17 @@
                 </td>
             </tr>
             <tr>
-                <td class="popUpBoldFont"><label for="employeePassword">Adgangskode:</label></td>
+                <td><label for="employeePassword">Adgangskode:</label></td>
                 <td>
                     <input id="employeePassword" name="password" type="password" th:field="${session.passWord}"/>
-                    <div class="fail employeePasswordFail"><div class="arrow-left"></div>Ugyldigt adgangskode!</div>
+                    <div class="fail employeePasswordFail"><div class="arrow-left"></div>Ugyldig adgangskode!</div>
                 </td>
             </tr>
             <tr>
                 <td><label for="employeeFirstName">Fornavn:</label></td>
                 <td>
                     <input id="employeeFirstName" name="firstName" type="text" th:field="${employee.firstName}"/>
-                    <div class="fail employeeFirstNameFail"><div class="arrow-left"></div>UgyldigtDu mangler at skrive et fornavn!</div>
+                    <div class="fail employeeFirstNameFail"><div class="arrow-left"></div>Ugyldigt! Du mangler at skrive et fornavn!</div>
                 </td>
             </tr>
             <tr>
@@ -29,7 +29,6 @@
                 <td>
                     <input id="employeeLastName" name="lastName" type="text" th:field="${employee.lastName}"/>
                     <div class="fail employeeLastNameFail"><div class="arrow-left"></div>Ugyldigt efternavn!</div>
-
                 </td>
             </tr>
             <tr>
