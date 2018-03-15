@@ -51,7 +51,7 @@ public class ChildController {
     @PostMapping("/children")
     public String addMember(@ModelAttribute Child me, @ModelAttribute ParentWrapper parentWrapper){
         //Saves member to arraylist
-        //serviceChild.addChildToList(me);
+        serviceChild.addChildToList(me);
         System.out.println(Arrays.toString(parentWrapper.getParents().toArray()));
         return "redirect:/children";
     }

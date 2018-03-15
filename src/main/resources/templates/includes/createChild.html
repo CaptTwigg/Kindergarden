@@ -65,19 +65,19 @@
             <tr>
                 <td><label for="childParentTwoName">Navn:</label></td>
                 <td th:object="${parentWrapper}">
-                    <input id="childParentTwoName" name="name" type="text" th:field="*{parents[11].name}" required="true" style="background-color: #cccccc; width: 250px"/>
+                    <input id="childParentTwoName" name="name" type="text" th:field="*{parents[1].name}" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
             <tr>
                 <td><label for="childParentTwoPhoneNumber">Tlf. nr.:</label></td>
                 <td th:object="${parentWrapper}">
-                    <input id="childParentTwoPhoneNumber" name="phone" type="number" th:field="*{parents[1].phone}" required="true" style="background-color: #cccccc; width: 250px"/>
+                    <input id="childParentTwoPhoneNumber" name="phone" type="number" th:field="*{parents[1].phone}" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
             <tr>
                 <td><label for="childParentTwoEmail">E-mail:</label></td>
                 <td th:object="${parentWrapper}">
-                    <input id="childParentTwoEmail" name="email" type="email" th:field="*{parents[1].email}" required="true" style="background-color: #cccccc; width: 250px"/>
+                    <input id="childParentTwoEmail" name="email" type="email" th:field="*{parents[1].email}" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
 
