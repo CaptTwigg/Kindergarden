@@ -133,7 +133,7 @@ input[type=password]{
 .popup-formular-user {
     background: white;
     border-radius: 5px;
-    box-shadow: 0px 40px 115px 0px grey;
+    box-shadow: 0px 5px 5px 0px grey;
     padding: 20px;
     top: 50px;
     left: 86%;
@@ -261,3 +261,7 @@ input[type=password]{
 }
 
 /*--------------------End of menu----------------------*/
+
+#employeeInfoTable td, #employeeList td:first-child td:first-child {
+    border-radius: 5px;
+}
