@@ -7,7 +7,6 @@
     <script>
 
         $(document).ready(function () {
-            alert(window.location.pathname);
             var path = window.location.pathname;
             if(path == "/index"){
                 $("#menu ul li:nth-child(1) a").addClass("active");
@@ -21,8 +20,6 @@
             }else if(path == "/waitingList"){
               $("#menu ul li:nth-child(4) a").addClass("active");
 
-            }else if(path == "/user"){
-                $("#menu ul li:nth-child(5) a").addClass("active");
             }
 
             $("#openUserInfo").click(function () {
