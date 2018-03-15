@@ -28,17 +28,12 @@ public class ChildController {
 
     @GetMapping("/children")
     public String member(Model model){
-        System.out.println(Arrays.toString(serviceChild.getChildren().toArray()));
-
         if(ServiceSession.isSomeoneLoggedIn()) {
             model.addAttribute("children", serviceChild.getChildren());
             model.addAttribute("child", new Child());
             model.addAttribute("parents", new ParentWrapper());
-            if(serviceChild.getChildren().size() > 0) {
-                model.addAttribute("details", serviceChild.getChildren().get(index));
-            }else{
-                model.addAttribute("details", new Child());
-            }
+            model.addAttribute("user", ServiceSession.getEmployeeDataForCurrentUser());
+            model.addAttribute("details", (serviceChild.getChildren().size() > 0 ? serviceChild.getChildren().get(index) : new Child()));
             return "children";
         }else{
             return "redirect:/";

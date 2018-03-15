@@ -1,7 +1,5 @@
 package com.example.kindergarden.base;
 
-import org.springframework.util.DigestUtils;
-
 public class Session {
     private String userName;
     private String passWord;
@@ -15,7 +13,7 @@ public class Session {
         this.userNiveau = userNiveau;
     }
 
-    public Session() {userNiveau = 2;}
+    public Session() { userNiveau = 2; }
 
     public Session(String userName, String passWord) {
         this.userName = userName;

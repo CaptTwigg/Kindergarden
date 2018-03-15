@@ -56,4 +56,18 @@ public class ServiceSession {
     public static boolean checkUsername(String username) {
         return fileHandler.setFileName("logins.txt").checkUsername(username);
     }
+
+    public static Employee getEmployeeDataForCurrentUser() {
+        ArrayList<Employee> employees = new ServiceEmployee().getEmployees();
+        Employee employeeForUser = null;
+
+        for(Employee employee: employees) {
+            if(employee.getId() == ServiceSession.getCurrentSession().getUserKey()) {
+                employeeForUser = employee;
+                break;
+            }
+        }
+
+        return employeeForUser;
+    }
 }

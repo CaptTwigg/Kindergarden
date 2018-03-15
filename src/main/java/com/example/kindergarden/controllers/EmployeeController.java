@@ -23,6 +23,7 @@ public class EmployeeController {
       model.addAttribute("details", serviceEmployee.getEmployees().get(index));
       model.addAttribute("niveau", ServiceSession.getCurrentSession().getUserNiveau());
       model.addAttribute("session", new Session());
+      model.addAttribute("user", ServiceSession.getEmployeeDataForCurrentUser());
       return "employee";
     } else {
       return "redirect:/";

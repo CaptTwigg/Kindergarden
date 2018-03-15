@@ -262,6 +262,6 @@ input[type=password]{
 
 /*--------------------End of menu----------------------*/
 
-#employeeInfoTable td, #employeeList td:first-child td:first-child {
+#employeeInfoTable td, #employeeList tr:first-child td:first-child {
     border-radius: 5px;
 }

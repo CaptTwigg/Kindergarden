@@ -1,7 +1,9 @@
 package com.example.kindergarden.controllers;
 
+import com.example.kindergarden.base.Employee;
 import com.example.kindergarden.base.Schedule;
 import com.example.kindergarden.services.ServiceCalendar;
+import com.example.kindergarden.services.ServiceEmployee;
 import com.example.kindergarden.services.ServiceSession;
 import com.example.kindergarden.services.ServiceSchedule;
 import org.springframework.stereotype.Controller;
@@ -41,6 +43,7 @@ public class SchedulerController {
             model.addAttribute("viewCalendarForName", serviceSchedule.getViewCalendarForName(viewCalendarFor));
             model.addAttribute("getFullTodayAsString", serviceCalendar.getFullTodayAsString());
             model.addAttribute("niveau", ServiceSession.getCurrentSession().getUserNiveau());
+            model.addAttribute("user", ServiceSession.getEmployeeDataForCurrentUser());
             successMessage = "";
             return "index";
         } else {
@@ -139,4 +142,6 @@ public class SchedulerController {
         lastDeletedSchedules.clear();
         numberOfDeletedSchedules = 0;
     }
+
+
 }

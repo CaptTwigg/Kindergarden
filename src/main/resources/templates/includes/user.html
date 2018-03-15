@@ -4,7 +4,7 @@
         <table class="popup-table">
             <tr>
                 <td><label for="userNameField">Brugernavn:</label></td>
-                <td><input id="userNameField" name="userName" type="text"></td>
+                <td><input id="userNameField" name="userName" type="text" readonly="readonly"></td>
             </tr>
             <tr>
                 <td><label for="passWordField">Password:</label></td>
@@ -12,31 +12,31 @@
             </tr>
             <tr>
                 <td><label for="firstNameField">Fornavn:</label></td>
-                <td><input id="firstNameField" name="firstName" type="text"></td>
+                <td><input id="firstNameField" name="firstName" type="text" th:value="${user.firstName}"></td>
             </tr>
             <tr>
                 <td><label for="lastNameField">Efternavn:</label></td>
-                <td><input id="lastNameField" name="lastName" type="text"></td>
+                <td><input id="lastNameField" name="lastName" type="text" th:value="${user.lastName}"></td>
             </tr>
             <tr>
                 <td><label for="addressField">Adresse:</label></td>
-                <td><input id="addressField" name="address" type="text" ></td>
+                <td><input id="addressField" name="roadName" type="text" th:value="${user.roadName}"></td>
             </tr>
             <tr>
                 <td><label for="cityField">By:</label></td>
-                <td><input id="cityField" name="city" type="text" ></td>
+                <td><input id="cityField" name="city" type="text" th:value="${user.city}"></td>
             </tr>
             <tr>
                 <td><label for="postalNumberField">Postnr.:</label></td>
-                <td><input id="postalNumberField" name="postalnumber" type="number" ></td>
+                <td><input id="postalNumberField" name="postalCode" type="number" th:value="${user.postalCode}"></td>
             </tr>
             <tr>
                 <td><label for="telephoneField">Tlf.:</label></td>
-                <td><input id="telephoneField" name="telephone" type="number" ></td>
+                <td><input id="telephoneField" name="phoneNumber" type="number" th:value="${user.phoneNumber}"></td>
             </tr>
             <tr>
                 <td><label for="emailField">Email:</label></td>
-                <td><input id="emailField" name="email" type="email" ></td>
+                <td><input id="emailField" name="email" type="email" th:value="${user.email}"></td>
             </tr>
             <tr>
                 <td><input id="cancelUser" type="button" value="Annuller" class="red-btn"></td>
