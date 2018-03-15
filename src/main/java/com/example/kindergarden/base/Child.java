@@ -9,19 +9,21 @@ public class Child implements Serializable {
   private String address;
   private String city;
   private int postalCode;
+  private String birthDay;
   private boolean isOnWaitinglist;
   private int parentKeyOne;
   private int parentKeyTwo;
 
   public Child() {}
 
-  public Child(int id, String firstName, String lastName, String address, String city, int postalCode, boolean isOnWaitinglist, int parentKeyOne, int parentKeyTwo) {
+  public Child(int id, String firstName, String lastName, String address, String city, int postalCode, String birthDay, boolean isOnWaitinglist, int parentKeyOne, int parentKeyTwo) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.address = address;
     this.city = city;
     this.postalCode = postalCode;
+    this.birthDay = birthDay;
     this.isOnWaitinglist = isOnWaitinglist;
     this.parentKeyOne = parentKeyOne;
     this.parentKeyTwo = parentKeyTwo;
@@ -30,16 +32,17 @@ public class Child implements Serializable {
   @Override
   public String toString() {
     return "Child{" +
-            "id=" + id +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", address='" + address + '\'' +
-            ", city='" + city + '\'' +
-            ", postalCode=" + postalCode +
-            ", isOnWaitinglist" + isOnWaitinglist + '\'' +
-            ", parentKeyOne='" + parentKeyOne + '\'' +
-            ", parentKeyTwo='" + parentKeyTwo + '\'' +
-            '}';
+        "id=" + id +
+        ", firstName='" + firstName + '\'' +
+        ", lastName='" + lastName + '\'' +
+        ", address='" + address + '\'' +
+        ", city='" + city + '\'' +
+        ", postalCode=" + postalCode +
+        ", birthDay='" + birthDay + '\'' +
+        ", isOnWaitinglist=" + isOnWaitinglist +
+        ", parentKeyOne=" + parentKeyOne +
+        ", parentKeyTwo=" + parentKeyTwo +
+        '}';
   }
 
   public int getId() {
@@ -49,6 +52,14 @@ public class Child implements Serializable {
   public Child setId(int id) {
     this.id = id;
     return this;
+  }
+
+  public String getBirthDay() {
+    return birthDay;
+  }
+
+  public void setBirthDay(String birthDay) {
+    this.birthDay = birthDay;
   }
 
   public String getFirstName() {

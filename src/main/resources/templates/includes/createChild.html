@@ -32,7 +32,12 @@
                     <input id="childAddressPostalCode" name="postalCode" type="number" th:field="${child.postalCode}" required="true" style="background-color: #cccccc; width: 250px"/>
                 </td>
             </tr>
-
+            <tr>
+                <td><lable for="childBirthDay">Fødseldag: </lable></td>
+                <td>
+                    <input id="childBirthDay" name="BirthDay" type="date" th:field="${child.birthDay}" required="true" style="background-color: #cccccc; width: 250px"/>
+                </td>
+            </tr>
             <tr>
                 <td>
                     <h4>Forælder 1</h4>

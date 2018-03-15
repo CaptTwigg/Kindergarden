@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Member</title>
@@ -118,6 +118,23 @@
                 <td class="tdInfo">Navn:</td>
                 <td th:text="${details.firstName}+' '+${details.lastName}"></td>
             </tr>
+            <tr>
+                <td class="tdInfo">Adresse:</td>
+                <td th:text="${details.address}"></td>
+            </tr>
+            <tr>
+                <td class="tdInfo">By:</td>
+                <td th:text="${details.city}"></td>
+            </tr>
+            <tr>
+                <td class="tdInfo">Post nr.:</td>
+                <td th:text="${details.postalCode}"></td>
+            </tr>
+            <tr>
+                <td class="tdInfo">Fødselsdag:</td>
+                <td th:text="${details.birthDay}"></td>
+            </tr>
+
         </table>
     </div>
 </div>
