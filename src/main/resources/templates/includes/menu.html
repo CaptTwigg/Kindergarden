@@ -1,42 +1,7 @@
-
 <div id="menu" th:fragment="menu" xmlns:th="http://www.w3.org/1999/xhtml">
+    <script src="scripts/menu.js"></script>
     <div th:replace="/includes/user::user"></div>
     <div id="overlay-user"></div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
-    <script>
-
-        $(document).ready(function () {
-            var path = window.location.pathname;
-            if(path == "/index"){
-                $("#menu ul li:nth-child(1) a").addClass("active");
-
-            }else if(path == "/employee"){
-                $("#menu ul li:nth-child(2) a").addClass("active");
-
-            }else if(path == "/children"){
-                $("#menu ul li:nth-child(3) a").addClass("active");
-
-            }else if(path == "/waitingList"){
-              $("#menu ul li:nth-child(4) a").addClass("active");
-
-            }
-
-            $("#openUserInfo").click(function () {
-                $("#overlay-user, #user").show();
-            });
-
-            $("#cancelUser, #overlay-user").click(function () {
-                $("#overlay-user, .popup-formular-user").hide();
-                $("#openUserInfo").removeClass('selected');
-            });
-
-            $("#openUserInfo").on('click', function(){
-                $("#openUserInfo").removeClass('selected');
-                $(this).addClass('selected');
-            });
-        });
-    </script>
     <ul>
         <li>
             <a href="/index">Vagtplan</a>

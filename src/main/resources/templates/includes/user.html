@@ -1,14 +1,14 @@
-<div id="user" class="popup-formular-user" th:fragment="user">
+<div id="user" class="popup-formular-user" th:fragment="user" xmlns:th="http://www.thymeleaf.org">
     <h2>Bruger Information</h2>
     <form method="post">
         <table class="popup-table">
             <tr>
                 <td><label for="userNameField">Brugernavn:</label></td>
-                <td><input id="userNameField" name="userName" type="text" readonly="readonly"></td>
+                <td><input id="userNameField" name="userName" type="text" th:value="${sessionUserName}" readonly="readonly" style="background-color: #eee; color: grey"></td>
             </tr>
             <tr>
                 <td><label for="passWordField">Password:</label></td>
-                <td><input id="passWordField" name="passWord" type="password"></td>
+                <td><input id="passWordField" name="passWord" class="blue-btn" type="button" value="Skift password" style="width: 250.4px"></td>
             </tr>
             <tr>
                 <td><label for="firstNameField">Fornavn:</label></td>

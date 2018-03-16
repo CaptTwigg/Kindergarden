@@ -133,14 +133,13 @@ input[type=password]{
 .popup-formular-user {
     background: white;
     border-radius: 5px;
-    box-shadow: 0px 5px 5px 0px grey;
+    box-shadow: 0 5px 5px 0 grey;
     padding: 20px;
     top: 50px;
-    left: 86%;
+    right: 0;
     position: fixed;
     z-index: 120;
     display: none;
-    margin-left: -270px;
 }
 
 .popup-formular2 {

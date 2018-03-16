@@ -1,9 +1,7 @@
 package com.example.kindergarden.controllers;
 
-import com.example.kindergarden.base.Employee;
 import com.example.kindergarden.base.Schedule;
 import com.example.kindergarden.services.ServiceCalendar;
-import com.example.kindergarden.services.ServiceEmployee;
 import com.example.kindergarden.services.ServiceSession;
 import com.example.kindergarden.services.ServiceSchedule;
 import org.springframework.stereotype.Controller;
@@ -11,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 @Controller
 public class SchedulerController {
@@ -44,6 +41,8 @@ public class SchedulerController {
             model.addAttribute("getFullTodayAsString", serviceCalendar.getFullTodayAsString());
             model.addAttribute("niveau", ServiceSession.getCurrentSession().getUserNiveau());
             model.addAttribute("user", ServiceSession.getEmployeeDataForCurrentUser());
+            model.addAttribute("sessionUserName", ServiceSession.getCurrentSession().getUserName());
+            System.out.println(ServiceSession.getCurrentSession().getUserName());
             successMessage = "";
             return "index";
         } else {
