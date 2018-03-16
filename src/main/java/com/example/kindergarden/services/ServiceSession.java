@@ -67,7 +67,6 @@ public class ServiceSession {
                 break;
             }
         }
-
         return employeeForUser;
     }
 }

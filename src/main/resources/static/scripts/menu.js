@@ -14,13 +14,13 @@ $(document).ready(function () {
 
     }
     $("#openEditPassWord").click(function () {
-        $("#overlay, #editPassword").show();
+        $("#overlay-user, #editPassword").show();
         $("#overlay-user, .popup-formular-user").hide();
     });
 
     $("#cancelEditPassWord, #overlay").click(function () {
-        $("#overlay, .popup-formular").hide();
-        $("#overlay-user, #user").show();
+        $("#overlay-user, .popup-formular").hide();
+        $("#overlay-user, #user").show(); //denne skal lave om (finde en anden løsning)
     });
     //Validation password
     $(document).on('click', 'form input[name=savePassWord]', function(e) {
@@ -50,6 +50,9 @@ $(document).ready(function () {
         $("#overlay-user, #user").show();
         $("#openUserInfo").removeClass('selected');
         $(this).addClass('selected');
+
+        $("#userForm").attr("action", "saveUserInfo?path="+(window.location.pathname));
+
         e.preventDefault();
     });
 

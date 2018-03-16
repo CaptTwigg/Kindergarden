@@ -1,6 +1,5 @@
 package com.example.kindergarden.controllers;
 
-import com.example.kindergarden.base.Session;
 import com.example.kindergarden.services.ServiceSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

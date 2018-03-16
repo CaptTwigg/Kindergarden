@@ -34,6 +34,7 @@ public class ChildController {
             model.addAttribute("parents", new ParentWrapper());
             model.addAttribute("user", ServiceSession.getEmployeeDataForCurrentUser());
             model.addAttribute("details", (serviceChild.getChildren().size() > 0 ? serviceChild.getChildren().get(index) : new Child()));
+            model.addAttribute("sessionUserName", ServiceSession.getCurrentSession().getUserName());
             return "children";
         }else{
             return "redirect:/";

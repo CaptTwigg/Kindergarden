@@ -2,9 +2,5 @@
 2;Martin;Jensen;Sundholmsvej 51;København S;2300;12345678;martinfloorball1997@gmail.com;
 3;Marco;Romeri;Fuglsangpark 85;Farum;3520;12345678;marco@romeri.dk;
 4;Mike;Hemmje Jahn;Poppelvej 21;Dragør;2791;12345678;familien@jahn.dk;
-5;Bjarne;Frandsen;Poppelvej 21;Dragør;2791;12345678;familien@jahn.dk;
-6;Bjarne;Frandsen;Poppelvej 21;Dragør;2791;12345678;familien@jahn.dk;
-7;Bjarne;Frandsen;Poppelvej 21;Dragør;2791;12345678;familien@jahn.dk;
-8;test;test;testvej 222;TesterBy;222;12345678;333@33;
-9;asdasd;asd;asd;asd;1234;12345678;asd@lol.dk;
-10;Mike;Hemmje Jahn;Poppelvej 21;Dragør;2791;12345678;familien@jahn.no;
+5;Bjarne;Frandsen;Børnevej 69;Børne By;9999;69696969;bjarneDaBoernelokker@IluvKidzz.lovingit;
+6;Fjarne;Brandsen;Udenlandskebørneløg;TysTysBY;6969;12345678;masterFatMan@FatAsFuck.dk;

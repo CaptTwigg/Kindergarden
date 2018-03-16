@@ -24,6 +24,7 @@ public class EmployeeController {
       model.addAttribute("niveau", ServiceSession.getCurrentSession().getUserNiveau());
       model.addAttribute("session", new Session());
       model.addAttribute("user", ServiceSession.getEmployeeDataForCurrentUser());
+      model.addAttribute("sessionUserName", ServiceSession.getCurrentSession().getUserName());
       return "employee";
     } else {
       return "redirect:/";
@@ -47,7 +48,7 @@ public class EmployeeController {
   //Gemmer ny medarbejder
   @PostMapping(value = "/employee", params = "saveEditEmployee=Gem")
   public String editEmployee(@ModelAttribute Employee em){
-    System.out.println(em);
+
     serviceEmployee.editEmployee(em);
     return "redirect:/employee";
   }
