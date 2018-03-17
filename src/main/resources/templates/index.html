@@ -400,9 +400,9 @@
     <div id="calendar">
         <div id="topbar">
             <form method="post">
-                <input name="month_chooser" type="submit" value="Forrige" class="blue-btn"/>
+                <input name="prev" type="submit" class="blue-btn" value="Forrige"/>
                 <p id="monthAndYearHolder" th:text="${monthAndYear_TXT}"></p>
-                <input name="month_chooser" type="submit" value="Næste" class="blue-btn"/>
+                <input name="next" type="submit" class="blue-btn" value="Næste"/>
                 <input name="go_to" type="submit" value="Gå til idag" class="grey-btn" style="margin-left: 20px;"/>
                 <input type="button" value="Opret ny vagt" class="green-btn" style="margin-left: 20px;"
                        id="openCreateNewSchedule" th:if="${niveau} == 1"/>
@@ -452,7 +452,7 @@
                                      data-to-time=${daysInThisMonth[index + 0]} ? ${schedule.toTime},
                                      data-employee=${daysInThisMonth[index + 0]} ? ${schedule.employeeFullName},
                                      data-employeeKey=${daysInThisMonth[index + 0]} ? ${schedule.employeeKey},
-                                     data-schedule-id=${daysInThisMonth[index + 0]} ? ${schedule.Id}"
+                                     data-schedule-id=${daysInThisMonth[index + 0]} ? ${schedule.id}"
                                  th:if="${days[index + 0]} == ${#numbers.formatInteger(schedule.date, 2)} and ${daysInThisMonth[index + 0]} and ${iterStat.index} <= ${toIndex[index + 0]} and (${viewCalendarFor} == 0 or ${viewCalendarFor} == ${schedule.employeeKey})">
                                 <p th:replace="/includes/schedule:: schedule(${schedule.fromTime}+' - '+${schedule.toTime}+' '+${schedule.employeeName})"></p>
                             </div>

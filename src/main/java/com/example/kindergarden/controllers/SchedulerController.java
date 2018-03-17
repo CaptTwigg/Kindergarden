@@ -50,7 +50,7 @@ public class SchedulerController {
     }
 
     //Klikker på forrige måned
-    @PostMapping(value = "/index", params = "month_chooser=Forrige")
+    @PostMapping(value = "/index", params = "prev")
     public String goToPreviousMonth() {
         serviceCalendar.decrement();
         emptyDeletedSchedules();
@@ -58,7 +58,7 @@ public class SchedulerController {
     }
 
     //Klikker på næste måned
-    @PostMapping(value = "/index", params = "month_chooser=Næste")
+    @PostMapping(value = "/index", params = "next")
     public String goToNextMonth() {
         serviceCalendar.increment();
         emptyDeletedSchedules();
