@@ -14,12 +14,12 @@ $(document).ready(function () {
 
     }
     $("#openEditPassWord").click(function () {
-        $("#overlay-user, #editPassword").show();
+        $("#overlay-passWord, #editPassword").show();
         $("#overlay-user, .popup-formular-user").hide();
     });
 
-    $("#cancelEditPassWord, #overlay").click(function () {
-        $("#overlay-user, .popup-formular").hide();
+    $("#cancelEditPassWord, #overlay-passWord").click(function () {
+        $("#overlay-passWord, .popup-formular").hide();
         $("#overlay-user, #user").show(); //denne skal lave om (finde en anden løsning)
     });
     //Validation password
