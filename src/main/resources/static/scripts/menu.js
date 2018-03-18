@@ -1,5 +1,6 @@
 $(document).ready(function () {
   var path = window.location.pathname;
+  var clickedChangePassword = false;
   if (path == "/index") {
     $("#menu ul li:nth-child(1) a").addClass("active");
 
@@ -14,41 +15,29 @@ $(document).ready(function () {
 
   }
 
-
-
   $("#openEditPassWord").click(function () {
-    $("#editPassword").show();
-    $("#overlay").css("background", "rgba(0, 0, 0, 0.5)");
+    $("#editPassword, #overlay").show();
     $("#user").hide();
-  });
-
-  $("#cancelUser, #cancelEditPassWord, #overlay").click(function () {
-
-console.log("pass vis: " + $("#editPassword").is(":visible"));
-console.log("user vis: " + $("#user").is(":visible"));
-    if($("#editPassword").is(":visible")) {
-      $("#editPassword").hide();
-      $("#overlay").css("background", "none");
-      $("#overlay, #user").show();
-      console.log(1);
-    }
-    else{
-      $("#overlay").css("background", "rgba(0, 0, 0, 0.5)");
-      $("#overlay, #user").hide();
-      $("#openUserInfo").removeClass('selected');
-      console.log(3);
-    }
-
+    clickedChangePassword = true;
   });
 
 
   $("#openUserInfo").click(function () {
-    $("#overlay").css("background", "none");
-    $("#overlay, #user").show();
+    $("#user").show();
     $(this).addClass('selected');
 
     $("#userForm").attr("action", "saveUserInfo?path=" + (window.location.pathname));
+  });
 
+  $("#cancelUser").click(function () {
+      $("#user").hide();
+  });
+  
+  $("#overlay, #cancelEditPassWord").click(function () {
+    if(clickedChangePassword) {
+      $("#user").show();
+      $("#editPassword, #overlay").hide();
+    }
   });
 
   //Validation password

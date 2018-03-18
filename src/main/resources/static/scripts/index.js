@@ -19,7 +19,7 @@ $(document).ready(function () {
     });
 
     $("#cancelScheduleCreate, #overlay, #cancelScheduleEdit").click(function () {
-        $("#overlay, .popup-formular, .fail, #viewSingleSchedule").hide();
+        $("#overlay, .popup-formular, .fail, #viewSingleSchedule, .popup-formular-user").hide();
         $("#dateField, #fromField, #toField").val("");
     });
 
