@@ -18,6 +18,7 @@ $(document).ready(function () {
   $("#openEditPassWord").click(function () {
     $("#editPassword, #overlay").show();
     $("#user").hide();
+    $("#openUserInfo").removeClass('selected');
     clickedChangePassword = true;
   });
 
@@ -31,12 +32,14 @@ $(document).ready(function () {
 
   $("#cancelUser").click(function () {
       $("#user").hide();
+    $("#openUserInfo").removeClass('selected');
   });
   
   $("#overlay, #cancelEditPassWord").click(function () {
     if(clickedChangePassword) {
       $("#user").show();
       $("#editPassword, #overlay").hide();
+      $("#openUserInfo").addClass('selected');
     }
   });
 
