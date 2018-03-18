@@ -1,6 +1,6 @@
 $(document).ready(function () {
-  var path = window.location.pathname;
-  var clickedChangePassword = false;
+  let path = window.location.pathname;
+  let clickedChangePassword = false;
   if (path == "/index") {
     $("#menu ul li:nth-child(1) a").addClass("active");
 
@@ -12,7 +12,6 @@ $(document).ready(function () {
 
   } else if (path == "/waitingList") {
     $("#menu ul li:nth-child(4) a").addClass("active");
-
   }
 
   $("#openEditPassWord").click(function () {
@@ -22,21 +21,19 @@ $(document).ready(function () {
     clickedChangePassword = true;
   });
 
-
   $("#openUserInfo").click(function () {
     $("#user").show();
     $(this).addClass('selected');
-
     $("#userForm").attr("action", "saveUserInfo?path=" + (window.location.pathname));
   });
 
   $("#cancelUser").click(function () {
-      $("#user").hide();
+    $("#user").hide();
     $("#openUserInfo").removeClass('selected');
   });
-  
+
   $("#overlay, #cancelEditPassWord").click(function () {
-    if(clickedChangePassword) {
+    if (clickedChangePassword) {
       $("#user").show();
       $("#editPassword, #overlay").hide();
       $("#openUserInfo").addClass('selected');
@@ -66,5 +63,4 @@ $(document).ready(function () {
     }
     e.preventDefault();
   });
-
 });
