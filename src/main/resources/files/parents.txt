@@ -4,3 +4,5 @@
 4;Din far;123123213;marco@romeri.dk;
 5;far;29761106;Mike@familien-jahn.dk;
 6;;0;Mike@familien-jahn.dk;
+7;Mads Hansen;12345678;madshansen@gmail.com;
+8;Henriette Elisabeth Hansen;13243546;henriette_eh@gmail.com;

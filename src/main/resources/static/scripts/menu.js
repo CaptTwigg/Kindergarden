@@ -47,8 +47,7 @@ $(document).ready(function () {
     });
 
     $("#openUserInfo").click(function (e) {
-        $("#overlay").css("background","none")
-        $("#overlay, #user").show();
+        $("#overlay-user, #user").show();
         $("#openUserInfo").removeClass('selected');
         $(this).addClass('selected');
 
@@ -57,8 +56,8 @@ $(document).ready(function () {
         e.preventDefault();
     });
 
-    $("#cancelUser, #overlay").click(function () {
-        $("#overlay, .popup-formular-user").hide();
+    $("#cancelUser, #overlay-user").click(function () {
+        $("#overlay-user, .popup-formular-user").hide();
         $("#openUserInfo").removeClass('selected');
     });
 });
