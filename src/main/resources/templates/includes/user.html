@@ -1,7 +1,8 @@
 <div id="user" class="popup-formular-user" th:fragment="user" xmlns:th="http://www.thymeleaf.org">
     <h2>Bruger Information</h2>
     <form method="post" id="userForm">
-        <input type="hidden" th:value="${user.id}"/>
+        <input type="hidden" th:value="${sessionUserKey}"/>
+        <input type="hidden" th:value="${sessionUserKey}"/>
         <table class="popup-table">
             <tr>
                 <td><label for="userNameField">Brugernavn:</label></td>

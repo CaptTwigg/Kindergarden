@@ -42,6 +42,8 @@ public class SchedulerController {
             model.addAttribute("niveau", ServiceSession.getCurrentSession().getUserNiveau());
             model.addAttribute("user", ServiceSession.getEmployeeDataForCurrentUser());
             model.addAttribute("sessionUserName", ServiceSession.getCurrentSession().getUserName());
+            model.addAttribute("sessionUserKey", ServiceSession.getCurrentSession().getUserKey());
+            model.addAttribute("sessionUserNiveau", ServiceSession.getCurrentSession().getUserNiveau());
             successMessage = "";
             return "index";
         } else {
