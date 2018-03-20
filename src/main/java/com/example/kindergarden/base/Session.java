@@ -13,6 +13,16 @@ public class Session {
         this.userNiveau = userNiveau;
     }
 
+    @Override
+    public String toString() {
+        return "Session{" +
+                "userName='" + userName + '\'' +
+                ", passWord='" + passWord + '\'' +
+                ", userKey=" + userKey +
+                ", userNiveau=" + userNiveau +
+                '}';
+    }
+
     public Session() { userNiveau = 2; }
 
     public Session(String userName, String passWord) {

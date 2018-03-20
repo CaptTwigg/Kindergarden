@@ -17,6 +17,13 @@ $(document).ready(function () {
       $("#menu ul li:nth-child(4) a").addClass("active");
     }
 
+
+    $("#savePassWord").click(function (){
+        $("#editPasswordForm").attr("action", "savePassWord?path="+(window.location.pathname));
+
+    })
+
+
     $("#openEditPassWord").click(function () {
         $("#overlay-passWord, #editPassword").show();
         $("#overlay-user, .popup-formular-user").hide();

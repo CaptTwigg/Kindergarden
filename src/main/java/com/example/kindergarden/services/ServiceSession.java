@@ -36,10 +36,13 @@ public class ServiceSession {
         fileHandler.saveLoginInfo(session, employees);
     }
 
-    public static boolean editPassword(ArrayList<Session> sessions){
-        for(Session session: sessions){
-            if(session.getUserKey() == ServiceSession.getCurrentSession().getUserKey()){
-                if(session.getPassWord().equals(ServiceSession.getCurrentSession().getPassWord())) return true;
+    public static boolean comparePassword(Session session){
+        for(Session tempSession: fileHandler.loadSessions()){
+            if(tempSession.getUserKey() == session.getUserKey()){
+                if(tempSession.getPassWord().equals(md5Hasher(session.getPassWord()))){
+                    System.out.println("kage");
+                    return true;
+                }
             }
         }
         return false;

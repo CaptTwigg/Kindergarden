@@ -408,10 +408,11 @@ public class FileHandler {
         ArrayList<Session> sessions = new ArrayList<>();
 
             try {
-                Scanner readSessions = new Scanner(new File("logins.txt"));
+                Scanner readSessions = new Scanner(new File(path+"logins.txt")).useDelimiter(";");
 
                 while(readSessions.hasNextLine()){
                     sessions.add(new Session(readSessions.nextInt(), readSessions.next(), readSessions.next(), readSessions.nextInt()));
+                    readSessions.nextLine();
                 }
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
