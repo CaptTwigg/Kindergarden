@@ -7,6 +7,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 </head>
+<style>
+    tr:hover {
+        background: #4285f4;
+    }
+
+    tr.selected td {
+        background: #BC3D34;
+        color: #fff;
+    }
+
+
+</style>
 <body>
 <div th:replace="/includes/menu::menu"></div>
 <div id="content">
@@ -23,48 +35,66 @@
             <tr>
                 <td colspan="2"><h2 style="margin-top: 10px">Forældre</h2></td>
             </tr>
-            <tr th:each="parent: ${parents}" th:attrappend="data-employee-id=${parent.id},
-                                 data-employee-firstname=${parent.name},
-                                 data-employee-lastname=${parent.phone},
-                                 data-employee-lastname=${parent.email},
-                                 data-employee-roadname=${parent.gender}">
-                <td th:text="${parent.name}"/>
-                <td>
-                    <form method="post" th:action="@{'deleteEmployee?id='+${parent.id}}">
-                        <input type="button" value="Slet" class="red-btn buttonsList" th:if="${niveau} == 1"/>
-                    </form>
-                    <form method="post">
-                        <input type="button" value="Redigér" class="blue-btn buttonList" th:if="${niveau} == 1"/>
-                    </form>
-                    <form method="post" th:action="@{'details?id=' + ${parent.id}}">
-                        <input type="button" value="Detaljer" class="green-btn buttonsList"/>
-                    </form>
-                </td>
+
+            <tr th:each="parent: ${parents}" th:attrappend="
+                                 data-parent-id=${parent.id},
+                                 data-parent-name=${parent.name},
+                                 data-parent-phone=${parent.phone},
+                                 data-parent-email=${parent.email},
+                                 data-parent-gender=${parent.gender}">
+
+                <td th:text="${parent.name}" th:onclick="'javascript:printer('+${parent.id}+')'"/>
+
+
             </tr>
+
             </tbody>
         </table>
+        <form id="formid" method="post"></form>
 
         <table id="infoTable">
-            <tr><td colspan="2"><h2 style="margin-bottom: 0px; margin-top: 10px">Medarbejder Information</h2></td></tr>
+            <tr>
+                <td colspan="2"><h2 style="margin-bottom: 0px; margin-top: 10px">Medarbejder Information</h2></td>
+            </tr>
             <tr>
                 <td class="tdInfo">Navn:</td>
-                <td th:text="${details.name}"></td>
+                <td th:text="${parent.name}"></td>
             </tr>
             <tr>
                 <td class="tdInfo">Adresse:</td>
-                <td th:text="${details.phone}">&nbsp;</td>
+                <td th:text="${parent.phone}">&nbsp;</td>
             </tr>
             <tr>
                 <td class="tdInfo">Tlf.:</td>
-                <td th:text="${details.email}">&nbsp;</td>
+                <td th:text="${parent.email}">&nbsp;</td>
             </tr>
             <tr>
                 <td class="tdInfo">Email:</td>
-                <td th:text="${details.gender}">&nbsp;</td>
+                <td th:text="${parent.gender}">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+
+                <td>
+                    <form method="post" th:action="@{'deleteEmployee?id='+${parent.id}}">
+                        <input type="button" value="Slet" class="red-btn buttonsList" th:if="${niveau} == 1"/></form>
+                </td>
+                <td>
+                    <form method="post">
+                        <input type="button" value="Redigér" class="blue-btn buttonList" th:if="${niveau} == 1"/></form>
+                </td>
             </tr>
         </table>
 
     </div>
 </div>
 </body>
+<script>
+  function printer(id) {
+    $("#formid").attr("action", "parentDetails?id=" + id).submit();
+    $(this).css("background", "red");
+  }
+</script>
 </html>

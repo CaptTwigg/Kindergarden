@@ -12,9 +12,8 @@ $(document).ready(function () {
     }else if(path == "/waitingList"){
         $("#menu ul li:nth-child(4) a").addClass("active");
 
-    }
-    else if(path == "/waitingList") {
-      $("#menu ul li:nth-child(4) a").addClass("active");
+    } else if(path == "/parentList") {
+      $("#menu ul li:nth-child(5) a").addClass("active");
     }
 
     $("#openEditPassWord").click(function () {
