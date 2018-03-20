@@ -13,6 +13,10 @@ $(document).ready(function () {
         $("#menu ul li:nth-child(4) a").addClass("active");
 
     }
+    else if(path == "/waitingList") {
+      $("#menu ul li:nth-child(4) a").addClass("active");
+    }
+
     $("#openEditPassWord").click(function () {
         $("#overlay-passWord, #editPassword").show();
         $("#overlay-user, .popup-formular-user").hide();
