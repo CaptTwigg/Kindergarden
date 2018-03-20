@@ -2,6 +2,7 @@ package com.example.kindergarden;
 
 import com.example.kindergarden.base.*;
 import com.example.kindergarden.services.ServiceEmployee;
+import com.example.kindergarden.services.ServiceSession;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -136,7 +137,7 @@ public class FileHandler {
         return false;
     }
 
-    public Session getLogion(String username, String password) {
+    public Session getLogin(String username, String password) {
         Session session = null;
 
         try {
@@ -354,6 +355,25 @@ public class FileHandler {
         return false;
     }
 
+    public boolean checkPassword(String password) {
+        System.out.println(password);
+        try {
+            Scanner readPasswords = new Scanner(new File(path+"logins.txt")).useDelimiter(";");
+
+            while (readPasswords.hasNextLine()){
+                int id = readPasswords.nextInt();
+                String username = readPasswords.next();
+                if(readPasswords.next().equals(password)){
+                    return true;
+                }
+                readPasswords.nextLine();
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Filen blev ikke fundet");
+        }
+        return false;
+    }
+
     public void saveParents(List<Parent> parentList) {
         try {
             ArrayList<Parent> parentArrayList = loadAllParents();
@@ -419,5 +439,8 @@ public class FileHandler {
             }
 
         return sessions;
+    }
+
+    public void savePasswordToFile(int userKey, String userName, String passWord, int userNiveau) {
     }
 }

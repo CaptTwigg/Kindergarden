@@ -25,6 +25,7 @@ public class EmployeeController {
       model.addAttribute("session", new Session());
       model.addAttribute("user", ServiceSession.getEmployeeDataForCurrentUser());
       model.addAttribute("sessionUserName", ServiceSession.getCurrentSession().getUserName());
+      model.addAttribute("newSession",new Session());
       return "employee";
     } else {
       return "redirect:/";

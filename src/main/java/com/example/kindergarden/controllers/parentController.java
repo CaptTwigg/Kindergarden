@@ -1,6 +1,7 @@
 package com.example.kindergarden.controllers;
 
 import com.example.kindergarden.base.Child;
+import com.example.kindergarden.base.Session;
 import com.example.kindergarden.services.ServiceSession;
 import com.example.kindergarden.wrappers.ParentWrapper;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ public class parentController {
     if(ServiceSession.isSomeoneLoggedIn()) {
       model.addAttribute("user", ServiceSession.getEmployeeDataForCurrentUser());
       model.addAttribute("sessionUserName", ServiceSession.getCurrentSession().getUserName());
+      model.addAttribute("newSession",new Session());
       return "parentList";
     }else{
       return "redirect:/";

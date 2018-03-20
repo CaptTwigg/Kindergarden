@@ -3,6 +3,7 @@ package com.example.kindergarden.controllers;
 import com.example.kindergarden.FileHandler;
 import com.example.kindergarden.base.Child;
 import com.example.kindergarden.base.Parent;
+import com.example.kindergarden.base.Session;
 import com.example.kindergarden.services.ServiceChild;
 import com.example.kindergarden.services.ServiceParent;
 import com.example.kindergarden.services.ServiceSession;
@@ -35,6 +36,7 @@ public class ChildController {
             model.addAttribute("user", ServiceSession.getEmployeeDataForCurrentUser());
             model.addAttribute("details", (serviceChild.getChildren().size() > 0 ? serviceChild.getChildren().get(index) : new Child()));
             model.addAttribute("sessionUserName", ServiceSession.getCurrentSession().getUserName());
+            model.addAttribute("newSession",new Session());
             return "children";
         }else{
             return "redirect:/";

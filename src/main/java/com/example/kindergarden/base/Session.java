@@ -6,21 +6,43 @@ public class Session {
     private int userKey;
     private int userNiveau;
 
-    public Session(int userKey, String userName, String passWord, int userNiveau) {
+    //dette er en prøve
+    private String newPassWord;
+    private String repeatPassWord;
+
+  public String getNewPassWord() {
+    return newPassWord;
+  }
+
+  public void setNewPassWord(String newPassWord) {
+    this.newPassWord = newPassWord;
+  }
+
+  public String getRepeatPassWord() {
+    return repeatPassWord;
+  }
+
+  public void setRepeatPassWord(String repeatPassWord) {
+    this.repeatPassWord = repeatPassWord;
+  }
+
+  @Override
+  public String toString() {
+    return "Session{" +
+        "userName='" + userName + '\'' +
+        ", passWord='" + passWord + '\'' +
+        ", userKey=" + userKey +
+        ", userNiveau=" + userNiveau +
+        ", newPassWord='" + newPassWord + '\'' +
+        ", repeatPassWord='" + repeatPassWord + '\'' +
+        '}';
+  }
+
+  public Session(int userKey, String userName, String passWord, int userNiveau) {
         this.userName = userName;
         this.passWord = passWord;
         this.userKey = userKey;//id
         this.userNiveau = userNiveau;
-    }
-
-    @Override
-    public String toString() {
-        return "Session{" +
-                "userName='" + userName + '\'' +
-                ", passWord='" + passWord + '\'' +
-                ", userKey=" + userKey +
-                ", userNiveau=" + userNiveau +
-                '}';
     }
 
     public Session() { userNiveau = 2; }

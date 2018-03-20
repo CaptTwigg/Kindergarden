@@ -55,6 +55,28 @@ $(document).ready(function () {
             $(".passwordCheckFail").hide();
         }
         e.preventDefault();
+
+        $.ajax({
+            type : "POST",
+            url : "/checkPassword",
+            data : {
+                "password" : $("#currentPassword").val()
+            }, success: function(data){
+                if(data) {
+                    //$(".employeeUsernameTakenFail").show();
+                    alert("det eksistere");
+                    isValid = true; //var false før
+                } else {
+                    //$(".employeeUsernameTakenFail").hide();
+                    isValid = false;
+                }
+
+                if(isValid) {
+                    $("#editPasswordForm").unbind('submit').submit();
+                }
+            }
+        })
+
     });
 
     $("#openUserInfo").click(function (e) {
@@ -71,4 +93,9 @@ $(document).ready(function () {
         $("#overlay-user, .popup-formular-user").hide();
         $("#openUserInfo").removeClass('selected');
     });
+
+    //ajax her
+
+
+
 });
