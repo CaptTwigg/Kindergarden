@@ -6,7 +6,7 @@ public class Session {
     private int userKey;
     private int userNiveau;
 
-    public Session(String userName, String passWord, int userKey, int userNiveau) {
+    public Session(int userKey, String userName, String passWord, int userNiveau) {
         this.userName = userName;
         this.passWord = passWord;
         this.userKey = userKey;//id

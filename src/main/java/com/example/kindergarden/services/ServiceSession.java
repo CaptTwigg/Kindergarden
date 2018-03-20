@@ -36,6 +36,15 @@ public class ServiceSession {
         fileHandler.saveLoginInfo(session, employees);
     }
 
+    public static boolean editPassword(ArrayList<Session> sessions){
+        for(Session session: sessions){
+            if(session.getUserKey() == ServiceSession.getCurrentSession().getUserKey()){
+                if(session.getPassWord().equals(ServiceSession.getCurrentSession().getPassWord())) return true;
+            }
+        }
+        return false;
+    }
+
     //hasher password
     private static String md5Hasher(String password) {
         return DigestUtils.md5DigestAsHex(password.getBytes());

@@ -149,7 +149,7 @@ public class FileHandler {
                 int niveau = scanner.nextInt();
 
                 if(userNameTemp.equals(username) && passWordTemp.equals(password)){
-                    session = new Session(userNameTemp, passWordTemp, ID, niveau);
+                    session = new Session(ID, userNameTemp, passWordTemp, niveau);
                     break;
                 }
 
@@ -402,5 +402,21 @@ public class FileHandler {
         }
 
         return parentArrayList;
+    }
+
+    public ArrayList<Session> loadSessions(){
+        ArrayList<Session> sessions = new ArrayList<>();
+
+            try {
+                Scanner readSessions = new Scanner(new File("logins.txt"));
+
+                while(readSessions.hasNextLine()){
+                    sessions.add(new Session(readSessions.nextInt(), readSessions.next(), readSessions.next(), readSessions.nextInt()));
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        return sessions;
     }
 }
