@@ -8,10 +8,9 @@
     <script src="scripts/employee.js"></script>
 </head>
 <body>
-<div th:replace="/includes/menu::menu"></div>
 <div id="content">
+    <div th:replace="/includes/menu::menu"></div>
     <div th:replace="/includes/success::success"></div>
-    <div id="overlay"></div>
     <div th:replace="/includes/createEmployee::createNewEmployee"></div>
     <div th:replace="/includes/editEmployee::editEmployee"></div>
     <div id="topbar">
@@ -20,8 +19,8 @@
         </form>
         <div class="clear"></div>
     </div>
-    <div id="employeeContainer">
-        <table id="employeeList">
+    <div id="container">
+        <table id="list">
             <tbody>
             <tr><td colspan="2" ><h2 style="margin-top: 10px">Medarbejder</h2></td></tr>
             <tr th:each="employee: ${employees}" th:attrappend="data-employee-id=${employee.id},
@@ -48,7 +47,7 @@
             </tbody>
         </table>
 
-        <table id="employeeInfoTable">
+        <table id="infoTable">
             <tr><td colspan="2"><h2 style="margin-bottom: 0px; margin-top: 10px">Medarbejder Information</h2></td></tr>
             <tr>
                 <td class="tdInfo">Navn:</td>

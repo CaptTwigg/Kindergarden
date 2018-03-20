@@ -16,64 +16,7 @@
             });
         });
     </script>
-    <style>
-        #content {
-            height: calc(100% - 50px);
-        }
 
-        #memberContainer {
-            padding: 20px;
-        }
-
-        #memberList {
-            float: left;
-            width: 59%;
-            border-radius: 5px;
-            box-shadow: 0 0 5px #aaaaaa;
-        }
-
-        #memberList tr:nth-child(odd) {
-            background-color: white;
-            border-radius: 5px  ;
-        }
-
-        #memberInfoTable {
-            float: right;
-            width: 39%;
-            background: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 5px #aaaaaa;
-        }
-
-        #memberInfoTable td,
-        #memberList td{
-            padding: 5px 20px;
-        }
-
-        #memberInfoTable tr:last-child td,
-        #memberList tr:last-child td{
-            padding-bottom: 20px;
-            border-radius: 5px;
-        }
-
-        .tdInfo {
-            width: 100px;
-            font-weight: bold;
-        }
-
-        .buttonsList {
-            margin-left: 10px;
-            float: right !important;
-        }
-
-        #topbar {
-            padding: 20px 20px 0px 20px !important;
-        }
-
-        .popUpBoldFont{
-            font-weight: bold;
-        }
-    </style>
 </head>
 <body>
 <div th:replace="/includes/menu::menu"></div>
@@ -88,8 +31,8 @@
         </form>
         <div class="clear"></div>
     </div>
-    <div id="memberContainer">
-        <table id="memberList">
+    <div id="container">
+        <table id="list">
             <tbody>
             <tr><td colspan="2" ><h2 style="margin-top: 10px">Børneliste</h2></td></tr>
             <tr th:each="child: ${children}" th:attrappend="data-child-id=${child.id},
@@ -112,7 +55,7 @@
             </tbody>
         </table>
 
-        <table id="memberInfoTable">
+        <table id="infoTable">
             <tr><td colspan="2"><h2 th:text="${details.firstName}+' '+${details.lastName}" style="margin-bottom: 0px; margin-top: 10px"></h2></td></tr>
             <tr>
                 <td class="tdInfo">Navn:</td>
