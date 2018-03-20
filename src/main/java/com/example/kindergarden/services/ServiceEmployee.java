@@ -68,6 +68,7 @@ public class ServiceEmployee {
   }
 
   public void editEmployee(Employee employee){
+      employees = fileHandler.loadEmployees("employees.txt");
       employees.add(getIndex(employee.getId()), employee);
       employees.remove(getIndex(employee.getId())+1);
       fileHandler.saveEmployeeToFile(employees);
