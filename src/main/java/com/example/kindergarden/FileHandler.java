@@ -360,7 +360,7 @@ public class FileHandler {
 
             for(Parent parent: parentList) {
                 if(parent.getId() != 0) {
-                    parentArrayList.add(new Parent(parent.getId(), parent.getName(), parent.getPhone(), parent.getEmail()));
+                    parentArrayList.add(new Parent(parent.getId(), parent.getName(), parent.getPhone(), parent.getEmail(), parent.isGender()));
                 }
             }
 
@@ -394,7 +394,7 @@ public class FileHandler {
             Scanner readParents = new Scanner(new File(path+"parents.txt")).useDelimiter(";");
 
             while(readParents.hasNextLine()) {
-                parentArrayList.add(new Parent(readParents.nextInt(), readParents.next(), readParents.nextInt(), readParents.next()));
+                parentArrayList.add(new Parent(readParents.nextInt(), readParents.next(), readParents.nextInt(), readParents.next(), readParents.nextBoolean()));
                 readParents.nextLine();
             }
         } catch (Exception e) {
