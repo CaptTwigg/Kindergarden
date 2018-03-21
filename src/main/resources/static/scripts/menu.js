@@ -35,12 +35,7 @@ $(document).ready(function () {
     //Validation password
     $(document).on('click', 'form input[name=savePassWord]', function(e) {
         var isValid = true;
-        if ($("#currentPassword").val().length == 0) {
-            $(".currentPasswordFail").show();
-            isValid = false;
-        } else {
-            $(".currentPasswordFail").hide();
-        }
+
         if ($("#newPassword").val().length == 0) {
             $(".newPasswordFail").show();
             isValid = false;
@@ -62,13 +57,25 @@ $(document).ready(function () {
             data : {
                 "passWord" : $("#currentPassword").val()
             }, success: function(data){
-                if(data) {
+                if(data && $("#newPassword").val() > 0 && $("#newPasswordCheck").val() > 0) {
                     $(".checkCurrentPasswordFail").hide();
                     isValid = true;
+
+                } if(data) {
+                    $(".checkCurrentPasswordFail").hide();
+
                 } else {
-                    $(".checkCurrentPasswordFail").show();
+                    if($("#currentPassword").val().length == 0){
+                        $(".currentPasswordFail").show();
+                        isValid = false;
+                    } else {
+                        $(".currentPasswordFail").hide();
+                        $(".checkCurrentPasswordFail").show();
+
+                    }
                     isValid = false;
                 }
+
                 if ($("#newPassword").val() === $("#newPasswordCheck").val()){
                     $(".passwordCheckFail").hide();
                 } else {

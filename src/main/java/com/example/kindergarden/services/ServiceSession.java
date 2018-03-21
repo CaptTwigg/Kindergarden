@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class ServiceSession {
     private static Session session = null;
+    private static ArrayList<Session> sessions = new ArrayList<>();
 
 
     private static FileHandler fileHandler;
@@ -36,18 +37,6 @@ public class ServiceSession {
         fileHandler.saveLoginInfo(session, employees);
     }
 
-   /* public static boolean comparePassword(Session session){
-        for(Session tempSession: fileHandler.loadSessions()){
-            if(tempSession.getUserKey() == session.getUserKey()){
-                if(tempSession.getPassWord().equals(md5Hasher(session.getPassWord()))){
-                    System.out.println("kage");
-                    return true;
-                }
-            }
-        }
-        return false;
-    }*/
-
     //hasher password
     private static String md5Hasher(String password) {
         return DigestUtils.md5DigestAsHex(password.getBytes());
@@ -69,6 +58,10 @@ public class ServiceSession {
         return fileHandler.setFileName("logins.txt").checkUsername(username);
     }
 
+    public static boolean checkPassword(String password) {
+        return fileHandler.setFileName("logins.txt").checkPassword(md5Hasher(password));
+    }
+
     public static Employee getEmployeeDataForCurrentUser() {
         ArrayList<Employee> employees = new ServiceEmployee().getEmployees();
         Employee employeeForUser = null;
@@ -82,8 +75,17 @@ public class ServiceSession {
         return employeeForUser;
     }
 
-
-  public static boolean checkPassword(String password) {
-    return fileHandler.setFileName("logins.txt").checkPassword(md5Hasher(password));
-  }
+    public static void editPassword(Session session, String newPasswordCheck) {
+        sessions = fileHandler.loadSessions();
+        session.setPassWord(md5Hasher(newPasswordCheck));
+        sessions.add(getIndex(session.getUserKey()),session);
+        sessions.remove(getIndex(session.getUserKey())+1);
+        fileHandler.savePasswordToFile(sessions);
+    }
+    public static int getIndex(int id) {
+        for (int i = 0; i < sessions.size(); i++)
+            if (sessions.get(i).getUserKey() == id)
+                return i;
+        return -1;
+    }
 }

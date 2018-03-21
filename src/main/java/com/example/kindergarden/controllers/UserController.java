@@ -20,8 +20,8 @@ public class UserController {
   }
 
   @PostMapping(value="/savePassWord")
-  public String editPassword(@RequestParam String path, @ModelAttribute Session session){
-
+  public String editPassword(@RequestParam String path, @ModelAttribute Session session, @RequestParam String newPasswordCheck){
+    ServiceSession.editPassword(session, newPasswordCheck);
     return "redirect:"+path;
   }
 }

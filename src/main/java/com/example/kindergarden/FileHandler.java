@@ -399,7 +399,7 @@ public class FileHandler {
         return parentArrayList;
     }
 
-    /*public ArrayList<Session> loadSessions(){
+    public ArrayList<Session> loadSessions(){
         ArrayList<Session> sessions = new ArrayList<>();
 
             try {
@@ -414,5 +414,31 @@ public class FileHandler {
             }
 
         return sessions;
-    }*/
+    }
+
+    public void savePasswordToFile(ArrayList<Session> sessions) {
+        try {
+            new PrintStream(new File(path+"logins.txt"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        PrintStream saveSessionInfo = null;
+
+        for (Session sessionSave: sessions){
+            try {
+                saveSessionInfo = new PrintStream(new FileOutputStream(path+"logins.txt", true));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            String sessionInfo = String.format("%s;%s;%s;%s;\n",
+                sessionSave.getUserKey(),
+                sessionSave.getUserName(),
+                sessionSave.getPassWord(),
+                sessionSave.getUserNiveau()
+                );
+
+            saveSessionInfo.print(sessionInfo);
+        }
+    }
 }
