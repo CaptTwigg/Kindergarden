@@ -36,7 +36,7 @@ public class ServiceSession {
         fileHandler.saveLoginInfo(session, employees);
     }
 
-    public static boolean comparePassword(Session session){
+   /* public static boolean comparePassword(Session session){
         for(Session tempSession: fileHandler.loadSessions()){
             if(tempSession.getUserKey() == session.getUserKey()){
                 if(tempSession.getPassWord().equals(md5Hasher(session.getPassWord()))){
@@ -46,7 +46,7 @@ public class ServiceSession {
             }
         }
         return false;
-    }
+    }*/
 
     //hasher password
     private static String md5Hasher(String password) {
@@ -82,24 +82,8 @@ public class ServiceSession {
         return employeeForUser;
     }
 
+
   public static boolean checkPassword(String password) {
     return fileHandler.setFileName("logins.txt").checkPassword(md5Hasher(password));
-  }
-
-  public static boolean repeatPassword(Session session) {
-    System.out.println(session.getNewPassWord());
-    System.out.println(session.getRepeatPassWord());
-      if (session.getNewPassWord().equals(session.getRepeatPassWord())){
-        System.out.println("kom ind");
-        return true;
-      }
-
-      return false;
-  }
-
-  //måske er det en mulighed at gemme til arraylist?
-  public static void saveNewPassword(int userKey, String userName, String passWord, int userNiveau) {
-      session.setPassWord(md5Hasher(session.getPassWord()));
-      fileHandler.savePasswordToFile(userKey, userName, passWord, userNiveau);
   }
 }

@@ -21,15 +21,7 @@ public class UserController {
 
   @PostMapping(value="/savePassWord")
   public String editPassword(@RequestParam String path, @ModelAttribute Session session){
-    System.out.println(session);
-    if(ServiceSession.comparePassword(session)){
-      if(ServiceSession.repeatPassword(session)){
-        System.out.println(session.getPassWord());
-        ServiceSession.getCurrentSession().setPassWord(session.getNewPassWord());
-        ServiceSession.saveNewPassword(session.getUserKey(),session.getUserName(),session.getPassWord(), session.getUserNiveau());
-        System.out.println(ServiceSession.getCurrentSession().getNewPassWord());
-      }
-    }else System.out.println("forkert");
+
     return "redirect:"+path;
   }
 }

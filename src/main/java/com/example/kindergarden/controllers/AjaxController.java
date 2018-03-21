@@ -15,7 +15,7 @@ public class AjaxController {
 
     @PostMapping("/checkPassword")
     @ResponseBody
-    public boolean checkPassword(@RequestParam("password") String password) {
+    public boolean checkPassword(@RequestParam("passWord") String password) {
         return ServiceSession.checkPassword(password);
     }
 }

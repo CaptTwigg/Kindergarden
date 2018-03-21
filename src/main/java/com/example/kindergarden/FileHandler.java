@@ -87,33 +87,10 @@ public class FileHandler {
               employeeSave.getEmail());
 
           newEmployeeInfo.print(employeeInfo);
-          System.out.print("\n");
         }
     }
 
-    /*public void saveLoginToFile(ArrayList<Login> logins){
-      try {
-        new PrintStream(new File(path+fileName));
-      } catch (FileNotFoundException e) {
-        e.printStackTrace();
-      }
 
-      PrintStream newLoginInfo = null;
-
-      for (Login loginSave: logins){
-        try {
-          newLoginInfo = new PrintStream(new FileOutputStream("./src/main/resources/files/"+fileName, true));
-        } catch (FileNotFoundException e) {
-          e.printStackTrace();
-        }
-        String loginInfo = String.format("%s;%s;\n",
-            loginSave.getUsername(),
-            loginSave.getPassword());
-
-        newLoginInfo.print(loginInfo);
-        System.out.print("\n");
-      }
-    }*/
 
     public boolean checkLogin(String username, String password) {
         try {
@@ -299,7 +276,6 @@ public class FileHandler {
         }
     }
 
-
     public ArrayList loadChildren() {
         ArrayList array = new ArrayList();
         try {
@@ -356,7 +332,6 @@ public class FileHandler {
     }
 
     public boolean checkPassword(String password) {
-        System.out.println(password);
         try {
             Scanner readPasswords = new Scanner(new File(path+"logins.txt")).useDelimiter(";");
 
@@ -364,7 +339,7 @@ public class FileHandler {
                 int id = readPasswords.nextInt();
                 String username = readPasswords.next();
                 if(readPasswords.next().equals(password)){
-                    return true;
+                  return true;
                 }
                 readPasswords.nextLine();
             }
@@ -424,7 +399,7 @@ public class FileHandler {
         return parentArrayList;
     }
 
-    public ArrayList<Session> loadSessions(){
+    /*public ArrayList<Session> loadSessions(){
         ArrayList<Session> sessions = new ArrayList<>();
 
             try {
@@ -439,8 +414,5 @@ public class FileHandler {
             }
 
         return sessions;
-    }
-
-    public void savePasswordToFile(int userKey, String userName, String passWord, int userNiveau) {
-    }
+    }*/
 }

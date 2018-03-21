@@ -20,9 +20,7 @@ $(document).ready(function () {
 
     $("#savePassWord").click(function (){
         $("#editPasswordForm").attr("action", "savePassWord?path="+(window.location.pathname));
-
-    })
-
+    });
 
     $("#openEditPassWord").click(function () {
         $("#overlay-passWord, #editPassword").show();
@@ -33,6 +31,7 @@ $(document).ready(function () {
         $("#overlay-passWord, .popup-formular").hide();
         $("#overlay-user, #user").show(); //denne skal lave om (finde en anden løsning)
     });
+
     //Validation password
     $(document).on('click', 'form input[name=savePassWord]', function(e) {
         var isValid = true;
@@ -54,29 +53,33 @@ $(document).ready(function () {
         } else {
             $(".passwordCheckFail").hide();
         }
+
         e.preventDefault();
 
         $.ajax({
             type : "POST",
             url : "/checkPassword",
             data : {
-                "password" : $("#currentPassword").val()
+                "passWord" : $("#currentPassword").val()
             }, success: function(data){
                 if(data) {
-                    //$(".employeeUsernameTakenFail").show();
-                    alert("det eksistere");
-                    isValid = true; //var false før
+                    $(".checkCurrentPasswordFail").hide();
+                    isValid = true;
                 } else {
-                    //$(".employeeUsernameTakenFail").hide();
+                    $(".checkCurrentPasswordFail").show();
                     isValid = false;
                 }
-
+                if ($("#newPassword").val() === $("#newPasswordCheck").val()){
+                    $(".passwordCheckFail").hide();
+                } else {
+                    $(".passwordCheckFail").show();
+                    isValid = false;
+                }
                 if(isValid) {
                     $("#editPasswordForm").unbind('submit').submit();
                 }
             }
         })
-
     });
 
     $("#openUserInfo").click(function (e) {
@@ -93,9 +96,5 @@ $(document).ready(function () {
         $("#overlay-user, .popup-formular-user").hide();
         $("#openUserInfo").removeClass('selected');
     });
-
-    //ajax her
-
-
 
 });
