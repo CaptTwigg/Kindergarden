@@ -3,6 +3,11 @@ $(document).ready(function () {
         $("#overlay, #createNewEmployee").show();
     });
 
+    if($("#success").text() != "") {
+        $("#success").css({"margin-left": "-"+($("#success").outerWidth()/2)+"px"});
+        $("#success").fadeIn(500).delay(3000).fadeOut(500);
+    }
+
     $("#cancelEmployeeCreate, #overlay").click(function () {
         $("#overlay, .popup-formular").hide();
     });

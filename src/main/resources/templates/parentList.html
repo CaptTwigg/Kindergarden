@@ -9,7 +9,62 @@
 </head>
 <body>
 <div th:replace="/includes/menu::menu"></div>
+<div id="content">
+    <div id="container">
+        <div id="topbar">
+            <form method="post">
+                <input type="button" value="Opret ny forældre" class="green-btn" th:if="${niveau} == 1"/>
+            </form>
+            <div class="clear"></div>
+        </div>
 
+        <table id="list">
+            <tbody>
+            <tr>
+                <td colspan="2"><h2 style="margin-top: 10px">Forældre</h2></td>
+            </tr>
+            <tr th:each="parent: ${parents}" th:attrappend="data-employee-id=${parent.id},
+                                 data-employee-firstname=${parent.name},
+                                 data-employee-lastname=${parent.phone},
+                                 data-employee-lastname=${parent.email},
+                                 data-employee-roadname=${parent.gender}">
+                <td th:text="${parent.name}"/>
+                <td>
+                    <form method="post" th:action="@{'deleteEmployee?id='+${parent.id}}">
+                        <input type="button" value="Slet" class="red-btn buttonsList" th:if="${niveau} == 1"/>
+                    </form>
+                    <form method="post">
+                        <input type="button" value="Redigér" class="blue-btn buttonList" th:if="${niveau} == 1"/>
+                    </form>
+                    <form method="post" th:action="@{'details?id=' + ${parent.id}}">
+                        <input type="button" value="Detaljer" class="green-btn buttonsList"/>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
 
+        <table id="infoTable">
+            <tr><td colspan="2"><h2 style="margin-bottom: 0px; margin-top: 10px">Medarbejder Information</h2></td></tr>
+            <tr>
+                <td class="tdInfo">Navn:</td>
+                <td th:text="${details.name}"></td>
+            </tr>
+            <tr>
+                <td class="tdInfo">Adresse:</td>
+                <td th:text="${details.phone}">&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="tdInfo">Tlf.:</td>
+                <td th:text="${details.email}">&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="tdInfo">Email:</td>
+                <td th:text="${details.gender}">&nbsp;</td>
+            </tr>
+        </table>
+
+    </div>
+</div>
 </body>
 </html>
