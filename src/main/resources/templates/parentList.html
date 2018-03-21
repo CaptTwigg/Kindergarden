@@ -7,25 +7,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 </head>
-<style>
-    tr:hover {
-        background: #4285f4;
-    }
 
-    tr.selected td {
-        background: #BC3D34;
-        color: #fff;
-    }
-
-
-</style>
 <body>
 <div th:replace="/includes/menu::menu"></div>
+<div th:replace="/includes/createParent::createParent"></div>
+<div th:replace="/includes/editParent::editParent"></div>
 <div id="content">
     <div id="container">
         <div id="topbar">
             <form method="post">
-                <input type="button" value="Opret ny forældre" class="green-btn" th:if="${niveau} == 1"/>
+                <input id="createParentButton" type="button" value="Opret ny forældre" class="green-btn"
+                       th:if="${niveau} == 1"/>
             </form>
             <div class="clear"></div>
         </div>
@@ -61,16 +53,16 @@
                 <td th:text="${parent.name}"></td>
             </tr>
             <tr>
-                <td class="tdInfo">Adresse:</td>
-                <td th:text="${parent.phone}">&nbsp;</td>
-            </tr>
-            <tr>
                 <td class="tdInfo">Tlf.:</td>
-                <td th:text="${parent.email}">&nbsp;</td>
+                <td th:text="${parent.phone}"></td>
             </tr>
             <tr>
-                <td class="tdInfo">Email:</td>
-                <td th:text="${parent.gender}">&nbsp;</td>
+                <td class="tdInfo">Email.:</td>
+                <td th:text="${parent.email}"></td>
+            </tr>
+            <tr>
+                <td class="tdInfo">Køn:</td>
+                <td th:text="${parent.gender}"></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
@@ -78,12 +70,11 @@
             <tr>
 
                 <td>
-                    <form method="post" th:action="@{'deleteEmployee?id='+${parent.id}}">
-                        <input type="button" value="Slet" class="red-btn buttonsList" th:if="${niveau} == 1"/></form>
+                    <form method="post" th:action="@{'deleteParent?id='+${parent.id}}">
+                        <input type="submit" value="Slet" class="red-btn buttonsList" th:if="${niveau} == 1"/></form>
                 </td>
                 <td>
-                    <form method="post">
-                        <input type="button" value="Redigér" class="blue-btn buttonList" th:if="${niveau} == 1"/></form>
+                        <input id="editParentButton" type="button" value="Redigér" class="blue-btn buttonList" th:if="${niveau} == 1"/>
                 </td>
             </tr>
         </table>
@@ -94,7 +85,16 @@
 <script>
   function printer(id) {
     $("#formid").attr("action", "parentDetails?id=" + id).submit();
-    $(this).css("background", "red");
   }
+
+  $("#createParentButton").click(function () {
+    $("#overlay, #createParent").show();
+  })
+  $("#editParentButton").click(function () {
+    $("#overlay, #editParent").show();
+  })
+  $(".cancelParent, #overlay").click(function () {
+    $("#overlay, .popup-formular").hide();
+  });
 </script>
 </html>

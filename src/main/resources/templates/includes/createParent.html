@@ -1,0 +1,52 @@
+<div id="createParent" class="popup-formular" th:fragment="createParent">
+    <h2>Opret ny forældre</h2>
+    <form method="post" th:action="@{/createParent}">
+        <table class="popup-table">
+            <tr>
+                <td><label>Navn:</label></td>
+                <td>
+                    <input type="text" th:field="${createParent.name}" placeholder="fx. Hansen"/>
+                    <div class="fail employeeFirstNameFail">
+                        <div class="arrow-left"></div>
+                        Ugyldigt! Du mangler at skrive et fornavn!
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Tlf. nr.:</label></td>
+                <td>
+                    <input type="number" value="" th:field="${createParent.phone}" placeholder="fx. 13246578"/>
+                    <div class="fail employeePhoneNumberFail">
+                        <div class="arrow-left"></div>
+                        Ugyldigt telefonnummer!
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label >Email:</label></td>
+                <td>
+                    <input  type="email" th:field="${createParent.email}" placeholder="fx. Hansen@eksempel.dk"/>
+                    <div class="fail employeeEmailFail">
+                        <div class="arrow-left"></div>
+                        Ugyldigt email!
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="male">Køn:</label></td>
+                <td>
+                    <input id="male" type="radio" value="true" th:field="${createParent.gender}"/>
+                    <label for="male">Mand</label>
+                    <br>
+                    <input id="female" type="radio" value="false" th:field="${createParent.gender}"/>
+                    <label for="female">kvinde</label>
+                </td>
+            </tr>
+            <tr>
+                <td><input  type="button" value="Annuller" class="red-btn cancelParent"/></td>
+                <td><input name="saveEmployee" type="submit" value="Opret" class="green-btn" style="float: right"/></td>
+            </tr>
+        </table>
+    </form>
+
+</div>
