@@ -27,14 +27,21 @@
     <!--<div th:replace="/includes/editMemberPopUp::editChild"></div>-->
     <div id="topbar">
         <form method="post">
-            <input type="button" value="Opret nyt barn" class="green-btn" id="openCreateNewChild"/>
+            <input th:if="${children.size() == 3} ? disabled" type="button" value="Opret nyt barn" class="green-btn"
+                   id="openCreateNewChild"/>
         </form>
         <div class="clear"></div>
     </div>
     <div id="container">
         <table id="list">
             <tbody>
-            <tr><td colspan="2" ><h2 style="margin-top: 10px">Børneliste</h2></td></tr>
+            <tr>
+                <td colspan="2">
+                    <h2 style="margin-top: 10px">Børneliste
+                        <small style="float: right" th:text="${children.size()}+'/30'"></small>
+                    </h2>
+                </td>
+            </tr>
             <tr th:each="child: ${children}" th:attrappend="data-child-id=${child.id},
                                  data-child-firstname=${child.firstName},
                                  data-child-lastname=${child.lastName}">
@@ -56,7 +63,10 @@
         </table>
 
         <table id="infoTable">
-            <tr><td colspan="2"><h2 th:text="${details.firstName}+' '+${details.lastName}" style="margin-bottom: 0px; margin-top: 10px"></h2></td></tr>
+            <tr>
+                <td colspan="2"><h2 th:text="${details.firstName}+' '+${details.lastName}"
+                                    style="margin-bottom: 0px; margin-top: 10px"></h2></td>
+            </tr>
             <tr>
                 <td class="tdInfo">Navn:</td>
                 <td th:text="${details.firstName}+' '+${details.lastName}"></td>

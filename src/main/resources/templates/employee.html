@@ -15,14 +15,21 @@
     <div th:replace="/includes/editEmployee::editEmployee"></div>
     <div id="topbar">
         <form method="post">
-            <input type="button" value="Opret ny medarbejder" class="green-btn" id="openCreateNewEmployee" th:if="${niveau} == 1"/>
+            <input type="button" value="Opret ny medarbejder" class="green-btn" id="openCreateNewEmployee"
+                   th:if="${niveau} == 1"/>
         </form>
         <div class="clear"></div>
     </div>
     <div id="container">
         <table id="list">
             <tbody>
-            <tr><td colspan="2" ><h2 style="margin-top: 10px">Medarbejder</h2></td></tr>
+            <tr>
+                <td colspan="2">
+                    <h2 style="margin-top: 10px">Medarbejder
+                        <small style="float: right" th:text="'Antal medarbejdere: '+${employees.size()}"></small>
+                    </h2>
+                </td>
+            </tr>
             <tr th:each="employee: ${employees}" th:attrappend="data-employee-id=${employee.id},
                                  data-employee-firstname=${employee.firstName},
                                  data-employee-lastname=${employee.lastName},
@@ -34,10 +41,12 @@
                 <td th:text="${employee.firstName} + ' ' + ${employee.lastName}"/>
                 <td>
                     <form method="post" th:action="@{'deleteEmployee?id='+${employee.id}}">
-                        <input type="submit" value="Slet" class="red-btn buttonsList" th:if="${niveau} == 1 and ${employee.niveau} != 1"/>
+                        <input type="submit" value="Slet" class="red-btn buttonsList"
+                               th:if="${niveau} == 1 and ${employee.niveau} != 1"/>
                     </form>
                     <form method="post">
-                        <input type="button" value="Redigér" th:if="${niveau} == 1" th:classappend="${employee.niveau} == 1 ? 'margin75 blue-btn buttonsList openEditEmployee' : 'blue-btn buttonsList openEditEmployee'"/>
+                        <input type="button" value="Redigér" th:if="${niveau} == 1"
+                               th:classappend="${employee.niveau} == 1 ? 'margin75 blue-btn buttonsList openEditEmployee' : 'blue-btn buttonsList openEditEmployee'"/>
                     </form>
                     <form method="post" th:action="@{'details?id=' + ${employee.id}}">
                         <input type="submit" value="Detaljer" class="green-btn buttonsList"/>
@@ -48,7 +57,9 @@
         </table>
 
         <table id="infoTable">
-            <tr><td colspan="2"><h2 style="margin-bottom: 0px; margin-top: 10px">Medarbejder Information</h2></td></tr>
+            <tr>
+                <td colspan="2"><h2 style="margin-bottom: 0px; margin-top: 10px">Medarbejder Information</h2></td>
+            </tr>
             <tr>
                 <td class="tdInfo">Navn:</td>
                 <td th:text="${details.firstName}+' '+${details.lastName}"></td>
