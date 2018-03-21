@@ -27,7 +27,7 @@
     <!--<div th:replace="/includes/editMemberPopUp::editChild"></div>-->
     <div id="topbar">
         <form method="post">
-            <input th:if="${children.size() == 3} ? disabled" type="button" value="Opret nyt barn" class="green-btn"
+            <input th:if="${children.size()} < 30" type="button" value="Opret nyt barn" class="green-btn"
                    id="openCreateNewChild"/>
         </form>
         <div class="clear"></div>
