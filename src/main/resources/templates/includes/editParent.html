@@ -7,7 +7,7 @@
             <tr>
                 <td><label>Navn:</label></td>
                 <td>
-                    <input type="text" th:field="${parent.name}" placeholder="fx. Hansen"/>
+                    <input type="text" th:field="${parent.name}"/>
                     <div class="fail employeeFirstNameFail">
                         <div class="arrow-left"></div>
                         Ugyldigt! Du mangler at skrive et fornavn!
@@ -17,8 +17,7 @@
             <tr>
                 <td><label>Tlf. nr.:</label></td>
                 <td>
-                    <input type="number" value="" th:field="${parent.phone}"
-                           placeholder="fx. 13246578"/>
+                    <input type="number" value="" th:field="${parent.phone}"/>
                     <div class="fail employeePhoneNumberFail">
                         <div class="arrow-left"></div>
                         Ugyldigt telefonnummer!
@@ -28,7 +27,7 @@
             <tr>
                 <td><label>Email:</label></td>
                 <td>
-                    <input type="email" th:field="${parent.email}" placeholder="fx. Hansen@eksempel.dk"/>
+                    <input type="email" th:field="${parent.email}"/>
                     <div class="fail employeeEmailFail">
                         <div class="arrow-left"></div>
                         Ugyldigt email!

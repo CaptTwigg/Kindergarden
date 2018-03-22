@@ -28,12 +28,7 @@
                 <td colspan="2"><h2 style="margin-top: 10px">Forældre</h2></td>
             </tr>
 
-            <tr th:each="parent: ${parents}" th:attrappend="
-                                 data-parent-id=${parent.id},
-                                 data-parent-name=${parent.name},
-                                 data-parent-phone=${parent.phone},
-                                 data-parent-email=${parent.email},
-                                 data-parent-gender=${parent.gender}">
+            <tr th:each="parent: ${parents}" >
 
                 <td th:text="${parent.name}" th:onclick="'javascript:printer('+${parent.id}+')'"/>
 

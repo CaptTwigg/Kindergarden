@@ -1,12 +1,10 @@
 package com.example.kindergarden.controllers;
 
 import com.example.kindergarden.FileHandler;
-import com.example.kindergarden.base.Child;
 import com.example.kindergarden.base.Parent;
 import com.example.kindergarden.base.Session;
 import com.example.kindergarden.services.ServiceParent;
 import com.example.kindergarden.services.ServiceSession;
-import com.example.kindergarden.wrappers.ParentWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +27,7 @@ public class parentController {
       model.addAttribute("parents", serviceParent.getParents());
       model.addAttribute("parent", serviceParent.getParents().get(index));
       model.addAttribute("createParent", new Parent());
-      model.addAttribute("newSession",new Session());
+      model.addAttribute("newSession", new Session());
 
       return "parentList";
     } else {
@@ -51,8 +49,7 @@ public class parentController {
   }
 
   @PostMapping("editParent")
-  public String edit(@ModelAttribute Parent parent){
-    System.out.println(parent);
+  public String edit(@ModelAttribute Parent parent) {
     serviceParent.editParent(parent);
     return "redirect:/parentList";
   }
