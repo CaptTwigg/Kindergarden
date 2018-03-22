@@ -7,13 +7,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 </head>
+
 <body>
 <div th:replace="/includes/menu::menu"></div>
+<div th:replace="/includes/createParent::createParent"></div>
+<div th:replace="/includes/editParent::editParent"></div>
 <div id="content">
     <div id="container">
         <div id="topbar">
             <form method="post">
-                <input type="button" value="Opret ny forældre" class="green-btn" th:if="${niveau} == 1"/>
+                <input id="createParentButton" type="button" value="Opret ny forældre" class="green-btn"
+                       th:if="${niveau} == 1"/>
             </form>
             <div class="clear"></div>
         </div>
@@ -23,48 +27,74 @@
             <tr>
                 <td colspan="2"><h2 style="margin-top: 10px">Forældre</h2></td>
             </tr>
-            <tr th:each="parent: ${parents}" th:attrappend="data-employee-id=${parent.id},
-                                 data-employee-firstname=${parent.name},
-                                 data-employee-lastname=${parent.phone},
-                                 data-employee-lastname=${parent.email},
-                                 data-employee-roadname=${parent.gender}">
-                <td th:text="${parent.name}"/>
-                <td>
-                    <form method="post" th:action="@{'deleteEmployee?id='+${parent.id}}">
-                        <input type="button" value="Slet" class="red-btn buttonsList" th:if="${niveau} == 1"/>
-                    </form>
-                    <form method="post">
-                        <input type="button" value="Redigér" class="blue-btn buttonList" th:if="${niveau} == 1"/>
-                    </form>
-                    <form method="post" th:action="@{'details?id=' + ${parent.id}}">
-                        <input type="button" value="Detaljer" class="green-btn buttonsList"/>
-                    </form>
-                </td>
+
+            <tr th:each="parent: ${parents}" th:attrappend="
+                                 data-parent-id=${parent.id},
+                                 data-parent-name=${parent.name},
+                                 data-parent-phone=${parent.phone},
+                                 data-parent-email=${parent.email},
+                                 data-parent-gender=${parent.gender}">
+
+                <td th:text="${parent.name}" th:onclick="'javascript:printer('+${parent.id}+')'"/>
+
+
             </tr>
+
             </tbody>
         </table>
+        <form id="formid" method="post"></form>
 
         <table id="infoTable">
-            <tr><td colspan="2"><h2 style="margin-bottom: 0px; margin-top: 10px">Medarbejder Information</h2></td></tr>
             <tr>
-                <td class="tdInfo">Navn:</td>
-                <td th:text="${details.name}"></td>
+                <td colspan="2"><h2 style="margin-bottom: 0px; margin-top: 10px">Medarbejder Information</h2></td>
             </tr>
             <tr>
-                <td class="tdInfo">Adresse:</td>
-                <td th:text="${details.phone}">&nbsp;</td>
+                <td class="tdInfo">Navn:</td>
+                <td th:text="${parent.name}"></td>
             </tr>
             <tr>
                 <td class="tdInfo">Tlf.:</td>
-                <td th:text="${details.email}">&nbsp;</td>
+                <td th:text="${parent.phone}"></td>
             </tr>
             <tr>
-                <td class="tdInfo">Email:</td>
-                <td th:text="${details.gender}">&nbsp;</td>
+                <td class="tdInfo">Email.:</td>
+                <td th:text="${parent.email}"></td>
+            </tr>
+            <tr>
+                <td class="tdInfo">Køn:</td>
+                <td th:text="${parent.gender}"></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+
+                <td>
+                    <form method="post" th:action="@{'deleteParent?id='+${parent.id}}">
+                        <input type="submit" value="Slet" class="red-btn buttonsList" th:if="${niveau} == 1"/></form>
+                </td>
+                <td>
+                        <input id="editParentButton" type="button" value="Redigér" class="blue-btn buttonList" th:if="${niveau} == 1"/>
+                </td>
             </tr>
         </table>
 
     </div>
 </div>
 </body>
+<script>
+  function printer(id) {
+    $("#formid").attr("action", "parentDetails?id=" + id).submit();
+  }
+
+  $("#createParentButton").click(function () {
+    $("#overlay, #createParent").show();
+  })
+  $("#editParentButton").click(function () {
+    $("#overlay, #editParent").show();
+  })
+  $(".cancelParent, #overlay").click(function () {
+    $("#overlay, .popup-formular").hide();
+  });
+</script>
 </html>
