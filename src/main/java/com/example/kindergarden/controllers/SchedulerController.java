@@ -1,6 +1,7 @@
 package com.example.kindergarden.controllers;
 
 import com.example.kindergarden.base.Schedule;
+import com.example.kindergarden.base.Session;
 import com.example.kindergarden.services.ServiceCalendar;
 import com.example.kindergarden.services.ServiceSession;
 import com.example.kindergarden.services.ServiceSchedule;
@@ -42,6 +43,8 @@ public class SchedulerController {
             model.addAttribute("niveau", ServiceSession.getCurrentSession().getUserNiveau());
             model.addAttribute("user", ServiceSession.getEmployeeDataForCurrentUser());
             model.addAttribute("sessionUserName", ServiceSession.getCurrentSession().getUserName());
+            model.addAttribute("session", ServiceSession.getCurrentSession());
+            model.addAttribute("newSession",new Session());
             successMessage = "";
             return "index";
         } else {

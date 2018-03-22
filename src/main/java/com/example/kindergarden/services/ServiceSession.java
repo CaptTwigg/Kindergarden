@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class ServiceSession {
     private static Session session = null;
+    private static ArrayList<Session> sessions = new ArrayList<>();
 
 
     private static FileHandler fileHandler;
@@ -23,7 +24,7 @@ public class ServiceSession {
 
     public boolean checkLogin(String username, String password) {
         if(fileHandler.checkLogin(username, md5Hasher(password))) {
-            session = fileHandler.getLogion(username, md5Hasher(password));
+            session = fileHandler.getLogin(username, md5Hasher(password));
             return true;
         } else {
             return false;
@@ -34,15 +35,6 @@ public class ServiceSession {
         session.setUserKey(id);
         session.setPassWord(md5Hasher(session.getPassWord()));
         fileHandler.saveLoginInfo(session, employees);
-    }
-
-    public static boolean editPassword(ArrayList<Session> sessions){
-        for(Session session: sessions){
-            if(session.getUserKey() == ServiceSession.getCurrentSession().getUserKey()){
-                if(session.getPassWord().equals(ServiceSession.getCurrentSession().getPassWord())) return true;
-            }
-        }
-        return false;
     }
 
     //hasher password
@@ -66,6 +58,10 @@ public class ServiceSession {
         return fileHandler.setFileName("logins.txt").checkUsername(username);
     }
 
+    public static boolean checkPassword(String password) {
+        return fileHandler.setFileName("logins.txt").checkPassword(md5Hasher(password));
+    }
+
     public static Employee getEmployeeDataForCurrentUser() {
         ArrayList<Employee> employees = new ServiceEmployee().getEmployees();
         Employee employeeForUser = null;
@@ -77,5 +73,19 @@ public class ServiceSession {
             }
         }
         return employeeForUser;
+    }
+
+    public static void editPassword(Session session, String newPasswordCheck) {
+        sessions = fileHandler.loadSessions();
+        session.setPassWord(md5Hasher(newPasswordCheck));
+        sessions.add(getIndex(session.getUserKey()),session);
+        sessions.remove(getIndex(session.getUserKey())+1);
+        fileHandler.savePasswordToFile(sessions);
+    }
+    public static int getIndex(int id) {
+        for (int i = 0; i < sessions.size(); i++)
+            if (sessions.get(i).getUserKey() == id)
+                return i;
+        return -1;
     }
 }

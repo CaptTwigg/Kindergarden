@@ -12,4 +12,10 @@ public class AjaxController {
     public boolean check(@RequestParam("username") String username) {
         return ServiceSession.checkUsername(username);
     }
+
+    @PostMapping("/checkPassword")
+    @ResponseBody
+    public boolean checkPassword(@RequestParam("passWord") String password) {
+        return ServiceSession.checkPassword(password);
+    }
 }

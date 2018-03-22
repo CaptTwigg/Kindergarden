@@ -28,6 +28,8 @@ public class EmployeeController {
       model.addAttribute("user", ServiceSession.getEmployeeDataForCurrentUser());
       model.addAttribute("success_TXT", successMessage);
       successMessage = "";
+      model.addAttribute("sessionUserName", ServiceSession.getCurrentSession().getUserName());
+      model.addAttribute("newSession",new Session());
       return "employee";
     } else {
       return "redirect:/";

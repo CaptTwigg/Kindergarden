@@ -15,6 +15,7 @@ public class ServiceParent {
     public ServiceParent() {
         try {
             fileHandler = new FileHandler("parents.txt");
+            parents = fileHandler.loadAllParents();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -47,5 +48,37 @@ public class ServiceParent {
         }
 
         return id + 1;
+    }
+
+    public void addParent(Parent parent){
+        parent.setId(getHighestId());
+        parents.add(parent);
+        fileHandler.saveParents(parents);
+    }
+
+    public void deleteParent(int id){
+        int index = getIndexByID(id);
+        parents.remove(index);
+        fileHandler.saveParents(parents);
+    }
+
+    public int getIndexByID(int id){
+        for(int i = 0; i < parents.size(); i++)
+            if(parents.get(i).getId() == id)
+                return i;
+        return -1;
+    }
+    public void editParent(Parent parent){
+        int index = getIndexByID(parent.getId());
+        parents.set(index, parent);
+        fileHandler.saveParents(parents);
+    }
+
+    public ArrayList<Parent> getParents() {
+        return parents;
+    }
+
+    public void setParents(ArrayList<Parent> parents) {
+        this.parents = parents;
     }
 }

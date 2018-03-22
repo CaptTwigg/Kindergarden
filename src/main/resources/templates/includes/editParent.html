@@ -1,0 +1,54 @@
+<div id="editParent" class="popup-formular" th:fragment="editParent">
+    <h2>Redigere forældre</h2>
+    <form method="post" th:action="@{/editParent}">
+        <input type="hidden" th:field="${parent.id}">
+        <table class="popup-table">
+
+            <tr>
+                <td><label>Navn:</label></td>
+                <td>
+                    <input type="text" th:field="${parent.name}"/>
+                    <div class="fail employeeFirstNameFail">
+                        <div class="arrow-left"></div>
+                        Ugyldigt! Du mangler at skrive et fornavn!
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Tlf. nr.:</label></td>
+                <td>
+                    <input type="number" value="" th:field="${parent.phone}"/>
+                    <div class="fail employeePhoneNumberFail">
+                        <div class="arrow-left"></div>
+                        Ugyldigt telefonnummer!
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Email:</label></td>
+                <td>
+                    <input type="email" th:field="${parent.email}"/>
+                    <div class="fail employeeEmailFail">
+                        <div class="arrow-left"></div>
+                        Ugyldigt email!
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="editMale">Køn:</label></td>
+                <td>
+                    <input id="editMale" type="radio" value="true" th:field="${parent.gender}"/>
+                    <label for="editMale">Mand</label>
+                    <br>
+                    <input id="editFemale" type="radio" value="false" th:field="${parent.gender}"/>
+                    <label for="editFemale">kvinde</label>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="button" value="Annuller" class="red-btn cancelParent"/></td>
+                <td><input type="submit" value="Opret" class="green-btn" style="float: right"/></td>
+            </tr>
+        </table>
+    </form>
+
+</div>
