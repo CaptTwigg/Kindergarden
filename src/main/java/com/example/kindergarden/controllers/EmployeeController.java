@@ -33,7 +33,7 @@ public class EmployeeController {
       return "redirect:/";
     }
   }
-
+  //Save a new employee
   @PostMapping("/employee")
   public String addEmployee(@ModelAttribute Employee em, @ModelAttribute Session session) {
     serviceEmployee.addEmployeeToList(em, session); //Metode i serviceEmployee der gemmer employee til arraylist
@@ -50,7 +50,7 @@ public class EmployeeController {
     return "redirect:/employee";
   }
 
-  //Gemmer ny medarbejder
+  //Edit a specific employee
   @PostMapping(value = "/employee", params = "saveEditEmployee=Gem")
   public String editEmployee(@ModelAttribute Employee em){
     serviceEmployee.editEmployee(em);

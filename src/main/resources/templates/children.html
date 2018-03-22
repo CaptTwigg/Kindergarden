@@ -5,6 +5,7 @@
     <title>Member</title>
     <link rel="stylesheet" href="stylesheets/css.css" type="text/css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="scripts/child.js"></script>
     <script>
         $(document).ready(function () {
             $("#openCreateNewChild").click(function () {
@@ -17,6 +18,7 @@
         });
     </script>
 
+
 </head>
 <body>
 <div th:replace="/includes/menu::menu"></div>
@@ -24,13 +26,13 @@
 <div id="content">
     <div id="overlay"></div>
     <div th:replace="/includes/createChild::createNewChild"></div>
-    <!--<div th:replace="/includes/editMemberPopUp::editChild"></div>-->
+    <div th:replace="/includes/editChild::editChild"></div>
     <div id="topbar">
         <form method="post">
-            <input th:if="${children.size()} < 3" type="button" value="Opret nyt barn" class="green-btn"
+            <input th:if="${children.size()} < 30" type="button" value="Opret nyt barn" class="green-btn"
                    id="openCreateNewChild"/>
-            <input th:if="${children.size()} == 3" type="button" value="Opret nyt barn" class="grey-btn"
-                   id="openCreateNewChild" disabled/>
+            <input th:if="${children.size()} == 30" type="button" value="Opret nyt barn" class="grey-btn"
+                   disabled/>
         </form>
         <div class="clear"></div>
     </div>
@@ -54,7 +56,7 @@
                         <input type="submit" value="Slet" class="red-btn buttonsList"/>
                     </form>
                     <form method="post">
-                        <input type="button" value="Redigér" class="blue-btn buttonsList openEditMember"/>
+                        <input type="button" value="Redigér" class="blue-btn buttonsList openEditChild"/>
                     </form>
                     <form method="post" th:action="@{'detailsChild?id=' + ${child.id}}">
                         <input type="submit" value="Detaljer" class="green-btn buttonsList"/>

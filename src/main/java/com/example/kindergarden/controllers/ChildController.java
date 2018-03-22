@@ -54,10 +54,11 @@ public class ChildController {
         return "redirect:/children";
     }
 
-    //Edit a specific member
-    @PostMapping(value = "/children", params = "saveMember=Gem")
-    public String editMember(@ModelAttribute Child me){
-        serviceChild.editChild(me);
+    //Edit a specific child
+    @PostMapping(value = "/children", params = "saveChild=Gem")
+    public String editChild(@ModelAttribute Child ch){
+        serviceChild.editChild(ch);
+        //successMessage = "Barnet blev opdateret.";
         return "redirect:/children";
     }
 
