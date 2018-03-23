@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
-public class parentController {
+public class ParentController {
   private FileHandler fileHandler = new FileHandler("parents.txt");
   private ServiceParent serviceParent = new ServiceParent();
   private int index;
@@ -25,7 +25,10 @@ public class parentController {
       model.addAttribute("niveau", ServiceSession.getCurrentSession().getUserNiveau());
       model.addAttribute("user", ServiceSession.getEmployeeDataForCurrentUser());
       model.addAttribute("parents", serviceParent.getParents());
-      model.addAttribute("parentDetails", serviceParent.getParents().get(index));
+      if (serviceParent.getParents().size() != 0)
+        model.addAttribute("parentDetails", serviceParent.getParents().get(index));
+      else
+        model.addAttribute("parentDetails", new Parent());
       model.addAttribute("createParent", new Parent());
       model.addAttribute("newSession", new Session());
 

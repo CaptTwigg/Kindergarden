@@ -376,31 +376,25 @@ public class FileHandler {
 
   public void saveParents(List<Parent> parentList) {
     try {
-      ArrayList<Parent> parentArrayList = loadAllParents();
 
-      for (Parent parent : parentList) {
-        if (parent.getId() != 0) {
-          parentArrayList.add(new Parent(parent.getId(), parent.getName(), parent.getPhone(), parent.getEmail(), parent.isGender()));
-        }
-      }
 
       PrintStream saveToFile = new PrintStream(new File(path + "parents.txt"));
 
-      for (Parent parent : parentArrayList) {
+      for (Parent parent : parentList) {
         try {
           saveToFile = new PrintStream(new FileOutputStream(path + "parents.txt", true));
         } catch (FileNotFoundException e) {
           e.printStackTrace();
         }
-        String parentInfo = String.format("%s;%s;%s;%s;\n",
+        String parentInfo = String.format("%s;%s;%s;%s;%s;\n",
           parent.getId(),
           parent.getName(),
           parent.getPhone(),
-          parent.getEmail());
+          parent.getEmail(),
+          parent.isGender());
 
         saveToFile.print(parentInfo);
 
-        System.out.println(Arrays.toString(parentArrayList.toArray()));
       }
     } catch (Exception e) {
       e.printStackTrace();
