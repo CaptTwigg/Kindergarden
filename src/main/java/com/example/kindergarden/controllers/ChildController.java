@@ -60,7 +60,6 @@ public class ChildController {
     @PostMapping(value = "/children", params = "saveChild=Gem")
     public String editChild(@ModelAttribute Child ch){
         serviceChild.editChild(ch);
-        //successMessage = "Barnet blev opdateret.";
         return "redirect:/children";
     }
 

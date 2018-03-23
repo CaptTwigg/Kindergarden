@@ -26,10 +26,10 @@ $(document).ready(function () {
         }
 
         if($("#editChildAddress").val().length == 0) {
-            $(".childStreetNameFail").show();
+            $(".childaddressFail").show();
             isValid = false;
         } else {
-            $(".childStreetNameFail").hide();
+            $(".childaddressFail").hide();
         }
 
         if($("#editChildAddressCity").val().length == 0) {
@@ -56,4 +56,8 @@ $(document).ready(function () {
         if(!isValid){e.preventDefault();}
 
     });
-})
+});
+
+function printer(id) {
+    $("#formid").attr("action", "detailsChild?id=" + id).submit();
+}

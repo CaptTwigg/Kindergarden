@@ -1,47 +1,47 @@
 <div id="editChild" class="popup-formular" th:fragment="editChild"  xmlns:th="http://www.thymeleaf.org" style="margin-left: -270px; margin-top: -161px;">
     <h2>Redigér oplysning om barn</h2>
-    <form method="post">
-        <input type="hidden" id="editChildId" name="id" value=""/>
+    <form method="post" th:action="@{/editChild}">
+        <input type="hidden" id="editChildId" name="id" th:field="${details.id}"/>
         <table class="popup-table">
             <tr>
-                <td><label for="editChildFirstName">Fornavn:</label></td>
+                <td><label>Fornavn:</label></td>
                 <td>
-                    <input id="editChildFirstName" name="firstName" type="text" value="" required="true" style="background-color: #cccccc; width: 250px"/>
+                    <input type="text" th:field="${details.firstName}" required style="background-color: #cccccc; width: 250px"/>
                     <div class="fail childFirstNameFail"><div class="arrow-left"></div>Indtast fornavn!</div>
                 </td>
             </tr>
             <tr>
-                <td><label for="editChildLastName">Efternavn:</label></td>
+                <td><label>Efternavn:</label></td>
                 <td>
-                    <input id="editChildLastName" name="lastName" type="text" value="" required="true" style="background-color: #cccccc; width: 250px"/>
+                    <input type="text" th:field="${details.lastName}"required style="background-color: #cccccc; width: 250px"/>
                     <div class="fail childLastNameFail"><div class="arrow-left"></div>Indtast efternavn!</div>
                 </td>
             </tr>
             <tr>
-                <td><label for="editChildAddress">Adresse:</label></td>
+                <td><label>Adresse:</label></td>
                 <td>
-                    <input id="editChildAddress" name="roadName" type="text" value="" required="true" style="background-color: #cccccc; width: 250px"/>
-                    <div class="fail childStreetNameFail"><div class="arrow-left"></div>Indtast adresse!</div>
+                    <input type="text" th:field="${details.address}" required style="background-color: #cccccc; width: 250px"/>
+                    <div class="fail childaddressFail"><div class="arrow-left"></div>Indtast adresse!</div>
                 </td>
             </tr>
             <tr>
-                <td><label for="editChildAddressCity">By:</label></td>
+                <td><label>By:</label></td>
                 <td>
-                    <input id="editChildAddressCity" name="city" type="text" value="" required="true" style="background-color: #cccccc; width: 250px"/>
+                    <input type="text" th:field="${details.city}" required style="background-color: #cccccc; width: 250px"/>
                     <div class="fail childCityFail"><div class="arrow-left"></div>Indtast by!</div>
                 </td>
             </tr>
             <tr>
-                <td><label for="editChildAddressPostalCode">Post nr.:</label></td>
+                <td><label>Post nr.:</label></td>
                 <td>
-                    <input id="editChildAddressPostalCode" name="postalCode" type="number" value=""  required="true" style="background-color: #cccccc; width: 250px"/>
+                    <input type="number" th:field="${details.postalCode}"  required style="background-color: #cccccc; width: 250px"/>
                     <div class="fail childPostalCodeFail"><div class="arrow-left"></div>Indtast postnummer</div>
                 </td>
             </tr>
             <tr>
-                <td><label for="editChildBirthDay">Fødselsdag:</label></td>
+                <td><label>Fødselsdag:</label></td>
                 <td>
-                    <input id="editChildBirthDay" name="postalCode" type="date" value=""  required="true" style="background-color: #cccccc; width: 250px"/>
+                    <input type="date" th:field="${details.birthDay}"  required style="background-color: #cccccc; width: 250px"/>
                     <div class="fail childBirthDayFail"><div class="arrow-left"></div>Indtast fødselsdag</div>
                 </td>
             </tr>

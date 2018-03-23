@@ -46,25 +46,12 @@
                     </h2>
                 </td>
             </tr>
-            <tr th:each="child: ${children}" th:attrappend="data-child-id=${child.id},
-                                 data-child-firstname=${child.firstName},
-                                 data-child-lastname=${child.lastName}">
-                <td th:text="${child.firstName} + ' ' + ${child.lastName}"/>
-
-                <td>
-                    <form method="post" th:action="@{'deleteChild?id='+${child.id}}">
-                        <input type="submit" value="Slet" class="red-btn buttonsList"/>
-                    </form>
-                    <form method="post">
-                        <input type="button" value="Redigér" class="blue-btn buttonsList openEditChild"/>
-                    </form>
-                    <form method="post" th:action="@{'detailsChild?id=' + ${child.id}}">
-                        <input type="submit" value="Detaljer" class="green-btn buttonsList"/>
-                    </form>
-                </td>
+            <tr th:each="child: ${children}">
+                <td th:text="${child.firstName} + ' ' + ${child.lastName}" th:onclick="'javascript:printer('+${child.id}+')'"/>
             </tr>
             </tbody>
         </table>
+        <form id="formid" method="post"></form>
 
         <table id="infoTable">
             <tr>
@@ -90,6 +77,19 @@
             <tr>
                 <td class="tdInfo">Fødselsdag:</td>
                 <td th:text="${details.birthDay}"></td>
+            </tr>
+            <tr>
+                <td>
+                    <form method="post" th:action="@{'deleteChild?id='+${child.id}}">
+                        <input type="submit" value="Slet" class="red-btn"/>
+                    </form>
+                </td>
+                <td>
+                    <form method="post">
+                        <input type="button" value="Redigér" class="blue-btn buttonsList openEditChild"/>
+                    </form>
+                </td>
+
             </tr>
 
         </table>
