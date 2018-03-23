@@ -9,12 +9,16 @@
 
 </head>
 <style>
-    #list tr:not(:first-child):not(.active):hover td{
-        background: #cccccc !important;
-        cursor: pointer;
+    h2 {
+        margin-top: 10px
     }
-    tr.active td {
-        background: #4285f4;
+
+    #infoTable h2{
+        margin-bottom: 0;
+    }
+
+    .popup-formular .green-btn {
+        float: right
     }
 </style>
 <body>
@@ -22,7 +26,6 @@
 <div th:replace="/includes/createParent::createParent"></div>
 <div th:replace="/includes/editParent::editParent"></div>
 <div id="content">
-    <div id="container">
         <div id="topbar">
             <form method="post">
                 <input id="createParentButton" type="button" value="Opret ny forældre" class="green-btn"
@@ -31,17 +34,15 @@
             <div class="clear"></div>
         </div>
 
+    <div id="container">
         <table id="list">
             <tbody>
             <tr>
-                <td colspan="2"><h2 style="margin-top: 10px">Forældre</h2></td>
+                <td colspan="2"><h2>Forældre</h2></td>
             </tr>
 
             <tr th:each="parent: ${parents}" th:classappend="${parentDetails.id}==${parent.id} ? 'active'">
-
                 <td th:text="${parent.name}" th:onclick="'javascript:printer('+${parent.id}+')'"/>
-
-
             </tr>
 
             </tbody>
@@ -50,7 +51,7 @@
 
         <table id="infoTable">
             <tr>
-                <td colspan="2"><h2 style="margin-bottom: 0px; margin-top: 10px">Forældre Information</h2></td>
+                <td colspan="2"><h2>Forældre Information</h2></td>
             </tr>
             <tr>
                 <td class="tdInfo">Navn:</td>
@@ -66,19 +67,19 @@
             </tr>
             <tr>
                 <td class="tdInfo">Køn:</td>
-                <td th:text="${parentDetails.gender}"></td>
+                <td th:text="${parentDetails.gender} ? 'Mand' : 'Kvinde'"></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
             </tr>
             <tr>
-
                 <td>
                     <form method="post" th:action="@{'deleteParent?id='+${parentDetails.id}}">
-                        <input type="submit" value="Slet" class="red-btn buttonsList" th:if="${niveau} == 1"/></form>
+                        <input type="submit" value="Slet" class="red-btn " th:if="${niveau} == 1"/>
+                    </form>
                 </td>
                 <td>
-                    <input id="editParentButton" type="button" value="Redigér" class="blue-btn buttonList"
+                    <input id="editParentButton" type="button" value="Redigér" class="blue-btn buttonsList"
                            th:if="${niveau} == 1"/>
                 </td>
             </tr>

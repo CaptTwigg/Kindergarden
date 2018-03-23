@@ -297,6 +297,15 @@ input[type=password]{
     border-radius: 5px  ;
 }
 
+#list tr:not(:first-child):not(.active):hover td{
+    background: #cccccc !important;
+    cursor: pointer;
+}
+tr.active td {
+    background: #4285f4;
+}
+
+
 #infoTable {
     float: right;
     width: 39%;

@@ -1,4 +1,4 @@
-1;Min mor;28673631;marco@romeri.dk;false;
+1;Min mor;28673631;marco@romeri.dk;true;
 2;Ole;123123;marco@romeri.dk;true;
 3;Din mor;28673631;marco@romeri.dk;false;
 7;Mads Hansen;12345678;madshansen@gmail.com;true;
