@@ -45,19 +45,19 @@
             </tr>
             <tr>
                 <td class="tdInfo">Navn:</td>
-                <td th:text="${parent.name}"></td>
+                <td th:text="${parentDetails.name}"></td>
             </tr>
             <tr>
                 <td class="tdInfo">Tlf.:</td>
-                <td th:text="${parent.phone}"></td>
+                <td th:text="${parentDetails.phone}"></td>
             </tr>
             <tr>
                 <td class="tdInfo">Email.:</td>
-                <td th:text="${parent.email}"></td>
+                <td th:text="${parentDetails.email}"></td>
             </tr>
             <tr>
                 <td class="tdInfo">Køn:</td>
-                <td th:text="${parent.gender}"></td>
+                <td th:text="${parentDetails.gender}"></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
@@ -65,7 +65,7 @@
             <tr>
 
                 <td>
-                    <form method="post" th:action="@{'deleteParent?id='+${parent.id}}">
+                    <form method="post" th:action="@{'deleteParent?id='+${parentDetails.id}}">
                         <input type="submit" value="Slet" class="red-btn buttonsList" th:if="${niveau} == 1"/></form>
                 </td>
                 <td>

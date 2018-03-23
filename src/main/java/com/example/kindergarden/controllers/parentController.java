@@ -25,7 +25,7 @@ public class parentController {
       model.addAttribute("niveau", ServiceSession.getCurrentSession().getUserNiveau());
       model.addAttribute("user", ServiceSession.getEmployeeDataForCurrentUser());
       model.addAttribute("parents", serviceParent.getParents());
-      model.addAttribute("parent", serviceParent.getParents().get(index));
+      model.addAttribute("parentDetails", serviceParent.getParents().get(index));
       model.addAttribute("createParent", new Parent());
       model.addAttribute("newSession", new Session());
 
