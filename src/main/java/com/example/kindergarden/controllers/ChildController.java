@@ -26,6 +26,7 @@ public class ChildController {
     ServiceChild serviceChild = new ServiceChild();
     ServiceParent serviceParent = new ServiceParent();
     int index;
+    public static String successMessage = "";
 
     @GetMapping("/children")
     public String member(Model model){
@@ -37,6 +38,9 @@ public class ChildController {
             model.addAttribute("details", (serviceChild.getChildren().size() > 0 ? serviceChild.getChildren().get(index) : new Child()));
             model.addAttribute("sessionUserName", ServiceSession.getCurrentSession().getUserName());
             model.addAttribute("newSession",new Session());
+            model.addAttribute("success_TXT", successMessage);
+            successMessage = "";
+
             return "children";
         }else{
             return "redirect:/";
@@ -46,6 +50,7 @@ public class ChildController {
     @PostMapping("/children")
     public String addChild(@ModelAttribute Child me, @ModelAttribute ParentWrapper parentWrapper){
         serviceChild.addChildToList(me, serviceParent.saveParents(parentWrapper.getParents()));
+        successMessage = "Barnet er tilføjet og gemt. Listen er opdateret!";
         return "redirect:/children";
     }
 
@@ -57,7 +62,7 @@ public class ChildController {
     }
 
     //Edit a specific child
-    @PostMapping(value = "/children", params = "saveChild=Gem")
+    @PostMapping("editChild")
     public String editChild(@ModelAttribute Child ch){
         serviceChild.editChild(ch);
         return "redirect:/children";

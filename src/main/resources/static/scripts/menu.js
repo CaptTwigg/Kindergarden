@@ -16,6 +16,10 @@ $(document).ready(function () {
       $("#menu ul li:nth-child(5) a").addClass("active");
     }
 
+    if($("#success").text() != "") {
+        $("#success").css({"margin-left": "-"+($("#success").outerWidth()/2)+"px"});
+        $("#success").fadeIn(500).delay(3000).fadeOut(500);
+    }
 
     $("#savePassWord").click(function (){
         $("#editPasswordForm").attr("action", "savePassWord?path="+(window.location.pathname));

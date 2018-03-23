@@ -326,7 +326,7 @@ public class FileHandler {
     FileOutputStream fileOut = null;
     ObjectOutputStream out = null;
     try {
-      fileOut = new FileOutputStream(path + fileName);
+      fileOut = new FileOutputStream(path + "children.txt");
       out = new ObjectOutputStream(fileOut);
       out.writeObject(object);
       out.close();
@@ -422,7 +422,7 @@ public class FileHandler {
     ArrayList<Session> sessions = new ArrayList<>();
 
     try {
-      Scanner readSessions = new Scanner(new File("logins.txt"));
+      Scanner readSessions = new Scanner(new File(path+"logins.txt")).useDelimiter(";");
 
       while (readSessions.hasNextLine()) {
         sessions.add(new Session(readSessions.nextInt(), readSessions.next(), readSessions.next(), readSessions.nextInt()));

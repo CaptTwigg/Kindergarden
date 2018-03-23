@@ -3,6 +3,11 @@ $(document).ready(function () {
         $("#overlay, #editChild").show();
     });
 
+    if($("#success").text() != "") {
+        $("#success").css({"margin-left": "-"+($("#success").outerWidth()/2)+"px"});
+        $("#success").fadeIn(500).delay(3000).fadeOut(500);
+    }
+
     $("#cancelChildEdit, #overlay").click(function () {
         $("#overlay, .popup-formular").hide();
     });

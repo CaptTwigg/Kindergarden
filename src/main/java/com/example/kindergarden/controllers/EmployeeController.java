@@ -15,7 +15,7 @@ public class EmployeeController {
   ServiceEmployee serviceEmployee = new ServiceEmployee();
   int index;
 
-  private String successMessage = "";
+  public static String successMessage = "";
 
   @GetMapping("/employee")
   public String employee(Model model) {

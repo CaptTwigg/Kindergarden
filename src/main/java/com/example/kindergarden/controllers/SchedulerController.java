@@ -17,7 +17,7 @@ public class SchedulerController {
     private ServiceSchedule serviceSchedule = new ServiceSchedule();
     private ArrayList<Schedule> lastDeletedSchedules = new ArrayList<>();
 
-    private String successMessage = "";
+    public static String successMessage = "";
     private int numberOfDeletedSchedules = 0;
     private int viewCalendarFor = 0;
 
