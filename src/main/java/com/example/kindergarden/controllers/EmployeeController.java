@@ -22,6 +22,10 @@ public class EmployeeController {
     if (ServiceSession.isSomeoneLoggedIn()) {
       model.addAttribute("employees", serviceEmployee.getEmployees()); //får fat i arraylist
       model.addAttribute("employee", new Employee());
+      if (serviceEmployee.getEmployees().size() != 0)
+        model.addAttribute("employeeDetails", serviceEmployee.getEmployees().get(index));
+      else
+        model.addAttribute("employeeDetails", new Employee());
       model.addAttribute("details", serviceEmployee.getEmployees().get(index));
       model.addAttribute("niveau", ServiceSession.getCurrentSession().getUserNiveau());
       model.addAttribute("session", new Session());
@@ -53,7 +57,7 @@ public class EmployeeController {
   }
 
   //Edit a specific employee
-  @PostMapping(value = "/employee", params = "saveEditEmployee=Gem")
+  @PostMapping("editEmployee")
   public String editEmployee(@ModelAttribute Employee em){
     serviceEmployee.editEmployee(em);
     successMessage = "Medarbejderen blev opdateret.";

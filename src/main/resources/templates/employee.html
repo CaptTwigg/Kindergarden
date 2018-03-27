@@ -30,31 +30,13 @@
                     </h2>
                 </td>
             </tr>
-            <tr th:each="employee: ${employees}" th:attrappend="data-employee-id=${employee.id},
-                                 data-employee-firstname=${employee.firstName},
-                                 data-employee-lastname=${employee.lastName},
-                                 data-employee-roadname=${employee.roadName},
-                                 data-employee-city=${employee.city},
-                                 data-employee-postalcode=${employee.postalCode},
-                                 data-employee-phonenumber=${employee.phoneNumber},
-                                 data-employee-email=${employee.email}">
-                <td th:text="${employee.firstName} + ' ' + ${employee.lastName}"/>
-                <td>
-                    <form method="post" th:action="@{'deleteEmployee?id='+${employee.id}}">
-                        <input type="submit" value="Slet" class="red-btn buttonsList"
-                               th:if="${niveau} == 1 and ${employee.niveau} != 1"/>
-                    </form>
-                    <form method="post">
-                        <input type="button" value="Redigér" th:if="${niveau} == 1"
-                               th:classappend="${employee.niveau} == 1 ? 'margin75 blue-btn buttonsList openEditEmployee' : 'blue-btn buttonsList openEditEmployee'"/>
-                    </form>
-                    <form method="post" th:action="@{'details?id=' + ${employee.id}}">
-                        <input type="submit" value="Detaljer" class="green-btn buttonsList"/>
-                    </form>
-                </td>
+            <tr th:each="employee: ${employees}">
+                <td th:text="${employee.firstName} + ' ' + ${employee.lastName}"
+                    th:onclick="'javascript:printer('+${employee.id}+')'"/>
             </tr>
             </tbody>
         </table>
+        <form id="formid" method="post"></form>
 
         <table id="infoTable">
             <tr>
@@ -83,6 +65,20 @@
             <tr>
                 <td class="tdInfo">Email:</td>
                 <td th:text="${details.email}">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>
+                    <form method="post" th:action="@{'deleteEmployee?id='+${employeeDetails.id}}">
+                        <input type="submit" value="Slet" class="red-btn " th:if="${niveau} == 1 and ${employee.niveau} != 1"/>
+                    </form>
+                </td>
+                <td>
+                    <input id="openEditEmployee" type="button" value="Redigér" class="blue-btn buttonsList openEditEmployee"
+                           th:if="${niveau} == 1"/>
+                </td>
             </tr>
         </table>
     </div>

@@ -1,3 +1,7 @@
+function printer(id) {
+    $("#formid").attr("action", "details?id=" + id).submit();
+}
+
 $(document).ready(function () {
     $("#openCreateNewEmployee").click(function () {
         $("#overlay, #createNewEmployee").show();
@@ -13,21 +17,18 @@ $(document).ready(function () {
     });
 
     $(".openEditEmployee").click(function () {
-        var employee = $(this).parent().parent().parent();
-
-        $("#editEmployeeId").val($(employee).data("employee-id"));
-        $("#editEmployeeFirstName").val($(employee).data("employee-firstname"));
-        $("#editEmployeeLastName").val($(employee).data("employee-lastname"));
-        $("#editEmployeeAddress").val($(employee).data("employee-roadname"));
-        $("#editEmployeeAddressCity").val($(employee).data("employee-city"));
-        $("#editEmployeeAddressPostalCode").val($(employee).data("employee-postalcode"));
-        $("#editEmployeePhoneNumber").val($(employee).data("employee-phonenumber"));
-        $("#editEmployeeEmail").val($(employee).data("employee-email"));
         $("#overlay, #editEmployee").show();
     });
 
     $("#cancelEmployeeEdit, #overlay").click(function () {
         $("#overlay, .popup-formular").hide();
+    });
+
+    $(document).keyup(function (e) {
+        if (e.keyCode == 27) {
+            $("#overlay, .popup-formular").hide();
+            $(".popup-formular input[type=text],.popup-formular input[type=number]").val("");
+        }
     });
 
     //Validation for new employee
