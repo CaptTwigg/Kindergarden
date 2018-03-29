@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="stylesheets/css.css" type="text/css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="scripts/child.js"></script>
-    <script>
+    <script type="text/javascript">
         $(document).ready(function () {
             $("#openCreateNewChild").click(function () {
                 $("#overlay, #createNewChild").show();
@@ -16,8 +16,19 @@
                 $("#overlay, .popup-formular2").hide();
             });
         });
-    </script>
 
+        function handleSelect(elm) {
+            window.location=elm.value;
+            /*var childList=document.getElementById("ChildList");
+            document.getElementById("chosenList").value=childList.options(childList.selectedIndex).text;*/
+        }
+    </script>
+    <style>
+        #showList {
+            float: right;
+            width: 200px;
+        }
+    </style>
 
 </head>
 <body>
@@ -28,12 +39,25 @@
     <div th:replace="/includes/createChild::createNewChild"></div>
     <div th:replace="/includes/editChild::editChild"></div>
     <div id="topbar">
-        <form method="post">
-            <input th:if="${children.size()} < 30" type="button" value="Opret nyt barn" class="green-btn"
-                   id="openCreateNewChild"/>
-            <input th:if="${children.size()} == 30" type="button" value="Opret nyt barn" class="grey-btn"
-                   disabled/>
-        </form>
+        <table style="width: 59%">
+            <tr>
+                <td>
+                    <form method="post">
+                        <input th:if="${children.size()} < 30" type="button" value="Opret nyt barn" class="green-btn"
+                               id="openCreateNewChild"/>
+                        <input th:if="${children.size()} == 30" type="button" value="Opret nyt barn" class="grey-btn"
+                               disabled/>
+                    </form>
+                </td>
+                <td id="showList">
+                    <select id="childList" name="formal" onchange="javascript:handleSelect(this)" >
+                        <option value="children">Børneliste</option>
+                        <option value="waitingList">Venteliste</option>
+                    </select>
+
+                </td>
+            </tr>
+        </table>
         <div class="clear"></div>
     </div>
     <div id="container">
@@ -47,7 +71,8 @@
                 </td>
             </tr>
             <tr th:each="child: ${children}">
-                <td th:text="${child.firstName} + ' ' + ${child.lastName}" th:onclick="'javascript:printer('+${child.id}+')'"/>
+                <td th:text="${child.firstName} + ' ' + ${child.lastName}"
+                    th:onclick="'javascript:printer('+${child.id}+')'"/>
             </tr>
             </tbody>
         </table>
