@@ -30,7 +30,7 @@
                     </h2>
                 </td>
             </tr>
-            <tr th:each="employee: ${employees}">
+            <tr th:each="employee: ${employees}"  th:classappend="${details.id}==${employee.id} ? 'active'">
                 <td th:text="${employee.firstName} + ' ' + ${employee.lastName}"
                     th:onclick="'javascript:printer('+${employee.id}+')'"/>
             </tr>
