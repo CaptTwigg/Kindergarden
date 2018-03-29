@@ -84,8 +84,8 @@
                     </h2>
                 </td>
             </tr>
-            <tr th:each="child: ${children}">
-                <td th:text="${child.firstName} + ' ' + ${child.lastName}"
+            <tr th:each="child: ${children}" th:classappend="${details.id}==${child.id} ? 'active'">
+                <td th:text="${child.firstName} + ' ' + ${child.lastName} "
                     th:onclick="'javascript:printer('+${child.id}+')'"/>
             </tr>
             </tbody>
@@ -146,7 +146,7 @@
                     </h2>
                 </td>
             </tr>
-            <tr th:if="${children.size() > maxNumber}" th:each="child: ${children}">
+            <tr th:if="${children.size() > maxNumber}" th:each="child: ${children}" th:classappend="${details.id}==${child.id} ? 'active'">
                 <td th:text="${child.firstName} + ' ' + ${child.lastName}"
                     th:onclick="'javascript:printer('+${child.id}+')'"/>
             </tr>
