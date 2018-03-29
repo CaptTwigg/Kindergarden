@@ -17,16 +17,30 @@
             });
         });
 
-        function handleSelect(elm) {
-            window.location=elm.value;
-            /*var childList=document.getElementById("ChildList");
-            document.getElementById("chosenList").value=childList.options(childList.selectedIndex).text;*/
+        function showHide(value) {
+            if (value == '1')
+                document.getElementById('childList').style.display = 'block'
+            else
+                document.getElementById('childList').style.display = 'none'
+            if (value == '2')
+                document.getElementById('waitingList').style.display = 'block'
+            else
+                document.getElementById('waitingList').style.display = 'none'
         }
+
     </script>
     <style>
         #showList {
             float: right;
             width: 200px;
+        }
+
+        #waitingList {
+            display: none;
+        }
+
+        #waitingList {
+            padding: 0 20px 20px 20px;
         }
     </style>
 
@@ -50,9 +64,9 @@
                     </form>
                 </td>
                 <td id="showList">
-                    <select id="childList" name="formal" onchange="javascript:handleSelect(this)" >
-                        <option value="children">Børneliste</option>
-                        <option value="waitingList">Venteliste</option>
+                    <select onchange="showHide(this.value)">
+                        <option value="1">Børneliste</option>
+                        <option value="2">Venteliste</option>
                     </select>
 
                 </td>
@@ -60,8 +74,8 @@
         </table>
         <div class="clear"></div>
     </div>
-    <div id="container">
-        <table id="list">
+    <div id="childList" class="container" >
+        <table class="list">
             <tbody>
             <tr>
                 <td colspan="2">
@@ -76,9 +90,68 @@
             </tr>
             </tbody>
         </table>
-        <form id="formid" method="post"></form>
+        <form class="formid" method="post"></form>
 
-        <table id="infoTable">
+        <table class="infoTable">
+            <tr>
+                <td colspan="2"><h2 th:text="${details.firstName}+' '+${details.lastName}"
+                                    style="margin-bottom: 0px; margin-top: 10px"></h2></td>
+            </tr>
+            <tr>
+                <td class="tdInfo">Navn:</td>
+                <td th:text="${details.firstName}+' '+${details.lastName}"></td>
+            </tr>
+            <tr>
+                <td class="tdInfo">Adresse:</td>
+                <td th:text="${details.address}"></td>
+            </tr>
+            <tr>
+                <td class="tdInfo">By:</td>
+                <td th:text="${details.city}"></td>
+            </tr>
+            <tr>
+                <td class="tdInfo">Post nr.:</td>
+                <td th:text="${details.postalCode}"></td>
+            </tr>
+            <tr>
+                <td class="tdInfo">Fødselsdag:</td>
+                <td th:text="${details.birthDay}"></td>
+            </tr>
+            <tr>
+                <td>
+                    <form method="post" th:action="@{'deleteChild?id='+${child.id}}">
+                        <input type="submit" value="Slet" class="red-btn"/>
+                    </form>
+                </td>
+                <td>
+                    <form method="post">
+                        <input type="button" value="Redigér" class="blue-btn buttonsList openEditChild"/>
+                    </form>
+                </td>
+
+            </tr>
+
+        </table>
+    </div>
+    <div id="waitingList" class="container">
+        <table class="list">
+            <tbody>
+            <tr>
+                <td colspan="2">
+                    <h2 style="margin-top: 10px">Venteliste
+                        <small style="float: right" th:text="${children.size()}+'/30'"></small>
+                    </h2>
+                </td>
+            </tr>
+            <tr th:each="child: ${children}">
+                <td th:text="${child.firstName} + ' ' + ${child.lastName}"
+                    th:onclick="'javascript:printer('+${child.id}+')'"/>
+            </tr>
+            </tbody>
+        </table>
+        <form class="formid" method="post"></form>
+
+        <table class="infoTable">
             <tr>
                 <td colspan="2"><h2 th:text="${details.firstName}+' '+${details.lastName}"
                                     style="margin-bottom: 0px; margin-top: 10px"></h2></td>

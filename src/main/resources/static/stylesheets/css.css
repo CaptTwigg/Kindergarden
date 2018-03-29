@@ -269,7 +269,8 @@ input[type=password]{
 
 /*--------------------End of menu----------------------*/
 
-#infoTable td, #list tr:first-child td:first-child {
+.infoTable td,
+.list tr:first-child td:first-child {
     border-radius: 5px;
 }
 
@@ -277,7 +278,7 @@ input[type=password]{
     height: calc(100% - 50px);
 }
 
-#container {
+.container {
     padding: 0 20px 20px 20px;
 }
 
@@ -285,19 +286,19 @@ input[type=password]{
     margin-right: 75px;
 }
 
-#list {
+.list {
     float: left;
     width: 59%;
     border-radius: 5px;
     box-shadow: 0 0 5px #aaaaaa;
 }
 
-#list tr:nth-child(odd) {
+.list tr:nth-child(odd) {
     background-color: white;
     border-radius: 5px  ;
 }
 
-#list tr:not(:first-child):not(.active):hover td{
+.list tr:not(:first-child):not(.active):hover td{
     background: #cccccc !important;
     cursor: pointer;
 }
@@ -306,7 +307,7 @@ tr.active td {
 }
 
 
-#infoTable {
+.infoTable {
     float: right;
     width: 39%;
     background: #fff;
@@ -314,13 +315,13 @@ tr.active td {
     box-shadow: 0 0 5px #aaaaaa;
 }
 
-#infoTable td,
-#list td{
+.infoTable td,
+.list td{
     padding: 5px 20px;
 }
 
 #infoTable tr:last-child td,
-#list tr:last-child td{
+.list tr:last-child td{
     padding-bottom: 20px;
     border-radius: 5px;
 }
