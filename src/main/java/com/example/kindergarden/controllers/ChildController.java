@@ -27,7 +27,7 @@ public class ChildController {
     ServiceParent serviceParent = new ServiceParent();
     int index;
     public static String successMessage = "";
-    public static int maxNumberWaitingList = 2;
+    public static int maxNumberChildList = 2;
 
     @GetMapping("/children")
     public String member(Model model){
@@ -40,7 +40,7 @@ public class ChildController {
             model.addAttribute("sessionUserName", ServiceSession.getCurrentSession().getUserName());
             model.addAttribute("newSession",new Session());
             model.addAttribute("success_TXT", successMessage);
-            model.addAttribute("maxNumber", maxNumberWaitingList);
+            model.addAttribute("maxNumber", maxNumberChildList);
             successMessage = "";
 
             return "children";
