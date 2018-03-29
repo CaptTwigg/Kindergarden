@@ -57,10 +57,7 @@
             <tr>
                 <td>
                     <form method="post">
-                        <input th:if="${children.size()} < 30" type="button" value="Opret nyt barn" class="green-btn"
-                               id="openCreateNewChild"/>
-                        <input th:if="${children.size()} == 30" type="button" value="Opret nyt barn" class="grey-btn"
-                               disabled/>
+                        <input type="button" value="Opret nyt barn" class="green-btn" id="openCreateNewChild"/>
                     </form>
                 </td>
                 <td id="showList">
@@ -74,13 +71,16 @@
         </table>
         <div class="clear"></div>
     </div>
+
+    <!--Childlist-->
     <div id="childList" class="container" >
         <table class="list">
             <tbody>
             <tr>
                 <td colspan="2">
                     <h2 style="margin-top: 10px">Børneliste
-                        <small style="float: right" th:text="${children.size()}+'/30'"></small>
+                        <small style="float: right" th:if="${children.size() < maxNumber}" th:text="${children.size()} + '/' + ${maxNumber}"></small>
+                        <small style="float: right" th:if="${children.size() >= maxNumber}" th:text="${maxNumber} + '/' + ${maxNumber}"></small>
                     </h2>
                 </td>
             </tr>
@@ -90,7 +90,7 @@
             </tr>
             </tbody>
         </table>
-        <form class="formid" method="post"></form>
+        <form id="formid" method="post"></form>
 
         <table class="infoTable">
             <tr>
@@ -133,17 +133,20 @@
 
         </table>
     </div>
+
+    <!--Waitinglist-->
     <div id="waitingList" class="container">
         <table class="list">
             <tbody>
             <tr>
                 <td colspan="2">
                     <h2 style="margin-top: 10px">Venteliste
-                        <small style="float: right" th:text="${children.size()}+'/30'"></small>
+                        <small style="float: right" th:if="${children.size() > maxNumber}" th:text="'Antal børn på ventelisten: ' + ${children.size() - maxNumber}"></small>
+                        <small style="float: right" th:if="${children.size() <= maxNumber}" th:text="'Antal børn på ventelisten: ' + 0"></small>
                     </h2>
                 </td>
             </tr>
-            <tr th:each="child: ${children}">
+            <tr th:if="${children.size() > maxNumber}" th:each="child: ${children}">
                 <td th:text="${child.firstName} + ' ' + ${child.lastName}"
                     th:onclick="'javascript:printer('+${child.id}+')'"/>
             </tr>
